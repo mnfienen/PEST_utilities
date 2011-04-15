@@ -1,0 +1,9 @@
+uberPEST.py
+
+a m!ke@usgs joint
+contact: Mike Fienen <mnfienen@usgs.gov>
+
+This project is a wrapper around PEST (although generalizable) that 
+uses gmail protocols to send an email upon completion of a PEST
+or (more often) beoPEST model run.
+
