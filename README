@@ -16,7 +16,9 @@ at gmail.com. The login name of the account <myaccount>@<gmail.com> gets listed 
 parameter file (in this example, it is: wwsc.modeling.center@gmail.com). The code securely
 prompts for the password.
 
-Elsewhere in the parameter file (uberPEST.par), variables are read from the start of the line 
-to the first whitespace. All other text on the line is treated as a comment and ignored. 
+Elsewhere in the parameter file (uberPEST.par), variables are generally read from the start of the line 
+to the first whitespace. All other text on the line is treated as a comment and ignored. An exception to 
+this rule is for the PEST flags line in which all information (including whitespace) up to the "#" comment
+indicator is read and used in the model call.
 
 On lines where "none" is listed as an option, simply type "none" without quotation marks.
