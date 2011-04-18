@@ -1,5 +1,5 @@
 beopest64                   # pest or ppest
-AssP3.pst   # case name - do not include the .pst extension
+AssP3.pst   # case name -  the .pst extension is optional
 /h :4040            # flags to append after system call --> "none" if none, and reads up to '#'
 mnfienen@me.com        # recipient email
 wwsc.modeling.center@gmail.com   # email sending host: must be GMAIL
