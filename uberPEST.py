@@ -51,8 +51,9 @@ def read_par_file(infilename):
 #######################
 
 # get the email account information
+# NOTE: any active gmail account can be used:
 gmail_user = "wwsc.modeling.center@gmail.com"
-gmail_pwd = getpass.getpass('PLease enter GMAIL password for account:\n ' + gmail_user + '\n>>')
+gmail_pwd = getpass.getpass('Please enter GMAIL password for account:\n ' + gmail_user + '\n>>')
 
 
 # read in the parfile values
@@ -75,6 +76,11 @@ if (batchfile):
 # get the end time and elapsed time
 t2 = time.localtime()
 etime = int(round((time.mktime(t2)-time.mktime(t1))))
+
+# I wish I had read documentation closer rather than spending so much effort
+# calculating and formatting time! The package to use is
+# datetime. live and learn...
+
 
 eday  = etime/60/60/24
 edaystr = str(eday) + " Day"
