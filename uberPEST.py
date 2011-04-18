@@ -25,6 +25,8 @@ def read_par_file(infilename):
     tmp=string.split(infile.next())
     email_recipient = tmp[0]
     tmp=string.split(infile.next())
+    gmail_user = tmp[0]
+    tmp=string.split(infile.next())
     if(string.lower(tmp[0])=='none'):
         batchfile=False
     else:
@@ -36,28 +38,26 @@ def read_par_file(infilename):
             if(string.lower(tmp[0])=='none'):
                 attachment=False
                 infile.close()
-                return pestcall,casename,email_recipient,attachment,batchfile,flags
+                return pestcall,casename,email_recipient,gmail_user,attachment,batchfile,flags
             else:
                 attachment.append(tmp[0])
         except:
             infile.close()
-            return pestcall,casename,email_recipient,attachment,batchfile,flags
+            return pestcall,casename,email_recipient,gmail_user,attachment,batchfile,flags
     infile.close()
-    return pestcall,casename,email_recipient,attachment,batchfile,flags
+    return pestcall,casename,email_recipient,gmail_user,attachment,batchfile,flags
 
 
 #######################
 #      M A I N        #
 #######################
 
-# get the email account information
-# NOTE: any active gmail account can be used:
-gmail_user = "wwsc.modeling.center@gmail.com"
-gmail_pwd = getpass.getpass('Please enter GMAIL password for account:\n ' + gmail_user + '\n>>')
-
-
 # read in the parfile values
-(pestcall,casename,email_recipient,attachment,batchfile,flags) = read_par_file("uberPEST.par")
+(pestcall,casename,email_recipient,gmail_user,attachment,batchfile,flags) = read_par_file("uberPEST.par")
+
+# get the email account information
+# NOTE: any active gmail account can be used - account name read from the PAR file:
+gmail_pwd = getpass.getpass('Please enter GMAIL password for account:\n ' + gmail_user + '\n>>')
 
 # get the starting time
 t1 = time.localtime()
