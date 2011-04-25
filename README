@@ -1,7 +1,11 @@
-recRipper.py
-
+PEST_utilities Module
 a m!ke@usgs joint
+contact: mnfienen@usgs.gov
 
+Several Utilties are included
+################
+# recRipper.py #
+################
 This code parses a REC file from PEST and puts out
 files to investigate the evolution of PHI over iterations.
 
@@ -12,4 +16,10 @@ can be used with Google plotting for "bubble charts".
 Bubble Charts are also called Google Motion Charts:
 http://code.google.com/apis/visualization/documentation/gallery/motionchart.html
 
+################
+# plot_bpas.pt #
+################
+This code plots parameter values for each value over iterations in the
+<basecase>.bpa.# files. The <basecase>.bpa file is ignored.
 
+Output is <basecase>_parvalues.pdf with a page for each parameter.
