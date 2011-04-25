@@ -796,21 +796,3 @@
        par27            9.63587                 par27             9.71507    
        par28            9.76679                 par28             9.77294    
     Maximum relative change: 2.9907E-02 ["par18"]
-
-
- OPTIMISATION ITERATION NO.        : 3
-    Model calls so far             : 49
-    Current regularisation weight factor                     :  0.59172    
-    Current value of measurement objective function          :   687.40    
-    Current value of regularisation objective function       :   3.2657    
-    Note: regularisation objective function is not comparable between
-    iterations because of IREGADJ regularisation weights adjustment.
- 
-    Starting phi for this iteration                          :   688.54    
-    Contribution to phi from observation group "head"        :   24.642    
-    Contribution to phi from observation group "conc"        :   256.65    
-    Contribution to phi from observation group "conc_swi"    :   406.10    
-    Contribution to phi from observation group "regul_kx"    :  0.29308    
-    Contribution to phi from observation group "regul_kz"    :  0.33878    
-    Contribution to phi from observation group "regul_rech"  :  0.40294    
-    Contribution to phi from observation group "regul_sthead":  0.10860    

@@ -24,7 +24,7 @@ def read_par_file():
 #  function to parse the observation groups from the observations list
 ######
 def parse_obs(infile,i):
-    import string, sets
+    import string
 
     outty=[]
     # skip two lines and get into the meat of the list
@@ -168,7 +168,7 @@ class runStats:
 # Uber control for reading in the REC file
 ######
 def read_rec_file(fn,regFLAG):
-    import string, sets
+    import string
     import numpy as num
 # open the file    
     infile =open(fn,"r")
@@ -186,13 +186,13 @@ def read_rec_file(fn,regFLAG):
                         break
                     else:
                         priorGrps.append(line[1])
-                priorGrps=list(sets.Set(priorGrps))
+                priorGrps=list(set(priorGrps))
                 
             if not chkobs and cline.find("Observations:-") > -1:
                 # parse out only the observation names
                 obsGrps,i=parse_obs(infile,i)
                 # make a UNIQUE list of obsGrps
-                obsGrps=list(sets.Set(obsGrps))
+                obsGrps=list(set(obsGrps))
                 if priorGrps:
                     obsGrps.extend(priorGrps)
                 chkobs = 1
@@ -212,8 +212,9 @@ def read_rec_file(fn,regFLAG):
         except StopIteration:
             print i
             print "\nReached the end of the file.\n"
+            infile.close()            
             break
-            infile.close()
+            
 # Call output writer
     write_output(fn,recData,regFLAG)
 
