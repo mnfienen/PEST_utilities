@@ -1,0 +1,816 @@
+                    PEST RUN RECORD: CASE assp3tr_sv28
+
+
+ PEST run mode:-
+
+    Regularisation mode
+
+
+ Case dimensions:-
+
+    Number of parameters                           :    28
+    Number of adjustable parameters                :    28
+    Number of parameter groups                     :     1
+    Number of observations                         :   298
+    Number of prior estimates                      :     0
+
+
+ Model command line(s):-
+ 
+    svdabatch.bat > runlog.dat
+
+
+ Jacobian command line:-
+
+    na
+
+
+ Model interface files:-
+
+    Templates:
+       parcalc.tpl
+    for model input files:
+       parcalc.in
+
+    (Parameter values written using double precision protocol.)
+    (Decimal point always included.)
+
+    Instruction files:
+       assateague_concs_smp.ins
+       assateague_heads_smp.ins
+       picalc.ins
+    for reading model output files:
+       assateague_concs.smp
+       assateague_heads.smp
+       picalc.out
+
+
+ PEST-to-model message file:-
+
+    na
+
+
+ SVD Assist data:-
+
+    PEST control file holding base parameters              : assp3tr.pst
+    Use external super parameter definition                : no
+    Jacobian matrix file                                   : assp3tr.jco
+    Base parameter definition method                       : SVD on Q^(1/2)X
+    Calculate initial Jacobian from base sensitivities     : yes
+    Record multiple bpa files                              : yes
+    Perform base parameter scale adjustment                : yes
+    SVDA_SCALADJ adjustment control variable               : 2
+
+    Calculated parameter group base sensitivity adjustment factors:-
+          Group name    Adjustment factor
+          ----------    -----------------
+          No non-log-transformed parameter groups.
+
+
+ Derivatives calculation:-
+
+ Param        Increment   Increment   Increment   Forward or   Multiplier  Method
+ group        type                    low bound   central      (central)   (central)
+ pargp        absolute    1.5000E-02    na          switch       2.000     parabolic
+
+
+ Parameter definitions:-
+
+ Name         Trans-            Change       Initial        Lower          Upper
+              formation         limit        value          bound          bound
+ par1         none              relative    10.0000        0.00000       1.000000E+20
+ par2         none              relative    10.0000        0.00000       1.000000E+20
+ par3         none              relative    10.0000        0.00000       1.000000E+20
+ par4         none              relative    10.0000        0.00000       1.000000E+20
+ par5         none              relative    10.0000        0.00000       1.000000E+20
+ par6         none              relative    10.0000        0.00000       1.000000E+20
+ par7         none              relative    10.0000        0.00000       1.000000E+20
+ par8         none              relative    10.0000        0.00000       1.000000E+20
+ par9         none              relative    10.0000        0.00000       1.000000E+20
+ par10        none              relative    10.0000        0.00000       1.000000E+20
+ par11        none              relative    10.0000        0.00000       1.000000E+20
+ par12        none              relative    10.0000        0.00000       1.000000E+20
+ par13        none              relative    10.0000        0.00000       1.000000E+20
+ par14        none              relative    10.0000        0.00000       1.000000E+20
+ par15        none              relative    10.0000        0.00000       1.000000E+20
+ par16        none              relative    10.0000        0.00000       1.000000E+20
+ par17        none              relative    10.0000        0.00000       1.000000E+20
+ par18        none              relative    10.0000        0.00000       1.000000E+20
+ par19        none              relative    10.0000        0.00000       1.000000E+20
+ par20        none              relative    10.0000        0.00000       1.000000E+20
+ par21        none              relative    10.0000        0.00000       1.000000E+20
+ par22        none              relative    10.0000        0.00000       1.000000E+20
+ par23        none              relative    10.0000        0.00000       1.000000E+20
+ par24        none              relative    10.0000        0.00000       1.000000E+20
+ par25        none              relative    10.0000        0.00000       1.000000E+20
+ par26        none              relative    10.0000        0.00000       1.000000E+20
+ par27        none              relative    10.0000        0.00000       1.000000E+20
+ par28        none              relative    10.0000        0.00000       1.000000E+20
+
+ Name         Group          Scale         Offset        Model command number
+ par1         pargp         1.00000       -10.0000            1
+ par2         pargp         1.00000       -10.0000            1
+ par3         pargp         1.00000       -10.0000            1
+ par4         pargp         1.00000       -10.0000            1
+ par5         pargp         1.00000       -10.0000            1
+ par6         pargp         1.00000       -10.0000            1
+ par7         pargp         1.00000       -10.0000            1
+ par8         pargp         1.00000       -10.0000            1
+ par9         pargp         1.00000       -10.0000            1
+ par10        pargp         1.00000       -10.0000            1
+ par11        pargp         1.00000       -10.0000            1
+ par12        pargp         1.00000       -10.0000            1
+ par13        pargp         1.00000       -10.0000            1
+ par14        pargp         1.00000       -10.0000            1
+ par15        pargp         1.00000       -10.0000            1
+ par16        pargp         1.00000       -10.0000            1
+ par17        pargp         1.00000       -10.0000            1
+ par18        pargp         1.00000       -10.0000            1
+ par19        pargp         1.00000       -10.0000            1
+ par20        pargp         1.00000       -10.0000            1
+ par21        pargp         1.00000       -10.0000            1
+ par22        pargp         1.00000       -10.0000            1
+ par23        pargp         1.00000       -10.0000            1
+ par24        pargp         1.00000       -10.0000            1
+ par25        pargp         1.00000       -10.0000            1
+ par26        pargp         1.00000       -10.0000            1
+ par27        pargp         1.00000       -10.0000            1
+ par28        pargp         1.00000       -10.0000            1
+
+
+ Prior information:-
+
+    No prior information supplied
+
+
+ Observations:-
+
+ Observation name        Observation       Weight       Group
+  km03a_s                0.860000          5.000       head        
+  km03b_s                0.730000          5.000       head        
+  km09b_s                0.620000          5.000       head        
+  km09c_s                0.340000          5.000       head        
+  km14a_s                0.880000          5.000       head        
+  km14b_d                0.620000          5.000       head        
+  km14b_s                0.680000          5.000       head        
+  km23a_s                0.930000          5.000       head        
+  km23b_s                0.570000          5.000       head        
+  km23c_d                0.350000          5.000       head        
+  km23c_s                0.390000          5.000       head        
+  km23d_s                0.300000          5.000       head        
+  km28a_d                0.770000          5.000       head        
+  km28a_s                0.610000          5.000       head        
+  km28b_s                0.440000          5.000       head        
+  km3a_1                  0.00000         0.2500       conc        
+  km3a_2                  16.0000         0.2500       conc        
+  km3a_3                  16.0000         0.2500       conc        
+  km3a_4                  24.0000         0.2500       conc        
+  km3a_5                  0.00000         0.2500       conc        
+  km3b_1                  0.00000         0.2500       conc        
+  km3b_2                  4.00000         0.2500       conc        
+  km3b_3                  8.00000         0.2500       conc        
+  km3b_4                  24.0000         0.2500       conc        
+  km3b_5                  0.00000         0.2500       conc        
+  km9b_1                  0.00000         0.2500       conc        
+  km9b_2                  24.0000         0.2500       conc        
+  km9b_3                  12.0000         0.2500       conc        
+  km9b_4                  6.00000         0.2500       conc        
+  km9b_5                  3.00000         0.2500       conc        
+  km9c_1                  16.0000         0.2500       conc        
+  km9c_2                  24.0000         0.2500       conc        
+  km9c_3                  12.0000         0.2500       conc        
+  km9c_4                  3.00000         0.2500       conc        
+  km9c_5                  0.00000         0.2500       conc        
+  km14a_1                 0.00000         0.2500       conc        
+  km14a_2                 0.00000         0.2500       conc        
+  km14a_3                 24.0000         0.2500       conc        
+  km14a_4                 28.0000         0.2500       conc        
+  km14a_5                 24.0000         0.2500       conc        
+  km14b_1                 0.00000         0.2500       conc        
+  km14b_2                 0.00000         0.2500       conc        
+  km14b_3                 12.0000         0.2500       conc        
+  km14b_4                 20.0000         0.2500       conc        
+  km14b_5                 20.0000         0.2500       conc        
+  km23a_1                 8.00000         0.2500       conc        
+  km23a_2                 4.00000         0.2500       conc        
+  km23a_3                 0.00000         0.2500       conc        
+  km23a_4                 20.0000         0.2500       conc        
+  km23a_5                 20.0000         0.2500       conc        
+  km23b_1                 4.00000         0.2500       conc        
+  km23b_2                 0.00000         0.2500       conc        
+  km23b_3                 8.00000         0.2500       conc        
+  km23b_4                 20.0000         0.2500       conc        
+  km23b_5                 16.0000         0.2500       conc        
+  km23c_1                 0.00000         0.2500       conc        
+  km23c_2                 0.00000         0.2500       conc        
+  km23c_3                 16.0000         0.2500       conc        
+  km23c_4                 28.0000         0.2500       conc        
+  km23c_5                 16.0000         0.2500       conc        
+  km23d_1                 0.00000         0.2500       conc        
+  km23d_2                 0.00000         0.2500       conc        
+  km23d_3                 16.0000         0.2500       conc        
+  km23d_4                 24.0000         0.2500       conc        
+  km23d_5                 16.0000         0.2500       conc        
+  km28a_1                 0.00000         0.2500       conc        
+  km28a_2                 0.00000         0.2500       conc        
+  km28a_3                 0.00000         0.2500       conc        
+  km28a_4                 24.0000         0.2500       conc        
+  km28a_5                 12.0000         0.2500       conc        
+  km28b_1                 0.00000         0.2500       conc        
+  km28b_2                 0.00000         0.2500       conc        
+  km28b_3                 4.00000         0.2500       conc        
+  km28b_4                 8.00000         0.2500       conc        
+  km28b_5                 16.0000         0.2500       conc        
+  sw1_2                   25.0000         0.1500       conc_swi    
+  sw2_2                   25.0000         0.1500       conc_swi    
+  sw3_2                   25.0000         0.1500       conc_swi    
+  sw4_2                   25.0000         0.1500       conc_swi    
+  sw5_2                   25.0000         0.1500       conc_swi    
+  sw6_2                   25.0000         0.1500       conc_swi    
+  sw7_2                   27.0000         0.2500       conc_swi    
+  sw8_2                   27.0000         0.1500       conc_swi    
+  sw9_2                   27.0000         0.1500       conc_swi    
+  sw10_2                  27.0000         0.2500       conc_swi    
+  sw11_2                  27.0000         0.1500       conc_swi    
+  sw12_2                  27.0000         0.1500       conc_swi    
+  sw13_2                  27.0000         0.2500       conc_swi    
+  sw14_2                  27.0000         0.1500       conc_swi    
+  sw15_2                  27.0000         0.1500       conc_swi    
+  sw16_2                  27.0000         0.2500       conc_swi    
+  sw17_2                  27.0000         0.1500       conc_swi    
+  sw18_2                  27.0000         0.1500       conc_swi    
+  sw19_2                  27.0000         0.2500       conc_swi    
+  sw20_2                  27.0000         0.1500       conc_swi    
+  sw21_2                  27.0000         0.1500       conc_swi    
+  sw22_2                  27.0000         0.2500       conc_swi    
+  sw23_2                  27.0000         0.1500       conc_swi    
+  sw24_2                  27.0000         0.2500       conc_swi    
+  sw25_2                  27.0000         0.1500       conc_swi    
+  sw26_2                  27.0000         0.2500       conc_swi    
+  sw27_2                  27.0000         0.1500       conc_swi    
+  sw1_3                   25.0000         0.1500       conc_swi    
+  sw2_3                   25.0000         0.1500       conc_swi    
+  sw3_3                   25.0000         0.1500       conc_swi    
+  sw4_3                   25.0000         0.1500       conc_swi    
+  sw5_3                   25.0000         0.1500       conc_swi    
+  sw6_3                   25.0000         0.1500       conc_swi    
+  sw7_3                   27.0000         0.2500       conc_swi    
+  sw8_3                   27.0000         0.1500       conc_swi    
+  sw9_3                   27.0000         0.1500       conc_swi    
+  sw10_3                  27.0000         0.2500       conc_swi    
+  sw11_3                  27.0000         0.1500       conc_swi    
+  sw12_3                  27.0000         0.1500       conc_swi    
+  sw13_3                  27.0000         0.2500       conc_swi    
+  sw14_3                  27.0000         0.1500       conc_swi    
+  sw15_3                  27.0000         0.1500       conc_swi    
+  sw16_3                  27.0000         0.2500       conc_swi    
+  sw17_3                  27.0000         0.1500       conc_swi    
+  sw18_3                  27.0000         0.1500       conc_swi    
+  sw19_3                  27.0000         0.2500       conc_swi    
+  sw20_3                  27.0000         0.1500       conc_swi    
+  sw21_3                  27.0000         0.1500       conc_swi    
+  sw22_3                  27.0000         0.2500       conc_swi    
+  sw23_3                  27.0000         0.1500       conc_swi    
+  sw24_3                  27.0000         0.2500       conc_swi    
+  sw25_3                  27.0000         0.1500       conc_swi    
+  sw26_3                  27.0000         0.2500       conc_swi    
+  sw27_3                  27.0000         0.1500       conc_swi    
+  sw1_4                   25.0000         0.1500       conc_swi    
+  sw2_4                   25.0000         0.1500       conc_swi    
+  sw3_4                   25.0000         0.1500       conc_swi    
+  sw4_4                   25.0000         0.1500       conc_swi    
+  sw5_4                   25.0000         0.1500       conc_swi    
+  sw6_4                   25.0000         0.1500       conc_swi    
+  sw7_4                   27.0000         0.2500       conc_swi    
+  sw8_4                   27.0000         0.1500       conc_swi    
+  sw9_4                   27.0000         0.1500       conc_swi    
+  sw10_4                  27.0000         0.2500       conc_swi    
+  sw11_4                  27.0000         0.1500       conc_swi    
+  sw12_4                  27.0000         0.1500       conc_swi    
+  sw13_4                  27.0000         0.2500       conc_swi    
+  sw14_4                  27.0000         0.1500       conc_swi    
+  sw15_4                  27.0000         0.1500       conc_swi    
+  sw16_4                  27.0000         0.2500       conc_swi    
+  sw17_4                  27.0000         0.1500       conc_swi    
+  sw18_4                  27.0000         0.1500       conc_swi    
+  sw19_4                  27.0000         0.2500       conc_swi    
+  sw20_4                  27.0000         0.1500       conc_swi    
+  sw21_4                  27.0000         0.1500       conc_swi    
+  sw22_4                  27.0000         0.2500       conc_swi    
+  sw23_4                  27.0000         0.1500       conc_swi    
+  sw24_4                  27.0000         0.2500       conc_swi    
+  sw25_4                  27.0000         0.1500       conc_swi    
+  sw26_4                  27.0000         0.2500       conc_swi    
+  sw27_4                  27.0000         0.1500       conc_swi    
+  sw1_5                   25.0000         0.1500       conc_swi    
+  sw2_5                   25.0000         0.1500       conc_swi    
+  sw3_5                   25.0000         0.1500       conc_swi    
+  sw4_5                   25.0000         0.1500       conc_swi    
+  sw5_5                   25.0000         0.1500       conc_swi    
+  sw6_5                   25.0000         0.1500       conc_swi    
+  sw7_5                   27.0000         0.2500       conc_swi    
+  sw8_5                   27.0000         0.1500       conc_swi    
+  sw9_5                   27.0000         0.1500       conc_swi    
+  sw10_5                  27.0000         0.2500       conc_swi    
+  sw11_5                  27.0000         0.1500       conc_swi    
+  sw12_5                  27.0000         0.1500       conc_swi    
+  sw13_5                  27.0000         0.2500       conc_swi    
+  sw14_5                  27.0000         0.1500       conc_swi    
+  sw15_5                  27.0000         0.1500       conc_swi    
+  sw16_5                  27.0000         0.2500       conc_swi    
+  sw17_5                  27.0000         0.1500       conc_swi    
+  sw18_5                  27.0000         0.1500       conc_swi    
+  sw19_5                  27.0000         0.2500       conc_swi    
+  sw20_5                  27.0000         0.1500       conc_swi    
+  sw21_5                  27.0000         0.1500       conc_swi    
+  sw22_5                  27.0000         0.2500       conc_swi    
+  sw23_5                  27.0000         0.1500       conc_swi    
+  sw24_5                  27.0000         0.2500       conc_swi    
+  sw25_5                  27.0000         0.1500       conc_swi    
+  sw26_5                  27.0000         0.2500       conc_swi    
+  sw27_5                  27.0000         0.1500       conc_swi    
+  sw1_6                   5.00000         0.1500       conc_swi    
+  sw2_6                   5.00000         0.1500       conc_swi    
+  sw3_6                   5.00000         0.1500       conc_swi    
+  sw4_6                   5.00000         0.1500       conc_swi    
+  sw5_6                   5.00000         0.1500       conc_swi    
+  sw6_6                   5.00000         0.1500       conc_swi    
+  sw7_6                   10.0000         0.1500       conc_swi    
+  sw8_6                   10.0000         0.1500       conc_swi    
+  sw9_6                   10.0000         0.1500       conc_swi    
+  sw10_6                  10.0000         0.1500       conc_swi    
+  sw11_6                  10.0000         0.1500       conc_swi    
+  sw12_6                  10.0000         0.1500       conc_swi    
+  sw13_6                  10.0000         0.1500       conc_swi    
+  sw14_6                  10.0000         0.1500       conc_swi    
+  sw15_6                  10.0000         0.1500       conc_swi    
+  sw16_6                  10.0000         0.1500       conc_swi    
+  sw17_6                  10.0000         0.1500       conc_swi    
+  sw18_6                  10.0000         0.1500       conc_swi    
+  sw19_6                  10.0000         0.1500       conc_swi    
+  sw20_6                  10.0000         0.1500       conc_swi    
+  sw21_6                  10.0000         0.1500       conc_swi    
+  sw22_6                  10.0000         0.1500       conc_swi    
+  sw23_6                  10.0000         0.1500       conc_swi    
+  sw24_6                  10.0000         0.1500       conc_swi    
+  sw25_6                  10.0000         0.1500       conc_swi    
+  sw26_6                  10.0000         0.1500       conc_swi    
+  sw27_6                  10.0000         0.1500       conc_swi    
+  sw1_7                   5.00000         0.1500       conc_swi    
+  sw2_7                   5.00000         0.1500       conc_swi    
+  sw3_7                   5.00000         0.1500       conc_swi    
+  sw4_7                   5.00000         0.1500       conc_swi    
+  sw5_7                   5.00000         0.1500       conc_swi    
+  sw6_7                   5.00000         0.1500       conc_swi    
+  sw7_7                   10.0000         0.1500       conc_swi    
+  sw8_7                   10.0000         0.1500       conc_swi    
+  sw9_7                   10.0000         0.1500       conc_swi    
+  sw10_7                  10.0000         0.1500       conc_swi    
+  sw11_7                  10.0000         0.1500       conc_swi    
+  sw12_7                  10.0000         0.1500       conc_swi    
+  sw13_7                  10.0000         0.1500       conc_swi    
+  sw14_7                  10.0000         0.1500       conc_swi    
+  sw15_7                  10.0000         0.1500       conc_swi    
+  sw16_7                  10.0000         0.1500       conc_swi    
+  sw17_7                  10.0000         0.1500       conc_swi    
+  sw18_7                  10.0000         0.1500       conc_swi    
+  sw19_7                  10.0000         0.1500       conc_swi    
+  sw20_7                  10.0000         0.1500       conc_swi    
+  sw21_7                  10.0000         0.1500       conc_swi    
+  sw22_7                  10.0000         0.1500       conc_swi    
+  sw23_7                  10.0000         0.1500       conc_swi    
+  sw24_7                  10.0000         0.1500       conc_swi    
+  sw25_7                  10.0000         0.1500       conc_swi    
+  sw26_7                  10.0000         0.1500       conc_swi    
+  sw27_7                  10.0000         0.1500       conc_swi    
+  sw1_8                   5.00000         0.1500       conc_swi    
+  sw2_8                   5.00000         0.1500       conc_swi    
+  sw3_8                   5.00000         0.1500       conc_swi    
+  sw4_8                   5.00000         0.1500       conc_swi    
+  sw5_8                   5.00000         0.1500       conc_swi    
+  sw6_8                   5.00000         0.1500       conc_swi    
+  sw7_8                   10.0000         0.1500       conc_swi    
+  sw8_8                   10.0000         0.1500       conc_swi    
+  sw9_8                   10.0000         0.1500       conc_swi    
+  sw10_8                  10.0000         0.1500       conc_swi    
+  sw11_8                  10.0000         0.1500       conc_swi    
+  sw12_8                  10.0000         0.1500       conc_swi    
+  sw13_8                  10.0000         0.1500       conc_swi    
+  sw14_8                  10.0000         0.1500       conc_swi    
+  sw15_8                  10.0000         0.1500       conc_swi    
+  sw16_8                  10.0000         0.1500       conc_swi    
+  sw17_8                  10.0000         0.1500       conc_swi    
+  sw18_8                  10.0000         0.1500       conc_swi    
+  sw19_8                  10.0000         0.1500       conc_swi    
+  sw20_8                  10.0000         0.1500       conc_swi    
+  sw21_8                  10.0000         0.1500       conc_swi    
+  sw22_8                  10.0000         0.1500       conc_swi    
+  sw23_8                  10.0000         0.1500       conc_swi    
+  sw24_8                  10.0000         0.1500       conc_swi    
+  sw25_8                  10.0000         0.1500       conc_swi    
+  sw26_8                  10.0000         0.1500       conc_swi    
+  sw27_8                  10.0000         0.1500       conc_swi    
+  kx1                     4.17609          1.000       regul_kx    
+  kx2                     2.00000          1.000       regul_kx    
+  kx3                    0.477121          1.000       regul_kx    
+  kx4                     1.39794          1.000       regul_kx    
+  kx5                     0.00000          1.000       regul_kx    
+  kx6                     1.77815          1.000       regul_kx    
+  kx8                     1.47712          1.000       regul_kx    
+  kx9                    -2.00000          1.000       regul_kx    
+  kx10                    2.47712          1.000       regul_kx    
+  kz1                     0.00000          1.000       regul_kz    
+  kz2                     1.47712          1.000       regul_kz    
+  kz3                    -1.52288          1.000       regul_kz    
+  kz4                    0.397940          1.000       regul_kz    
+  kz5                    -1.52288          1.000       regul_kz    
+  kz6                    0.778151          1.000       regul_kz    
+  kz8                     0.00000          1.000       regul_kz    
+  kz9                    -3.00000          1.000       regul_kz    
+  kz10                   -3.00000          1.000       regul_kz    
+  r2                     -3.28400          1.000       regul_rech  
+  r3                     -2.95468          1.000       regul_rech  
+  r4                     -2.77728          1.000       regul_rech  
+  r5                     -2.95468          1.000       regul_rech  
+  r6                     -2.95468          1.000       regul_rech  
+  r7                     -2.95468          1.000       regul_rech  
+  r8                     -2.95468          1.000       regul_rech  
+  r9                     -2.95468          1.000       regul_rech  
+  r13                    -2.95468          1.000       regul_rech  
+  r15                    -2.95468          1.000       regul_rech  
+  r21                    -2.77728          1.000       regul_rech  
+  r22                    -2.95468          1.000       regul_rech  
+  shwav                 -0.404504          1.000       regul_sthead
+  sh_l1ml                0.301030          1.000       regul_sthead
+  sh_l1b                -0.494850          1.000       regul_sthead
+  sh_l1o                -0.795880          1.000       regul_sthead
+
+
+ Control settings:-
+
+    Initial lambda                                               :  10.000    
+    Lambda adjustment factor                                     :  2.0000    
+    Sufficient new/old phi ratio per optimisation iteration      : 0.30000    
+    Limiting relative phi reduction between lambdas              : 3.00000E-02
+    Maximum trial lambdas per iteration                          :  10
+    Forgive model run failure during lamda testing               : no
+
+    Perform Broyden's update of Jacobian matrix                  : yes
+    Maximum number of updates per iteration                      : 999
+
+    Maximum  factor  parameter change (factor-limited changes)   : na
+    Maximum relative parameter change (relative-limited changes) : 0.10000
+    Fraction of initial parameter values used in computing
+    change limit for near-zero parameters                        : 1.00000E-03
+    Allow bending of parameter upgrade vector                    : no
+    Allow parameters to stick to their bounds                    : no
+
+    Relative phi reduction below which to begin use of
+    central derivatives                                          : 0.10000             
+    Iteration at which to first consider derivatives switch      :   1
+
+    Relative phi reduction indicating convergence                : 0.50000E-02
+    Number of phi values required within this range              :   4
+    Maximum number of consecutive failures to lower phi          :   4
+    Minimal relative parameter change indicating convergence     : 0.50000E-02
+    Number of consecutive iterations with minimal param change   :   4
+    Maximum number of optimisation iterations                    :  50
+
+    Attempt automatic user intervention                          : no
+
+    Attempt reuse of parameter sensitivities                     : no
+
+
+ File saving options: -
+
+    Save best JCO file                                           : yes
+    Save multiple JCO files                                      : no
+    Save multiple REI files                                      : yes
+    Save multiple PAR files                                      : no
+
+
+ Extra settings for regularisation mode:-
+
+    Target/current measurement objective function ratio          : 0.10000    
+    Acceptable/target measurement objective function ratio       :  1.0500    
+    Minimum target measurement objective function value          :  250.00    
+    Terminate inversion when measurement obj. fn. below target   : yes
+
+    Initial regularisation weight factor                         :  1.0000    
+    Minimum regularisation weight factor                         : 1.00000E-10
+    Maximum regularisation weight factor                         : 1.00000E+10
+
+    Weight factor solution adjustment ratio                      :  1.3000    
+    Weight factor solution tolerance                             : 1.00000E-02
+    Automatic inter-regularisation group weights adjustment      : yes
+    Use sensitivities or number of items                         : sensitivities
+
+    Implement memory conservation                                : no
+    Declare all regularisation information as linear             : no
+    Use conjugate gradient solver                                : no
+ 
+ 
+                             OPTIMISATION RECORD
+
+
+ INITIAL CONDITIONS: 
+    Current regularisation weight factor                     =   1.0000    
+    Current value of measurement objective function          =   913.90    
+    Current value of regularisation objective function       =  1.02624E-12
+ 
+    Sum of squared weighted residuals (ie phi)               =   913.90    
+    Contribution to phi from observation group "head"        =   33.889    
+    Contribution to phi from observation group "conc"        =   453.08    
+    Contribution to phi from observation group "conc_swi"    =   426.94    
+    Contribution to phi from observation group "regul_kx"    =  2.61692E-13
+    Contribution to phi from observation group "regul_kz"    =  1.97183E-13
+    Contribution to phi from observation group "regul_rech"  =  5.66095E-13
+    Contribution to phi from observation group "regul_sthead"=  1.26600E-15
+ 
+       Current parameter values
+       par1             10.0000    
+       par2             10.0000    
+       par3             10.0000    
+       par4             10.0000    
+       par5             10.0000    
+       par6             10.0000    
+       par7             10.0000    
+       par8             10.0000    
+       par9             10.0000    
+       par10            10.0000    
+       par11            10.0000    
+       par12            10.0000    
+       par13            10.0000    
+       par14            10.0000    
+       par15            10.0000    
+       par16            10.0000    
+       par17            10.0000    
+       par18            10.0000    
+       par19            10.0000    
+       par20            10.0000    
+       par21            10.0000    
+       par22            10.0000    
+       par23            10.0000    
+       par24            10.0000    
+       par25            10.0000    
+       par26            10.0000    
+       par27            10.0000    
+       par28            10.0000    
+
+
+ OPTIMISATION ITERATION NO.        : 1
+    Model calls so far             : 1
+    Current regularisation weight factor                     :   1.0000    
+    Current value of measurement objective function          :   913.90    
+    Current value of regularisation objective function       :  1.02624E-12
+    Note: regularisation objective function is not comparable between
+    iterations because of IREGADJ regularisation weights adjustment.
+ 
+    Starting phi for this iteration                          :   913.90    
+    Contribution to phi from observation group "head"        :   33.889    
+    Contribution to phi from observation group "conc"        :   453.08    
+    Contribution to phi from observation group "conc_swi"    :   426.94    
+    Contribution to phi from observation group "regul_kx"    :  2.61692E-13
+    Contribution to phi from observation group "regul_kz"    :  1.97183E-13
+    Contribution to phi from observation group "regul_rech"  :  5.66095E-13
+    Contribution to phi from observation group "regul_sthead":  1.26600E-15
+
+    Regularisation weights adjustment....
+    Group Name    Weights adjustment ratio from previous iteration
+     regul_kx        1.26467    
+     regul_kz        1.10620    
+     regul_rech      1.00000    
+     regul_sthead    2.28275    
+    FRACPHIM-adjusted target measurement objective function  :   250.00    
+ 
+    Re-calculated regularisation weight factor               :  0.76923    
+    New starting objective function for this itn. (ie. phi)  :   913.90    
+    Contribution to phi from observation group "head"        :   33.889    
+    Contribution to phi from observation group "conc"        :   453.08    
+    Contribution to phi from observation group "conc_swi"    :   426.94    
+    Contribution to phi from observation group "regul_kx"    :  2.47663E-13
+    Contribution to phi from observation group "regul_kz"    :  1.42775E-13
+    Contribution to phi from observation group "regul_rech"  :  3.34967E-13
+    Contribution to phi from observation group "regul_sthead":  3.90357E-15
+
+        Lambda =   10.000     ----->
+           Phi =   759.93      (  0.832 of starting phi)
+     Meas. fn. =   759.05    
+    Regul. fn. =   1.4892    
+
+        Lambda =   5.0000     ----->
+           Phi =   756.30      (  0.828 of starting phi)
+     Meas. fn. =   754.94    
+    Regul. fn. =   2.3134    
+
+        Lambda =   20.000     ----->
+           Phi =   773.38      (  0.846 of starting phi)
+     Meas. fn. =   772.78    
+    Regul. fn. =   1.0061    
+
+        Lambda =   2.5000     ----->
+           Phi =   773.68      (  0.847 of starting phi)
+     Meas. fn. =   771.37    
+    Regul. fn. =   3.9040    
+
+        Lambda =   40.000     ----->
+           Phi =   787.05      (  0.861 of starting phi)
+     Meas. fn. =   786.67    
+    Regul. fn. =  0.64117    
+
+        Lambda =   1.2500     ----->
+           Phi =   791.51      (  0.866 of starting phi)
+     Meas. fn. =   789.19    
+    Regul. fn. =   3.9255    
+
+        Lambda =   80.000     ----->
+           Phi =   801.62      (  0.877 of starting phi)
+     Meas. fn. =   801.40    
+    Regul. fn. =  0.36558    
+
+        Lambda =  0.62500     ----->
+           Phi =   806.93      (  0.883 of starting phi)
+     Meas. fn. =   804.50    
+    Regul. fn. =   4.1181    
+
+        Lambda =   160.00     ----->
+           Phi =   811.97      (  0.888 of starting phi)
+     Meas. fn. =   811.85    
+    Regul. fn. =  0.19669    
+
+        Lambda =  0.31250     ----->
+           Phi =   825.12      (  0.903 of starting phi)
+     Meas. fn. =   822.52    
+    Regul. fn. =   4.3940    
+
+    No more lambdas: allowed lambdas per iteration = 10
+
+       Current parameter values                 Previous parameter values
+       par1             10.0139                 par1              10.0000    
+       par2             10.0085                 par2              10.0000    
+       par3             9.90447                 par3              10.0000    
+       par4             9.94452                 par4              10.0000    
+       par5             10.0548                 par5              10.0000    
+       par6             9.89469                 par6              10.0000    
+       par7             9.96322                 par7              10.0000    
+       par8             10.0683                 par8              10.0000    
+       par9             10.0794                 par9              10.0000    
+       par10            10.1023                 par10             10.0000    
+       par11            9.99123                 par11             10.0000    
+       par12            9.64680                 par12             10.0000    
+       par13            9.88666                 par13             10.0000    
+       par14            10.1840                 par14             10.0000    
+       par15            10.8508                 par15             10.0000    
+       par16            10.0094                 par16             10.0000    
+       par17            9.97755                 par17             10.0000    
+       par18            9.67463                 par18             10.0000    
+       par19            10.1593                 par19             10.0000    
+       par20            10.1339                 par20             10.0000    
+       par21            9.99678                 par21             10.0000    
+       par22            10.1174                 par22             10.0000    
+       par23            9.34910                 par23             10.0000    
+       par24            9.80308                 par24             10.0000    
+       par25            10.1935                 par25             10.0000    
+       par26            10.3946                 par26             10.0000    
+       par27            9.71507                 par27             10.0000    
+       par28            9.77294                 par28             10.0000    
+    Maximum relative change: 8.5078E-02 ["par15"]
+
+
+ OPTIMISATION ITERATION NO.        : 2
+    Model calls so far             : 11
+    Current regularisation weight factor                     :  0.76923    
+    Current value of measurement objective function          :   754.94    
+    Current value of regularisation objective function       :   2.3134    
+    Note: regularisation objective function is not comparable between
+    iterations because of IREGADJ regularisation weights adjustment.
+ 
+    Starting phi for this iteration                          :   756.30    
+    Contribution to phi from observation group "head"        :   32.408    
+    Contribution to phi from observation group "conc"        :   315.28    
+    Contribution to phi from observation group "conc_swi"    :   407.25    
+    Contribution to phi from observation group "regul_kx"    :  0.36893    
+    Contribution to phi from observation group "regul_kz"    :  0.40442    
+    Contribution to phi from observation group "regul_rech"  :  0.55291    
+    Contribution to phi from observation group "regul_sthead":  4.25821E-02
+
+    Regularisation weights adjustment....
+    Group Name    Weights adjustment ratio from previous iteration
+     regul_kx        1.00000    
+     regul_kz        1.00000    
+     regul_rech      1.00000    
+     regul_sthead    1.00000    
+    FRACPHIM-adjusted target measurement objective function  :   250.00    
+ 
+    Re-calculated regularisation weight factor               :  0.59172    
+    New starting objective function for this itn. (ie. phi)  :   755.75    
+    Contribution to phi from observation group "head"        :   32.408    
+    Contribution to phi from observation group "conc"        :   315.28    
+    Contribution to phi from observation group "conc_swi"    :   407.25    
+    Contribution to phi from observation group "regul_kx"    :  0.21830    
+    Contribution to phi from observation group "regul_kz"    :  0.23930    
+    Contribution to phi from observation group "regul_rech"  :  0.32717    
+    Contribution to phi from observation group "regul_sthead":  2.51965E-02
+
+        Lambda =   10.000     ----->
+           Phi =   700.89      (  0.927 of starting phi)
+     Meas. fn. =   699.94    
+    Regul. fn. =   2.6989    
+
+        Lambda =   5.0000     ----->
+           Phi =   694.51      (  0.919 of starting phi)
+     Meas. fn. =   693.50    
+    Regul. fn. =   2.8939    
+
+        Lambda =   20.000     ----->
+           Phi =   705.74      (  0.934 of starting phi)
+     Meas. fn. =   704.83    
+    Regul. fn. =   2.5895    
+
+        Lambda =   2.5000     ----->
+           Phi =   688.54      (  0.911 of starting phi)
+     Meas. fn. =   687.40    
+    Regul. fn. =   3.2657    
+
+        Lambda =   40.000     ----->
+           Phi =   714.19      (  0.945 of starting phi)
+     Meas. fn. =   713.31    
+    Regul. fn. =   2.5217    
+
+        Lambda =   1.2500     ----->
+           Phi =   694.27      (  0.919 of starting phi)
+     Meas. fn. =   692.89    
+    Regul. fn. =   3.9580    
+
+        Lambda =   80.000     ----->
+           Phi =   719.93      (  0.953 of starting phi)
+     Meas. fn. =   719.06    
+    Regul. fn. =   2.4737    
+
+        Lambda =  0.62500     ----->
+           Phi =   797.53      (  1.055 times starting phi)
+     Meas. fn. =   795.77    
+    Regul. fn. =   5.0383    
+
+        Lambda =   160.00     ----->
+           Phi =   724.89      (  0.959 of starting phi)
+     Meas. fn. =   724.04    
+    Regul. fn. =   2.4348    
+
+        Lambda =  0.31250     ----->
+           Phi =   862.43      (  1.141 times starting phi)
+     Meas. fn. =   860.21    
+    Regul. fn. =   6.3230    
+
+    No more lambdas: allowed lambdas per iteration = 10
+    Relative phi reduction between optimisation iterations less than 0.1000
+    Switch to central derivatives calculation
+
+       Current parameter values                 Previous parameter values
+       par1             10.1580                 par1              10.0139    
+       par2             9.92999                 par2              10.0085    
+       par3             9.91694                 par3              9.90447    
+       par4             10.0336                 par4              9.94452    
+       par5             10.2043                 par5              10.0548    
+       par6             9.72764                 par6              9.89469    
+       par7             9.88708                 par7              9.96322    
+       par8             10.0330                 par8              10.0683    
+       par9             10.1983                 par9              10.0794    
+       par10            10.3758                 par10             10.1023    
+       par11            10.1641                 par11             9.99123    
+       par12            9.69098                 par12             9.64680    
+       par13            10.0696                 par13             9.88666    
+       par14            10.1635                 par14             10.1840    
+       par15            10.7298                 par15             10.8508    
+       par16            9.98003                 par16             10.0094    
+       par17            9.78549                 par17             9.97755    
+       par18            9.38529                 par18             9.67463    
+       par19            10.2226                 par19             10.1593    
+       par20            10.1714                 par20             10.1339    
+       par21            9.98081                 par21             9.99678    
+       par22            9.97915                 par22             10.1174    
+       par23            9.17202                 par23             9.34910    
+       par24            9.91336                 par24             9.80308    
+       par25            10.0537                 par25             10.1935    
+       par26            10.3205                 par26             10.3946    
+       par27            9.63587                 par27             9.71507    
+       par28            9.76679                 par28             9.77294    
+    Maximum relative change: 2.9907E-02 ["par18"]
+
+
+ OPTIMISATION ITERATION NO.        : 3
+    Model calls so far             : 49
+    Current regularisation weight factor                     :  0.59172    
+    Current value of measurement objective function          :   687.40    
+    Current value of regularisation objective function       :   3.2657    
+    Note: regularisation objective function is not comparable between
+    iterations because of IREGADJ regularisation weights adjustment.
+ 
+    Starting phi for this iteration                          :   688.54    
+    Contribution to phi from observation group "head"        :   24.642    
+    Contribution to phi from observation group "conc"        :   256.65    
+    Contribution to phi from observation group "conc_swi"    :   406.10    
+    Contribution to phi from observation group "regul_kx"    :  0.29308    
+    Contribution to phi from observation group "regul_kz"    :  0.33878    
+    Contribution to phi from observation group "regul_rech"  :  0.40294    
+    Contribution to phi from observation group "regul_sthead":  0.10860    

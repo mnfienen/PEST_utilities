@@ -1,0 +1,12 @@
+recRipper.py
+
+a m!ke@usgs joint
+
+This code parses a REC file from PEST and puts out
+files to investigate the evolution of PHI over iterations.
+
+The two output files are: basename.rec_tphi, which is to 
+show total phi over iterations, and
+basename.recout, which shows PHI components in the form that
+can be used with Google plotting for bubble charts.
+
