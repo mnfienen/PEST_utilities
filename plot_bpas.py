@@ -11,12 +11,12 @@ import os
 import pylab as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-rootname = 'assp3tr'
+basecase = 'assp3tr'
 
 allfiles = os.listdir(os.getcwd())
 bpas = dict()
 for cf in allfiles:
-    if ((rootname in cf) and ('bpa' in cf) and (cf[-4:] != '.bpa')):
+    if ((basecase in cf) and ('bpa' in cf) and (cf[-4:] != '.bpa')):
         cind = int(cf.split('.')[-1])
         bpas[cind] = cf
         
@@ -38,7 +38,7 @@ normvals = vals/np.atleast_2d(vals[:,0]).T
 allvals = dict(zip(parnames,vals))
         
 # make a PDF with a page for each parameter, plotting all values
-pp = PdfPages(rootname + '_parvalues.pdf')
+pp = PdfPages(basecase + '_parvalues.pdf')
 
 for cp in sorted(allvals):
     currfig = plt.figure()
