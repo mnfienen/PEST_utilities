@@ -17,9 +17,28 @@ Bubble Charts are also called Google Motion Charts:
 http://code.google.com/apis/visualization/documentation/gallery/motionchart.html
 
 ################
-# plot_bpas.pt #
+# plot_bpas.py #
 ################
 This code plots parameter values for each value over iterations in the
 <basecase>.bpa.# files. The <basecase>.bpa file is ignored.
 
 Output is <basecase>_parvalues.pdf with a page for each parameter.
+
+#########################################
+# plot_reis.py --> driving REIripper.py #
+#########################################
+This code plots bar charts and one-to-one plots of residuals as recorded in
+<basecase>.rei.# files. For each file, residuals are plotted by group
+(including regularization groups which can, generally, be ignored).
+
+Output files are:
+<basecase><group>one2one.pdf
+<basecase><group>histogram.pdf
+<basecase><group>residuals_summary.dat
+
+The one2one plots show modeled vs. measured plots.
+The histogram plots show residuals as histograms to look for bias.
+The summary files include testing for normality.
+
+
+
