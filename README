@@ -4,7 +4,7 @@ contact: mnfienen@usgs.gov
 
 Several Utilties are included
 ################
-# recRipper.py #
+# recRipper.py ##
 ################
 This code parses a REC file from PEST and puts out
 files to investigate the evolution of PHI over iterations.
@@ -24,9 +24,9 @@ This code plots parameter values for each value over iterations in the
 
 Output is <basecase>_parvalues.pdf with a page for each parameter.
 
-#########################################
-# plot_reis.py --> driving REIripper.py #
-#########################################
+###############################################
+# plot_reis.py --> driving REIripperCONSOL.py #
+###############################################
 This code plots bar charts and one-to-one plots of residuals as recorded in
 <basecase>.rei.# files. For each file, residuals are plotted by group
 (including regularization groups which can, generally, be ignored).
@@ -40,5 +40,7 @@ The one2one plots show modeled vs. measured plots.
 The histogram plots show residuals as histograms to look for bias.
 The summary files include testing for normality.
 
+The PDF files are consolidated with a page per iteration.
+This file, as of this commit, replaces the deprecated REIripper.py
 
 
