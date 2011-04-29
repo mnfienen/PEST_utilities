@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import shapiro
+from matplotlib.backends.backend_pdf import PdfPages
 
-def resid_proc(infile,remove_zero_wt):
+def resid_proc(infile,remove_zero_wt,grpfiles):
     # open a pointer to the output file
     ofp = open(infile + '_residuals_summary.dat','w')
     ofp.write('Residuals Summary information for -> ' + infile + '\n')
@@ -36,7 +37,9 @@ def resid_proc(infile,remove_zero_wt):
         plt.plot(cmeas,cmod,'bx')
         plt.plot([cmin,cmax],[cmin,cmax],'r')
         plt.title(cg)
-        plt.savefig(infile + cg + '_one2one.pdf')
+        # append the histograms into the proper PDF file
+        grpfiles[cg][1].savefig()
+#        plt.savefig(infile + cg + '_one2one.pdf')
     
         # now calculate statistics on the residuals
         
@@ -61,7 +64,9 @@ def resid_proc(infile,remove_zero_wt):
         ax.set_ylabel('Count')
         ax.set_title(cg)
         ax.set_xlim([cmin,cmax])
-        plt.savefig(infile + cg + '_histogram.pdf')
+        # append the histograms into the proper PDF file
+        grpfiles[cg][1].savefig()
+#        plt.savefig(infile + cg + '_histogram.pdf')
         # perform the Shapiro-Wilks test for normality of the residuals
         W,p = shapiro(cres)
         

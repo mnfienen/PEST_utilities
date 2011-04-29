@@ -12,8 +12,10 @@ in the filename and saves a separate set of files for each iteration.
 
 import numpy as np
 import os
+import sys
 import pylab as plt
-from REIripper import resid_proc
+from REIripperCONSOL import resid_proc
+from matplotlib.backends.backend_pdf import PdfPages
 
 
 # set flag for handling weights
@@ -28,7 +30,18 @@ for cf in allfiles:
         cind = int(cf.split('.')[-1])
         reis[cind] = cf
 
+# need to get group names for the consolidated files
+alldat = np.genfromtxt(reis[0],names=True,skip_header=6,dtype=None)
+# find the unique list of groups by which plots and stats will be managed
+allgrps = np.unique(alldat['Group'])
+
+# make a dictionary to contain a PDF output file handle for each group
+grpfiles = dict()
+for cg in allgrps:
+    grpfiles[cg] = [PdfPages(basecase + "_" + cg + "_one2one.pdf"),
+                    PdfPages(basecase + "_" + cg + "_histogram.pdf")]
+  
 # doing this second loop is overkill, but consistent with the plot_bpas.py logic
 # and doesn't waste too much time   
-for cf in np.arange(len(reis)):
-    resid_proc(reis[cf],remove_zero_wt)
+resid_proc(reis,remove_zero_wt,grpfiles)
+
