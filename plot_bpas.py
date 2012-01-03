@@ -27,9 +27,10 @@ vals = np.genfromtxt(bpas[0],skip_header=1,usecols=[1])
 
 # now, if there are more than one 
 if len(bpas) > 1:
-    for cf in np.arange(1,len(bpas)):
+    for cf in bpas:
         tmp = np.genfromtxt(bpas[cf],skip_header=1,usecols=[1])
         vals = np.vstack((vals,tmp))
+
 # make a matrix that can be more easily manipulated
 vals = vals.T
 normvals = vals/np.atleast_2d(vals[:,0]).T
