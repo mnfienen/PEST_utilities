@@ -1,0 +1,1196 @@
+
+                   PEST RUN RECORD: CASE arterialdisa3
+
+
+PEST run mode:-
+
+   Parameter estimation mode
+
+
+Case dimensions:-
+
+   Number of parameters                           :    18
+   Number of adjustable parameters                :    18
+   Number of parameter groups                     :    18
+   Number of observations                         :    28
+   Number of prior estimates                      :     0
+
+
+Model command line(s):-
+
+   ArterialDISA_model.bat > nul
+
+
+Jacobian command line:-
+
+   na
+
+
+Model interface files:-
+
+   Templates:
+      ArterialDISA_params_par.tpl
+   for model input files:
+      ArterialDISA_params.par
+
+   (Parameter values written using single precision protocol.)
+   (Decimal point always included.)
+
+   Instruction files:
+      ArterialDISA_y_dat.ins
+   for reading model output files:
+      ArterialDISA_y.dat
+
+
+PEST-to-model message file:-
+
+   na
+
+
+Derivatives calculation:-
+
+Param        Increment   Increment   Increment   Forward or   Multiplier  Method
+group        type                    low bound   central      (central)   (central)
+blamdur_hrs  relative    1.0000E-02   none         switch       2.000     parabolic
+blampdi      relative    1.0000E-02   none         switch       2.000     parabolic
+blamin15     relative    1.0000E-02   none         switch       2.000     parabolic
+blamin60     relative    1.0000E-02   none         switch       2.000     parabolic
+blamei       relative    1.0000E-02   none         switch       2.000     parabolic
+blamdryd     relative    1.0000E-02   none         switch       2.000     parabolic
+blamlnevvol  relative    1.0000E-02   none         switch       2.000     parabolic
+blampeakcfs  relative    1.0000E-02   none         switch       2.000     parabolic
+blamsint     relative    1.0000E-02   none         switch       2.000     parabolic
+bkdur_hrs    relative    1.0000E-02   none         switch       2.000     parabolic
+bkpdi        relative    1.0000E-02   none         switch       2.000     parabolic
+bkin15       relative    1.0000E-02   none         switch       2.000     parabolic
+bkin60       relative    1.0000E-02   none         switch       2.000     parabolic
+bkei         relative    1.0000E-02   none         switch       2.000     parabolic
+bkdryd       relative    1.0000E-02   none         switch       2.000     parabolic
+bklnevvol    relative    1.0000E-02   none         switch       2.000     parabolic
+bkpeakcfs    relative    1.0000E-02   none         switch       2.000     parabolic
+bksint       relative    1.0000E-02   none         switch       2.000     parabolic
+
+
+Parameter definitions:-
+
+Name         Trans-            Change       Initial        Lower          Upper
+             formation         limit        value          bound          bound
+blamdur_hrs  none              relative   0.764595      -1.000000E+10   1.000000E+10
+blampdi      none              relative   0.203919      -1.000000E+10   1.000000E+10
+blamin15     none              relative   0.646415      -1.000000E+10   1.000000E+10
+blamin60     none              relative   0.877707      -1.000000E+10   1.000000E+10
+blamei       none              relative   0.292705      -1.000000E+10   1.000000E+10
+blamdryd     none              relative   0.310641      -1.000000E+10   1.000000E+10
+blamlnevvol  none              relative   0.464939      -1.000000E+10   1.000000E+10
+blampeakcfs  none              relative   0.329695      -1.000000E+10   1.000000E+10
+blamsint     none              relative   0.968177      -1.000000E+10   1.000000E+10
+bkdur_hrs    none              relative   0.513878      -1.000000E+10   1.000000E+10
+bkpdi        none              relative   0.329149      -1.000000E+10   1.000000E+10
+bkin15       none              relative   0.256789      -1.000000E+10   1.000000E+10
+bkin60       none              relative   0.722590      -1.000000E+10   1.000000E+10
+bkei         none              relative   0.671421      -1.000000E+10   1.000000E+10
+bkdryd       none              relative   6.094600E-02  -1.000000E+10   1.000000E+10
+bklnevvol    none              relative   0.892202      -1.000000E+10   1.000000E+10
+bkpeakcfs    none              relative   0.154827      -1.000000E+10   1.000000E+10
+bksint       none              relative   0.471531      -1.000000E+10   1.000000E+10
+
+Name         Group          Scale         Offset        Model command number
+blamdur_hrs  blamdur_hrs   1.00000        0.00000            1
+blampdi      blampdi       1.00000        0.00000            1
+blamin15     blamin15      1.00000        0.00000            1
+blamin60     blamin60      1.00000        0.00000            1
+blamei       blamei        1.00000        0.00000            1
+blamdryd     blamdryd      1.00000        0.00000            1
+blamlnevvol  blamlnevvol   1.00000        0.00000            1
+blampeakcfs  blampeakcfs   1.00000        0.00000            1
+blamsint     blamsint      1.00000        0.00000            1
+bkdur_hrs    bkdur_hrs     1.00000        0.00000            1
+bkpdi        bkpdi         1.00000        0.00000            1
+bkin15       bkin15        1.00000        0.00000            1
+bkin60       bkin60        1.00000        0.00000            1
+bkei         bkei          1.00000        0.00000            1
+bkdryd       bkdryd        1.00000        0.00000            1
+bklnevvol    bklnevvol     1.00000        0.00000            1
+bkpeakcfs    bkpeakcfs     1.00000        0.00000            1
+bksint       bksint        1.00000        0.00000            1
+
+
+Prior information:-
+
+   No prior information supplied
+
+
+Observations:-
+
+Observation name        Observation       Weight       Group
+ ewa-12_l                2.20561          2.959       lamgroup    
+ ewa-13_l                1.33386          2.959       lamgroup    
+ ewa-14_l                1.67370          2.959       lamgroup    
+ ewa-15_l                1.80801          2.959       lamgroup    
+ ewa-16_l                1.75227          2.959       lamgroup    
+ ewa-17_l                1.91322          2.959       lamgroup    
+ ewa-18_l                1.84976          2.959       lamgroup    
+ ewa-20_l                2.53084          2.959       lamgroup    
+ ewa-21_l                2.26343          2.959       lamgroup    
+ ewa-22_l                2.19458          2.959       lamgroup    
+ ewa-23_l                2.45675          2.959       lamgroup    
+ ewa-25_l                1.74948          2.959       lamgroup    
+ ewa-26_l                2.26034          2.959       lamgroup    
+ ewa-28_l                2.40144          2.959       lamgroup    
+ ewa-12_k              -0.257754          7.336       kgroup      
+ ewa-13_k               7.034800E-02      7.336       kgroup      
+ ewa-14_k              -0.113487          7.336       kgroup      
+ ewa-15_k              -0.496700          7.336       kgroup      
+ ewa-16_k              -0.271646          7.336       kgroup      
+ ewa-17_k              -0.334888          7.336       kgroup      
+ ewa-18_k              -0.170085          7.336       kgroup      
+ ewa-20_k              -0.107521          7.336       kgroup      
+ ewa-21_k              -0.319003          7.336       kgroup      
+ ewa-22_k              -0.272743          7.336       kgroup      
+ ewa-23_k              -0.380395          7.336       kgroup      
+ ewa-25_k              -0.243493          7.336       kgroup      
+ ewa-26_k              -0.384534          7.336       kgroup      
+ ewa-28_k              -0.311438          7.336       kgroup      
+
+
+Control settings:-
+
+   Initial lambda                                               :  2.5000    
+   Lambda adjustment factor                                     : iteration-dependent
+   Value of variable governing adjustment                       : -3.0000    
+   Sufficient new/old phi ratio per optimisation iteration      : 0.30000    
+   Limiting relative phi reduction between lambdas              : 3.00000E-02
+   Maximum trial lambdas per iteration                          :  10
+   Forgive model run failure during lamda testing               : no
+
+   Perform Broyden's update of Jacobian matrix                  : no
+
+   Maximum  factor  parameter change (factor-limited changes)   : na
+   Maximum relative parameter change (relative-limited changes) :  3.0000
+   Fraction of initial parameter values used in computing
+   change limit for near-zero parameters                        : 1.00000E-03
+   Allow bending of parameter upgrade vector                    : no
+   Allow parameters to stick to their bounds                    : no
+
+   Relative phi reduction below which to begin use of
+   central derivatives                                          : 0.10000             
+   Iteration at which to first consider derivatives switch      :   1
+
+   Relative phi reduction indicating convergence                : 0.10000E-01
+   Number of phi values required within this range              :   3
+   Maximum number of consecutive failures to lower phi          :   3
+   Minimal relative parameter change indicating convergence     : 0.10000E-01
+   Number of consecutive iterations with minimal param change   :   3
+   Maximum number of optimisation iterations                    :  30
+
+   Attempt automatic user intervention                          : no
+
+   Attempt reuse of parameter sensitivities                     : no
+
+
+File saving options: -
+
+   Save best JCO file                                           : yes
+   Save multiple JCO files                                      : no
+   Save multiple REI files                                      : no
+   Save multiple PAR files                                      : no
+
+
+                            OPTIMISATION RECORD
+
+
+INITIAL CONDITIONS: 
+   Sum of squared weighted residuals (ie phi)               =   1691.0    
+   Contribution to phi from observation group "lamgroup"    =   120.37    
+   Contribution to phi from observation group "kgroup"      =   1570.7    
+
+      Current parameter values
+      blamdur_hrs     0.764595    
+      blampdi         0.203919    
+      blamin15        0.646415    
+      blamin60        0.877707    
+      blamei          0.292705    
+      blamdryd        0.310641    
+      blamlnevvol     0.464939    
+      blampeakcfs     0.329695    
+      blamsint        0.968177    
+      bkdur_hrs       0.513878    
+      bkpdi           0.329149    
+      bkin15          0.256789    
+      bkin60          0.722590    
+      bkei            0.671421    
+      bkdryd          6.094600E-02
+      bklnevvol       0.892202    
+      bkpeakcfs       0.154827    
+      bksint          0.471531    
+
+
+OPTIMISATION ITERATION NO.        : 1
+   Model calls so far             : 1
+   Starting phi for this iteration                          :   1691.0    
+   Contribution to phi from observation group "lamgroup"    :   120.37    
+   Contribution to phi from observation group "kgroup"      :   1570.7    
+
+       Lambda =   2.5000     ----->
+          Phi =   15764.      (  9.322 times starting phi)
+
+       Lambda =   1.2500     ----->
+          Phi =   843.32      (  0.499 of starting phi)
+
+       Lambda =  0.62500     ----->
+          Phi =   1249.2      (  0.739 of starting phi)
+
+   No more lambdas: phi rising
+   Lowest phi this iteration:   843.32    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     0.644760                 blamdur_hrs      0.764595    
+      blampdi         0.815676                 blampdi          0.203919    
+      blamin15        0.733164                 blamin15         0.646415    
+      blamin60        0.955154                 blamin60         0.877707    
+      blamei          0.508935                 blamei           0.292705    
+      blamdryd        0.304362                 blamdryd         0.310641    
+      blamlnevvol     0.881375                 blamlnevvol      0.464939    
+      blampeakcfs     0.372798                 blampeakcfs      0.329695    
+      blamsint         1.27014                 blamsint         0.968177    
+      bkdur_hrs       0.372983                 bkdur_hrs        0.513878    
+      bkpdi           0.119916                 bkpdi            0.329149    
+      bkin15          0.463742                 bkin15           0.256789    
+      bkin60          0.829916                 bkin60           0.722590    
+      bkei            1.771651E-02             bkei             0.671421    
+      bkdryd          0.144198                 bkdryd           6.094600E-02
+      bklnevvol       0.277988                 bklnevvol        0.892202    
+      bkpeakcfs       3.059926E-02             bkpeakcfs        0.154827    
+      bksint          0.324280                 bksint           0.471531    
+   Maximum relative change:  3.000     ["blampdi"]
+
+
+OPTIMISATION ITERATION NO.        : 2
+   Model calls so far             : 22
+   Starting phi for this iteration                          :   843.32    
+   Contribution to phi from observation group "lamgroup"    :   87.127    
+   Contribution to phi from observation group "kgroup"      :   756.19    
+
+       Lambda =  0.62500     ----->
+          Phi =   504.36      (  0.598 of starting phi)
+
+       Lambda =  0.31250     ----->
+          Phi =   511.30      (  0.606 of starting phi)
+
+       Lambda =   1.2500     ----->
+          Phi =   501.23      (  0.594 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   501.23    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     0.398405                 blamdur_hrs      0.644760    
+      blampdi          1.66220                 blampdi          0.815676    
+      blamin15        0.862498                 blamin15         0.733164    
+      blamin60         1.06970                 blamin60         0.955154    
+      blamei          0.793581                 blamei           0.508935    
+      blamdryd        0.251843                 blamdryd         0.304362    
+      blamlnevvol      1.42269                 blamlnevvol      0.881375    
+      blampeakcfs     0.397065                 blampeakcfs      0.372798    
+      blamsint         1.63630                 blamsint          1.27014    
+      bkdur_hrs       0.267801                 bkdur_hrs        0.372983    
+      bkpdi          -0.110888                 bkpdi            0.119916    
+      bkin15          0.326701                 bkin15           0.463742    
+      bkin60          0.986721                 bkin60           0.829916    
+      bkei           -3.543301E-02             bkei             1.771651E-02
+      bkdryd          0.120821                 bkdryd           0.144198    
+      bklnevvol       0.120178                 bklnevvol        0.277988    
+      bkpeakcfs       4.146592E-02             bkpeakcfs        3.059926E-02
+      bksint          0.107430                 bksint           0.324280    
+   Maximum relative change:  3.000     ["bkei"]
+
+
+OPTIMISATION ITERATION NO.        : 3
+   Model calls so far             : 43
+   Starting phi for this iteration                          :   501.23    
+   Contribution to phi from observation group "lamgroup"    :   63.219    
+   Contribution to phi from observation group "kgroup"      :   438.01    
+
+       Lambda =   1.2500     ----->
+          Phi =   15772.      ( 31.467 times starting phi)
+
+       Lambda =  0.62500     ----->
+          Phi =   3570.9      (  7.124 times starting phi)
+
+       Lambda =  0.31250     ----->
+          Phi =   112.49      (  0.224 of starting phi)
+
+   No more lambdas: phi is less than 0.3000 of starting phi
+   Lowest phi this iteration:   112.49    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs    -0.286596                 blamdur_hrs      0.398405    
+      blampdi          6.64881                 blampdi           1.66220    
+      blamin15         1.89719                 blamin15         0.862498    
+      blamin60         1.93427                 blamin60          1.06970    
+      blamei           1.26486                 blamei           0.793581    
+      blamdryd        8.861268E-02             blamdryd         0.251843    
+      blamlnevvol      2.51891                 blamlnevvol       1.42269    
+      blampeakcfs     0.360575                 blampeakcfs      0.397065    
+      blamsint         3.24618                 blamsint          1.63630    
+      bkdur_hrs       0.147641                 bkdur_hrs        0.267801    
+      bkpdi          -0.294376                 bkpdi           -0.110888    
+      bkin15         -0.133988                 bkin15           0.326701    
+      bkin60           1.55141                 bkin60           0.986721    
+      bkei           -5.124959E-02             bkei            -3.543301E-02
+      bkdryd          7.908975E-02             bkdryd           0.120821    
+      bklnevvol       3.288103E-03             bklnevvol        0.120178    
+      bkpeakcfs       3.990107E-02             bkpeakcfs        4.146592E-02
+      bksint         -5.106211E-02             bksint           0.107430    
+   Maximum relative change:  3.000     ["blampdi"]
+
+
+OPTIMISATION ITERATION NO.        : 4
+   Model calls so far             : 64
+   Starting phi for this iteration                          :   112.49    
+   Contribution to phi from observation group "lamgroup"    :   33.955    
+   Contribution to phi from observation group "kgroup"      :   78.537    
+
+       Lambda =  0.15625     ----->
+          Phi =   35.111      (  0.312 of starting phi)
+
+       Lambda =  7.81250E-02 ----->
+          Phi =   25.423      (  0.226 of starting phi)
+
+   No more lambdas: phi is less than 0.3000 of starting phi
+   Lowest phi this iteration:   25.423    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     -1.14638                 blamdur_hrs     -0.286596    
+      blampdi          21.0187                 blampdi           6.64881    
+      blamin15         7.51180                 blamin15          1.89719    
+      blamin60         7.18604                 blamin60          1.93427    
+      blamei           1.35908                 blamei            1.26486    
+      blamdryd       -0.156818                 blamdryd         8.861268E-02
+      blamlnevvol      3.48375                 blamlnevvol       2.51891    
+      blampeakcfs     0.333385                 blampeakcfs      0.360575    
+      blamsint         7.03328                 blamsint          3.24618    
+      bkdur_hrs       9.372528E-02             bkdur_hrs        0.147641    
+      bkpdi          -0.202731                 bkpdi           -0.294376    
+      bkin15         -0.111657                 bkin15          -0.133988    
+      bkin60           1.05553                 bkin60            1.55141    
+      bkei           -3.270953E-02             bkei            -5.124959E-02
+      bkdryd          5.387047E-02             bkdryd           7.908975E-02
+      bklnevvol      -3.967777E-03             bklnevvol        3.288103E-03
+      bkpeakcfs       2.804362E-02             bkpeakcfs        3.990107E-02
+      bksint         -5.905167E-02             bksint          -5.106211E-02
+   Maximum relative change:  3.000     ["blamdur_hrs"]
+
+
+OPTIMISATION ITERATION NO.        : 5
+   Model calls so far             : 84
+   Starting phi for this iteration                          :   25.423    
+   Contribution to phi from observation group "lamgroup"    :   13.720    
+   Contribution to phi from observation group "kgroup"      :   11.703    
+
+       Lambda =  3.90625E-02 ----->
+          Phi =   5.4486      (  0.214 of starting phi)
+
+   No more lambdas: phi is less than 0.3000 of starting phi
+   Lowest phi this iteration:   5.4486    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     -1.68177                 blamdur_hrs      -1.14638    
+      blampdi          51.8670                 blampdi           21.0187    
+      blamin15         22.5116                 blamin15          7.51180    
+      blamin60         28.7442                 blamin60          7.18604    
+      blamei          0.271644                 blamei            1.35908    
+      blamdryd       -0.513630                 blamdryd        -0.156818    
+      blamlnevvol      3.47268                 blamlnevvol       3.48375    
+      blampeakcfs     0.450861                 blampeakcfs      0.333385    
+      blamsint         14.6148                 blamsint          7.03328    
+      bkdur_hrs       7.325123E-02             bkdur_hrs        9.372528E-02
+      bkpdi          -0.161240                 bkpdi           -0.202731    
+      bkin15         -9.209349E-02             bkin15          -0.111657    
+      bkin60          0.842536                 bkin60            1.05553    
+      bkei           -2.581828E-02             bkei            -3.270953E-02
+      bkdryd          4.323929E-02             bkdryd           5.387047E-02
+      bklnevvol      -4.788344E-03             bklnevvol       -3.967777E-03
+      bkpeakcfs       2.264564E-02             bkpeakcfs        2.804362E-02
+      bksint         -5.410447E-02             bksint          -5.905167E-02
+   Maximum relative change:  3.000     ["blamin60"]
+
+
+OPTIMISATION ITERATION NO.        : 6
+   Model calls so far             : 103
+   Starting phi for this iteration                          :   5.4486    
+   Contribution to phi from observation group "lamgroup"    :   3.4068    
+   Contribution to phi from observation group "kgroup"      :   2.0418    
+
+       Lambda =  1.32540E-02 ----->
+          Phi =   4.7477      (  0.871 of starting phi)
+
+       Lambda =  3.13662E-03 ----->
+          Phi =   4.9039      (  0.900 of starting phi)
+
+       Lambda =  5.60056E-02 ----->
+          Phi =   4.4187      (  0.811 of starting phi)
+
+       Lambda =  0.23665     ----->
+          Phi =   4.0092      (  0.736 of starting phi)
+
+       Lambda =   1.0000     ----->
+          Phi =   4.2605      (  0.782 of starting phi)
+
+   No more lambdas: phi rising
+   Lowest phi this iteration:   4.0092    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     -2.18965                 blamdur_hrs      -1.68177    
+      blampdi          72.0168                 blampdi           51.8670    
+      blamin15         30.7159                 blamin15          22.5116    
+      blamin60         37.7041                 blamin60          28.7442    
+      blamei          0.131076                 blamei           0.271644    
+      blamdryd       -0.993035                 blamdryd        -0.513630    
+      blamlnevvol      3.90519                 blamlnevvol       3.47268    
+      blampeakcfs     0.481412                 blampeakcfs      0.450861    
+      blamsint         19.3731                 blamsint          14.6148    
+      bkdur_hrs       7.228405E-02             bkdur_hrs        7.325123E-02
+      bkpdi          -0.158998                 bkpdi           -0.161240    
+      bkin15         -9.083363E-02             bkin15          -9.209349E-02
+      bkin60          0.832881                 bkin60           0.842536    
+      bkei           -2.552232E-02             bkei            -2.581828E-02
+      bkdryd          4.270309E-02             bkdryd           4.323929E-02
+      bklnevvol      -4.797418E-03             bklnevvol       -4.788344E-03
+      bkpeakcfs       2.237232E-02             bkpeakcfs        2.264564E-02
+      bksint         -5.372399E-02             bksint          -5.410447E-02
+   Maximum relative change: 0.9334     ["blamdryd"]
+
+
+OPTIMISATION ITERATION NO.        : 7
+   Model calls so far             : 126
+   Starting phi for this iteration                          :   4.0092    
+   Contribution to phi from observation group "lamgroup"    :   1.9867    
+   Contribution to phi from observation group "kgroup"      :   2.0224    
+
+       Lambda =  0.23665     ----->
+          Phi =   3.9803      (  0.993 of starting phi)
+
+       Lambda =  0.11833     ----->
+          Phi =   3.9829      (  0.993 of starting phi)
+
+       Lambda =  0.47331     ----->
+          Phi =   3.9753      (  0.992 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.9753    
+   Relative phi reduction between optimisation iterations less than 0.1000
+   Switch to central derivatives calculation
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     -1.91285                 blamdur_hrs      -2.18965    
+      blampdi          76.8200                 blampdi           72.0168    
+      blamin15         32.7437                 blamin15          30.7159    
+      blamin60         40.4765                 blamin60          37.7041    
+      blamei         -0.262153                 blamei           0.131076    
+      blamdryd       -0.934391                 blamdryd        -0.993035    
+      blamlnevvol      3.40939                 blamlnevvol       3.90519    
+      blampeakcfs     0.395506                 blampeakcfs      0.481412    
+      blamsint         20.2693                 blamsint          19.3731    
+      bkdur_hrs       7.232492E-02             bkdur_hrs        7.228405E-02
+      bkpdi          -0.159114                 bkpdi           -0.158998    
+      bkin15         -9.095211E-02             bkin15          -9.083363E-02
+      bkin60          0.833421                 bkin60           0.832881    
+      bkei           -2.553340E-02             bkei            -2.552232E-02
+      bkdryd          4.272598E-02             bkdryd           4.270309E-02
+      bklnevvol      -4.797558E-03             bklnevvol       -4.797418E-03
+      bkpeakcfs       2.238433E-02             bkpeakcfs        2.237232E-02
+      bksint         -5.374533E-02             bksint          -5.372399E-02
+   Maximum relative change:  3.000     ["blamei"]
+
+
+OPTIMISATION ITERATION NO.        : 8
+   Model calls so far             : 147
+   Starting phi for this iteration                          :   3.9753    
+   Contribution to phi from observation group "lamgroup"    :   1.9530    
+   Contribution to phi from observation group "kgroup"      :   2.0223    
+
+       Lambda =  0.47331     ----->
+          Phi =   3.9393      (  0.991 of starting phi)
+
+       Lambda =  0.23665     ----->
+          Phi =   3.9402      (  0.991 of starting phi)
+
+       Lambda =  0.94662     ----->
+          Phi =   3.9384      (  0.991 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.9384    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     -1.43904                 blamdur_hrs      -1.91285    
+      blampdi          85.1269                 blampdi           76.8200    
+      blamin15         36.1181                 blamin15          32.7437    
+      blamin60         45.4189                 blamin60          40.4765    
+      blamei          -1.04861                 blamei          -0.262153    
+      blamdryd       -0.836830                 blamdryd        -0.934391    
+      blamlnevvol      2.55777                 blamlnevvol       3.40939    
+      blampeakcfs     0.253519                 blampeakcfs      0.395506    
+      blamsint         21.6859                 blamsint          20.2693    
+      bkdur_hrs       7.233287E-02             bkdur_hrs        7.232492E-02
+      bkpdi          -0.159418                 bkpdi           -0.159114    
+      bkin15         -9.309516E-02             bkin15          -9.095211E-02
+      bkin60          0.839750                 bkin60           0.833421    
+      bkei           -2.561267E-02             bkei            -2.553340E-02
+      bkdryd          4.276821E-02             bkdryd           4.272598E-02
+      bklnevvol      -4.844907E-03             bklnevvol       -4.797558E-03
+      bkpeakcfs       2.240167E-02             bkpeakcfs        2.238433E-02
+      bksint         -5.398753E-02             bksint          -5.374533E-02
+   Maximum relative change:  3.000     ["blamei"]
+
+
+OPTIMISATION ITERATION NO.        : 9
+   Model calls so far             : 186
+   Starting phi for this iteration                          :   3.9384    
+   Contribution to phi from observation group "lamgroup"    :   1.9160    
+   Contribution to phi from observation group "kgroup"      :   2.0224    
+
+       Lambda =  0.94662     ----->
+          Phi =   3.9191      (  0.995 of starting phi)
+
+       Lambda =  0.47331     ----->
+          Phi =   3.9082      (  0.992 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.9082    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs    -0.356212                 blamdur_hrs      -1.43904    
+      blampdi          95.6946                 blampdi           85.1269    
+      blamin15         41.8810                 blamin15          36.1181    
+      blamin60         57.5562                 blamin60          45.4189    
+      blamei          -2.87227                 blamei           -1.04861    
+      blamdryd       -0.360056                 blamdryd        -0.836830    
+      blamlnevvol     0.533583                 blamlnevvol       2.55777    
+      blampeakcfs     0.520629                 blampeakcfs      0.253519    
+      blamsint         23.4966                 blamsint          21.6859    
+      bkdur_hrs       7.234041E-02             bkdur_hrs        7.233287E-02
+      bkpdi          -0.158885                 bkpdi           -0.159418    
+      bkin15         -8.927028E-02             bkin15          -9.309516E-02
+      bkin60          0.828632                 bkin60           0.839750    
+      bkei           -2.547887E-02             bkei            -2.561267E-02
+      bkdryd          4.270245E-02             bkdryd           4.276821E-02
+      bklnevvol      -4.790030E-03             bklnevvol       -4.844907E-03
+      bkpeakcfs       2.238064E-02             bkpeakcfs        2.240167E-02
+      bksint         -5.366119E-02             bksint          -5.398753E-02
+   Maximum relative change:  1.739     ["blamei"]
+
+
+OPTIMISATION ITERATION NO.        : 10
+   Model calls so far             : 224
+   Starting phi for this iteration                          :   3.9082    
+   Contribution to phi from observation group "lamgroup"    :   1.8857    
+   Contribution to phi from observation group "kgroup"      :   2.0225    
+
+       Lambda =  0.23665     ----->
+          Phi =   3.8933      (  0.996 of starting phi)
+
+       Lambda =  0.11833     ----->
+          Phi =   3.8810      (  0.993 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.8810    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs    -0.405123                 blamdur_hrs     -0.356212    
+      blampdi          95.6896                 blampdi           95.6946    
+      blamin15         40.4723                 blamin15          41.8810    
+      blamin60         84.5930                 blamin60          57.5562    
+      blamei          -3.48148                 blamei           -2.87227    
+      blamdryd       -0.760526                 blamdryd        -0.360056    
+      blamlnevvol     0.675084                 blamlnevvol      0.533583    
+      blampeakcfs     0.146506                 blampeakcfs      0.520629    
+      blamsint         25.4783                 blamsint          23.4966    
+      bkdur_hrs       7.229606E-02             bkdur_hrs        7.234041E-02
+      bkpdi          -0.159710                 bkpdi           -0.158885    
+      bkin15         -9.551562E-02             bkin15          -8.927028E-02
+      bkin60          0.846462                 bkin60           0.828632    
+      bkei           -2.568473E-02             bkei            -2.547887E-02
+      bkdryd          4.279746E-02             bkdryd           4.270245E-02
+      bklnevvol      -4.841565E-03             bklnevvol       -4.790030E-03
+      bkpeakcfs       2.240008E-02             bkpeakcfs        2.238064E-02
+      bksint         -5.406267E-02             bksint          -5.366119E-02
+   Maximum relative change:  1.112     ["blamdryd"]
+
+
+OPTIMISATION ITERATION NO.        : 11
+   Model calls so far             : 262
+   Starting phi for this iteration                          :   3.8810    
+   Contribution to phi from observation group "lamgroup"    :   1.8583    
+   Contribution to phi from observation group "kgroup"      :   2.0226    
+
+       Lambda =  5.91637E-02 ----->
+          Phi =   3.8395      (  0.989 of starting phi)
+
+       Lambda =  2.30537E-02 ----->
+          Phi =   3.7960      (  0.978 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.7960    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     0.262189                 blamdur_hrs     -0.405123    
+      blampdi          91.2625                 blampdi           95.6896    
+      blamin15         11.4294                 blamin15          40.4723    
+      blamin60         163.636                 blamin60          84.5930    
+      blamei          -4.47678                 blamei           -3.48148    
+      blamdryd       -0.594101                 blamdryd        -0.760526    
+      blamlnevvol    -0.468951                 blamlnevvol      0.675084    
+      blampeakcfs     0.586022                 blampeakcfs      0.146506    
+      blamsint         26.5059                 blamsint          25.4783    
+      bkdur_hrs       7.238290E-02             bkdur_hrs        7.229606E-02
+      bkpdi          -0.158948                 bkpdi           -0.159710    
+      bkin15         -8.909833E-02             bkin15          -9.551562E-02
+      bkin60          0.828609                 bkin60           0.846462    
+      bkei           -2.549035E-02             bkei            -2.568473E-02
+      bkdryd          4.271397E-02             bkdryd           4.279746E-02
+      bklnevvol      -4.832730E-03             bklnevvol       -4.841565E-03
+      bkpeakcfs       2.239951E-02             bkpeakcfs        2.240008E-02
+      bksint         -5.379939E-02             bksint          -5.406267E-02
+   Maximum relative change:  3.000     ["blampeakcfs"]
+
+
+OPTIMISATION ITERATION NO.        : 12
+   Model calls so far             : 300
+   Starting phi for this iteration                          :   3.7960    
+   Contribution to phi from observation group "lamgroup"    :   1.7735    
+   Contribution to phi from observation group "kgroup"      :   2.0225    
+
+       Lambda =  8.98309E-03 ----->
+          Phi =   3.7137      (  0.978 of starting phi)
+
+       Lambda =  1.86739E-03 ----->
+          Phi =   3.7158      (  0.979 of starting phi)
+
+       Lambda =  4.32133E-02 ----->
+          Phi =   3.7604      (  0.991 of starting phi)
+
+   No more lambdas: phi rising
+   Lowest phi this iteration:   3.7137    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs     0.684938                 blamdur_hrs      0.262189    
+      blampdi          87.1196                 blampdi           91.2625    
+      blamin15        -22.8588                 blamin15          11.4294    
+      blamin60         279.076                 blamin60          163.636    
+      blamei          -5.93325                 blamei           -4.47678    
+      blamdryd        -1.05210                 blamdryd        -0.594101    
+      blamlnevvol    -0.993770                 blamlnevvol     -0.468951    
+      blampeakcfs     0.248822                 blampeakcfs      0.586022    
+      blamsint         30.5535                 blamsint          26.5059    
+      bkdur_hrs       7.228245E-02             bkdur_hrs        7.238290E-02
+      bkpdi          -0.159369                 bkpdi           -0.158948    
+      bkin15         -9.357323E-02             bkin15          -8.909833E-02
+      bkin60          0.840555                 bkin60           0.828609    
+      bkei           -2.560841E-02             bkei            -2.549035E-02
+      bkdryd          4.276038E-02             bkdryd           4.271397E-02
+      bklnevvol      -4.800882E-03             bklnevvol       -4.832730E-03
+      bkpeakcfs       2.238095E-02             bkpeakcfs        2.239951E-02
+      bksint         -5.385759E-02             bksint          -5.379939E-02
+   Maximum relative change:  3.000     ["blamin15"]
+
+
+OPTIMISATION ITERATION NO.        : 13
+   Model calls so far             : 339
+   Starting phi for this iteration                          :   3.7137    
+   Contribution to phi from observation group "lamgroup"    :   1.6913    
+   Contribution to phi from observation group "kgroup"      :   2.0224    
+
+       Lambda =  8.98309E-03 ----->
+          Phi =   3.6796      (  0.991 of starting phi)
+
+       Lambda =  1.86739E-03 ----->
+          Phi =   3.6737      (  0.989 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.6737    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs      1.62598                 blamdur_hrs      0.684938    
+      blampdi          82.5489                 blampdi           87.1196    
+      blamin15        -68.5539                 blamin15         -22.8588    
+      blamin60         422.849                 blamin60          279.076    
+      blamei          -7.87354                 blamei           -5.93325    
+      blamdryd        -1.22386                 blamdryd         -1.05210    
+      blamlnevvol     -2.51779                 blamlnevvol     -0.993770    
+      blampeakcfs     0.429264                 blampeakcfs      0.248822    
+      blamsint         34.2977                 blamsint          30.5535    
+      bkdur_hrs       7.236719E-02             bkdur_hrs        7.228245E-02
+      bkpdi          -0.159225                 bkpdi           -0.159369    
+      bkin15         -9.101621E-02             bkin15          -9.357323E-02
+      bkin60          0.834114                 bkin60           0.840555    
+      bkei           -2.555370E-02             bkei            -2.560841E-02
+      bkdryd          4.274052E-02             bkdryd           4.276038E-02
+      bklnevvol      -4.841886E-03             bklnevvol       -4.800882E-03
+      bkpeakcfs       2.240475E-02             bkpeakcfs        2.238095E-02
+      bksint         -5.389747E-02             bksint          -5.385759E-02
+   Maximum relative change:  1.999     ["blamin15"]
+
+
+OPTIMISATION ITERATION NO.        : 14
+   Model calls so far             : 377
+   Starting phi for this iteration                          :   3.6737    
+   Contribution to phi from observation group "lamgroup"    :   1.6514    
+   Contribution to phi from observation group "kgroup"      :   2.0223    
+
+       Lambda =  3.88189E-04 ----->
+          Phi =   3.6716      (  0.999 of starting phi)
+
+       Lambda =  2.83177E-05 ----->
+          Phi =   3.6716      (  0.999 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.6716    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs      1.75745                 blamdur_hrs       1.62598    
+      blampdi          85.1958                 blampdi           82.5489    
+      blamin15        -68.6830                 blamin15         -68.5539    
+      blamin60         426.870                 blamin60          422.849    
+      blamei          -8.09697                 blamei           -7.87354    
+      blamdryd        -1.22054                 blamdryd         -1.22386    
+      blamlnevvol     -2.75392                 blamlnevvol      -2.51779    
+      blampeakcfs     0.265243                 blampeakcfs      0.429264    
+      blamsint         34.5573                 blamsint          34.2977    
+      bkdur_hrs       7.232583E-02             bkdur_hrs        7.236719E-02
+      bkpdi          -0.159232                 bkpdi           -0.159225    
+      bkin15         -9.194385E-02             bkin15          -9.101621E-02
+      bkin60          0.836286                 bkin60           0.834114    
+      bkei           -2.556834E-02             bkei            -2.555370E-02
+      bkdryd          4.274572E-02             bkdryd           4.274052E-02
+      bklnevvol      -4.819311E-03             bklnevvol       -4.841886E-03
+      bkpeakcfs       2.239090E-02             bkpeakcfs        2.240475E-02
+      bksint         -5.385847E-02             bksint          -5.389747E-02
+   Maximum relative change: 0.3821     ["blampeakcfs"]
+
+
+OPTIMISATION ITERATION NO.        : 15
+   Model calls so far             : 415
+   Starting phi for this iteration                          :   3.6716    
+   Contribution to phi from observation group "lamgroup"    :   1.6493    
+   Contribution to phi from observation group "kgroup"      :   2.0223    
+
+       Lambda =  2.06572E-06 ----->
+          Phi =   3.6714      (  1.000 of starting phi)
+
+       Lambda =  2.63085E-08 ----->
+          Phi =   3.6714      (  1.000 of starting phi)
+
+       Lambda =  1.62199E-04 ----->
+          Phi =   3.6714      (  1.000 of starting phi)
+
+   No more lambdas: relative phi reduction between lambdas less than 0.0300
+   Lowest phi this iteration:   3.6714    
+
+      Current parameter values                 Previous parameter values
+      blamdur_hrs      1.78806                 blamdur_hrs       1.75745    
+      blampdi          85.2851                 blampdi           85.1958    
+      blamin15        -71.1954                 blamin15         -68.6830    
+      blamin60         432.783                 blamin60          426.870    
+      blamei          -8.14145                 blamei           -8.09697    
+      blamdryd        -1.22719                 blamdryd         -1.22054    
+      blamlnevvol     -2.79647                 blamlnevvol      -2.75392    
+      blampeakcfs     0.261875                 blampeakcfs      0.265243    
+      blamsint         34.6926                 blamsint          34.5573    
+      bkdur_hrs       7.233188E-02             bkdur_hrs        7.232583E-02
+      bkpdi          -0.159250                 bkpdi           -0.159232    
+      bkin15         -9.189297E-02             bkin15          -9.194385E-02
+      bkin60          0.836230                 bkin60           0.836286    
+      bkei           -2.556947E-02             bkei            -2.556834E-02
+      bkdryd          4.274595E-02             bkdryd           4.274572E-02
+      bklnevvol      -4.822964E-03             bklnevvol       -4.819311E-03
+      bkpeakcfs       2.239355E-02             bkpeakcfs        2.239090E-02
+      bksint         -5.386843E-02             bksint          -5.385847E-02
+   Maximum relative change: 3.6579E-02 ["blamin15"]
+
+   Optimisation complete: the  3 lowest phi's are within a relative distance
+                          of eachother of 1.000E-02
+   Total model calls:    454
+
+   The model has been run one final time using best parameters. 
+   Thus all model input files contain best parameter values, and model 
+   output files contain model results based on these parameters.
+
+
+                            OPTIMISATION RESULTS
+
+
+Parameters ----->
+
+Parameter        Estimated         95% percent confidence limits
+                 value             lower limit       upper limit
+ blamdur_hrs     1.78806           -12.1013           15.6774    
+ blampdi         85.2851           -56.9057           227.476    
+ blamin15       -71.1954           -438.577           296.186    
+ blamin60        432.783           -637.983           1503.55    
+ blamei         -8.14145           -30.5277           14.2448    
+ blamdryd       -1.22719           -9.61198           7.15760    
+ blamlnevvol    -2.79647           -25.2690           19.6761    
+ blampeakcfs    0.261875           -12.2377           12.7614    
+ blamsint        34.6926           -33.2815           102.667    
+ bkdur_hrs      7.233188E-02       2.085973E-02      0.123804    
+ bkpdi         -0.159250          -0.442654          0.124153    
+ bkin15        -9.189297E-02      -0.748209          0.564423    
+ bkin60         0.836230          -0.857493           2.52995    
+ bkei          -2.556947E-02      -5.265660E-02      1.517653E-03
+ bkdryd         4.274595E-02       1.908666E-02      6.640525E-02
+ bklnevvol     -4.822964E-03      -5.789001E-02      4.824408E-02
+ bkpeakcfs      2.239355E-02       3.468415E-04      4.444026E-02
+ bksint        -5.386843E-02      -0.207227          9.949001E-02
+
+Note: confidence limits provide only an indication of parameter uncertainty.
+      They rely on a linearity assumption which  may not extend as far in 
+      parameter space as the confidence limits themselves - see PEST manual.
+
+See file arterialdisa3.sen for parameter sensitivities.
+
+
+Observations ----->
+
+Observation            Measured       Calculated     Residual       Weight     Group
+                       value          value
+ewa-12_l               2.20561        2.02517       0.180436        2.959      lamgroup    
+ewa-13_l               1.33386        1.32315       1.070680E-02    2.959      lamgroup    
+ewa-14_l               1.67370        1.69028      -1.658126E-02    2.959      lamgroup    
+ewa-15_l               1.80801        1.84851      -4.049803E-02    2.959      lamgroup    
+ewa-16_l               1.75227        1.82236      -7.009056E-02    2.959      lamgroup    
+ewa-17_l               1.91322        2.18940      -0.276181        2.959      lamgroup    
+ewa-18_l               1.84976        1.71825       0.131511        2.959      lamgroup    
+ewa-20_l               2.53084        2.37252       0.158317        2.959      lamgroup    
+ewa-21_l               2.26343        2.31557      -5.213917E-02    2.959      lamgroup    
+ewa-22_l               2.19458        2.20186      -7.283730E-03    2.959      lamgroup    
+ewa-23_l               2.45675        2.39245       6.429918E-02    2.959      lamgroup    
+ewa-25_l               1.74948        1.88944      -0.139961        2.959      lamgroup    
+ewa-26_l               2.26034        2.26369      -3.354630E-03    2.959      lamgroup    
+ewa-28_l               2.40144        2.34040       6.103899E-02    2.959      lamgroup    
+ewa-12_k             -0.257754      -0.302909       4.515518E-02    7.336      kgroup      
+ewa-13_k              7.034800E-02   2.818507E-02   4.216293E-02    7.336      kgroup      
+ewa-14_k             -0.113487      -5.613064E-02  -5.735636E-02    7.336      kgroup      
+ewa-15_k             -0.496700      -0.468546      -2.815424E-02    7.336      kgroup      
+ewa-16_k             -0.271646      -0.251915      -1.973146E-02    7.336      kgroup      
+ewa-17_k             -0.334888      -0.256736      -7.815182E-02    7.336      kgroup      
+ewa-18_k             -0.170085      -0.283266       0.113181        7.336      kgroup      
+ewa-20_k             -0.107521      -0.168794       6.127285E-02    7.336      kgroup      
+ewa-21_k             -0.319003      -0.312226      -6.776701E-03    7.336      kgroup      
+ewa-22_k             -0.272743      -0.266973      -5.770476E-03    7.336      kgroup      
+ewa-23_k             -0.380395      -0.387987       7.592013E-03    7.336      kgroup      
+ewa-25_k             -0.243493      -0.181626      -6.186731E-02    7.336      kgroup      
+ewa-26_k             -0.384534      -0.414692       3.015778E-02    7.336      kgroup      
+ewa-28_k             -0.311438      -0.269725      -4.171349E-02    7.336      kgroup      
+
+See file arterialdisa3.res for more details of residuals in graph-ready format.
+
+See file arterialdisa3.seo for composite observation sensitivities.
+
+
+Objective function ----->
+
+  Sum of squared weighted residuals (ie phi)                =   3.671    
+  Contribution to phi from observation group "lamgroup"     =   1.649    
+  Contribution to phi from observation group "kgroup"       =   2.022    
+
+
+Correlation Coefficient ----->
+
+  Correlation coefficient                                   =  0.9960    
+
+
+Analysis of residuals ----->
+
+  All residuals:-
+     Number of residuals with non-zero weight                       =    28
+     Mean value of non-zero weighted residuals                      =  2.3129E-05
+     Maximum weighted residual [observation "ewa-18_k"]             =  0.8303    
+     Minimum weighted residual [observation "ewa-17_l"]             = -0.8172    
+     Standard variance of weighted residuals                        =  0.3671    
+     Standard error of weighted residuals                           =  0.6059    
+
+     Note: the above variance was obtained by dividing the objective 
+     function by the number of system degrees of freedom (ie. number of 
+     observations with non-zero weight plus number of prior information 
+     articles with non-zero weight minus the number of adjustable parameters.)
+     If the degrees of freedom is negative the divisor becomes 
+     the number of observations with non-zero weight plus the number of 
+     prior information items with non-zero weight.
+
+  Residuals for observation group "lamgroup":-
+     Number of residuals with non-zero weight                       =    14
+     Mean value of non-zero weighted residuals                      =  4.6382E-05
+     Maximum weighted residual [observation "ewa-12_l"]             =  0.5339    
+     Minimum weighted residual [observation "ewa-17_l"]             = -0.8172    
+     "Variance" of weighted residuals                               =  0.1178    
+     "Standard error" of weighted residuals                         =  0.3432    
+
+     Note: the above "variance" was obtained by dividing the sum of squared 
+     residuals by the number of items with non-zero weight.
+
+  Residuals for observation group "kgroup":-
+     Number of residuals with non-zero weight                       =    14
+     Mean value of non-zero weighted residuals                      = -1.2409E-07
+     Maximum weighted residual [observation "ewa-18_k"]             =  0.8303    
+     Minimum weighted residual [observation "ewa-17_k"]             = -0.5733    
+     "Variance" of weighted residuals                               =  0.1445    
+     "Standard error" of weighted residuals                         =  0.3801    
+
+     Note: the above "variance" was obtained by dividing the sum of squared 
+     residuals by the number of items with non-zero weight.
+
+
+K-L information statistics ----->
+
+
+  AIC   =  -18.88543    
+  AICC  =   76.11457    
+  BIC   =   6.426451    
+  KIC   =  -48.80349    
+
+Parameter covariance matrix ----->
+
+             blamdur_hrs    blampdi      blamin15     blamin60      blamei      blamdryd   blamlnevvol  blampeakcfs 
+               blamsint    bkdur_hrs      bkpdi        bkin15       bkin60        bkei        bkdryd     bklnevvol  
+              bkpeakcfs      bksint   
+
+blamdur_hrs     38.86        190.1       -279.4        1365.       -34.19        12.91       -57.57       -3.109    
+                122.3       1.3953E-18  -5.7381E-17  -3.0878E-16   6.4208E-16   4.8439E-19   1.8970E-18   2.3927E-19
+              -7.2703E-19  -1.0124E-18
+
+blampdi         190.1        4073.        2907.       -9376.       -57.12        153.3       -320.2       -6.027    
+                291.4      -1.2825E-16  -6.7474E-16  -2.4463E-15   3.2653E-15   7.6331E-17  -5.5307E-17   2.0839E-16
+              -5.3192E-17   1.5756E-16
+
+blamin15       -279.4        2907.       2.7190E+04  -6.7456E+04    396.2        83.20        222.0       -27.16    
+               -2661.      -8.8498E-18   1.1594E-16   1.2839E-15  -3.0486E-15   1.6042E-17  -4.0008E-17   6.1107E-17
+              -1.3923E-17   2.4602E-16
+
+blamin60        1365.       -9376.      -6.7456E+04   2.3097E+05   -3204.       -479.8       -1973.       -27.53    
+                8482.       3.6200E-16  -2.1558E-15  -1.5948E-14   3.9729E-14  -2.2901E-16   1.9122E-16  -4.6618E-16
+               4.7178E-17  -1.3414E-16
+
+blamei         -34.19       -57.12        396.2       -3204.        101.0        6.459        67.30       -4.232    
+               -114.4      -3.2483E-19   1.0122E-16   5.5980E-16  -1.2632E-15   2.5438E-18   9.0364E-19  -3.2383E-18
+               2.2348E-18  -2.0827E-17
+
+blamdryd        12.91        153.3        83.20       -479.8        6.459        14.16       -19.68        1.573    
+                13.95      -6.0415E-18  -2.1538E-17  -6.2269E-17   4.8178E-17   3.2024E-18  -1.5730E-18   7.8439E-18
+              -1.3623E-18  -1.1171E-18
+
+blamlnevvol    -57.57       -320.2        222.0       -1973.        67.30       -19.68        101.7       -7.026    
+               -111.8       2.3417E-18   1.3558E-16   6.4386E-16  -1.4010E-15   8.3344E-19  -1.6638E-19  -5.6114E-18
+               9.2670E-19  -4.3256E-18
+
+blampeakcfs    -3.109       -6.027       -27.16       -27.53       -4.232        1.573       -7.026        31.47    
+               -62.86      -1.1319E-17  -7.6581E-17  -1.6888E-16   4.7490E-16  -3.3111E-18  -3.6031E-18   7.7056E-18
+               3.7028E-18  -1.8862E-17
+
+blamsint        122.3        291.4       -2661.        8482.       -114.4        13.95       -111.8       -62.86    
+                930.8       1.7298E-17  -1.5846E-17  -5.1993E-16   7.9519E-16   9.1346E-18   1.4917E-17  -1.3601E-17
+              -7.7459E-18  -2.1460E-17
+
+bkdur_hrs      1.3953E-18  -1.2825E-16  -8.8498E-18   3.6200E-16  -3.2483E-19  -6.0415E-18   2.3417E-18  -1.1319E-17
+               1.7298E-17   5.3372E-04  -1.1075E-03  -4.1082E-04   5.5961E-03  -1.3956E-04   8.9255E-05  -3.8125E-04
+               1.6232E-04   7.7135E-05
+
+bkpdi         -5.7381E-17  -6.7474E-16   1.1594E-16  -2.1558E-15   1.0122E-16  -2.1538E-17   1.3558E-16  -7.6581E-17
+              -1.5846E-17  -1.1075E-03   1.6180E-02   1.5548E-02  -4.2931E-02  -2.5424E-05   6.6600E-05  -2.8392E-04
+              -5.6964E-04   9.2117E-04
+
+bkin15        -3.0878E-16  -2.4463E-15   1.2839E-15  -1.5948E-14   5.5980E-16  -6.2269E-17   6.4386E-16  -1.6888E-16
+              -5.1993E-16  -4.1082E-04   1.5548E-02   8.6775E-02  -0.2036       7.2387E-04   6.6563E-06   2.3084E-04
+               1.7855E-04  -9.3623E-04
+
+bkin60         6.4208E-16   3.2653E-15  -3.0486E-15   3.9729E-14  -1.2632E-15   4.8178E-17  -1.4010E-15   4.7490E-16
+               7.9519E-16   5.5961E-03  -4.2931E-02  -0.2036       0.5779      -5.1223E-03   1.0387E-03  -6.3033E-03
+               1.3106E-03  -8.3066E-04
+
+bkei           4.8439E-19   7.6331E-17   1.6042E-17  -2.2901E-16   2.5438E-18   3.2024E-18   8.3344E-19  -3.3111E-18
+               9.1346E-18  -1.3956E-04  -2.5424E-05   7.2387E-04  -5.1223E-03   1.4781E-04  -5.1465E-05   2.2181E-04
+              -5.4114E-05   1.5315E-04
+
+bkdryd         1.8970E-18  -5.5307E-17  -4.0008E-17   1.9122E-16   9.0364E-19  -1.5730E-18  -1.6638E-19  -3.6031E-18
+               1.4917E-17   8.9255E-05   6.6600E-05   6.6563E-06   1.0387E-03  -5.1465E-05   1.1276E-04  -1.7777E-04
+               6.1577E-05  -3.7454E-04
+
+bklnevvol      2.3927E-19   2.0839E-16   6.1107E-17  -4.6618E-16  -3.2383E-18   7.8439E-18  -5.6114E-18   7.7056E-18
+              -1.3601E-17  -3.8125E-04  -2.8392E-04   2.3084E-04  -6.3033E-03   2.2181E-04  -1.7777E-04   5.6731E-04
+              -1.5171E-04   5.2088E-04
+
+bkpeakcfs     -7.2703E-19  -5.3192E-17  -1.3923E-17   4.7178E-17   2.2348E-18  -1.3623E-18   9.2670E-19   3.7028E-18
+              -7.7459E-18   1.6232E-04  -5.6964E-04   1.7855E-04   1.3106E-03  -5.4114E-05   6.1577E-05  -1.5171E-04
+               9.7917E-05  -2.9464E-04
+
+bksint        -1.0124E-18   1.5756E-16   2.4602E-16  -1.3414E-16  -2.0827E-17  -1.1171E-18  -4.3256E-18  -1.8862E-17
+              -2.1460E-17   7.7135E-05   9.2117E-04  -9.3623E-04  -8.3066E-04   1.5315E-04  -3.7454E-04   5.2088E-04
+              -2.9464E-04   4.7379E-03
+
+
+
+Parameter correlation coefficient matrix ----->
+
+             blamdur_hrs    blampdi      blamin15     blamin60      blamei      blamdryd   blamlnevvol  blampeakcfs 
+               blamsint    bkdur_hrs      bkpdi        bkin15       bkin60        bkei        bkdryd     bklnevvol  
+              bkpeakcfs      bksint   
+
+blamdur_hrs     1.000       0.4778      -0.2718       0.4554      -0.5458       0.5505      -0.9155      -8.8901E-02
+               0.6430       9.6879E-18  -7.2363E-17  -1.6814E-16   1.3549E-16   6.3911E-18   2.8656E-17   1.6114E-18
+              -1.1786E-17  -2.3594E-18
+
+blampdi        0.4778        1.000       0.2762      -0.3057      -8.9071E-02   0.6384      -0.4974      -1.6832E-02
+               0.1496      -8.6983E-17  -8.3117E-17  -1.3012E-16   6.7304E-17   9.8378E-17  -8.1609E-17   1.3709E-16
+              -8.4229E-17   3.5867E-17
+
+blamin15      -0.2718       0.2762        1.000      -0.8512       0.2391       0.1341       0.1335      -2.9358E-02
+              -0.5290      -2.3231E-18   5.5278E-18   2.6432E-17  -2.4321E-17   8.0020E-18  -2.2849E-17   1.5559E-17
+              -8.5330E-18   2.1676E-17
+
+blamin60       0.4554      -0.3057      -0.8512        1.000      -0.6635      -0.2653      -0.4070      -1.0211E-02
+               0.5785       3.2604E-17  -3.5265E-17  -1.1265E-16   1.0874E-16  -3.9194E-17   3.7469E-17  -4.0726E-17
+               9.9205E-18  -4.0551E-18
+
+blamei        -0.5458      -8.9071E-02   0.2391      -0.6635        1.000       0.1708       0.6640      -7.5075E-02
+              -0.3733      -1.3994E-18   7.9199E-17   1.8913E-16  -1.6537E-16   2.0824E-17   8.4692E-18  -1.3532E-17
+               2.2478E-17  -3.0115E-17
+
+blamdryd       0.5505       0.6384       0.1341      -0.2653       0.1708        1.000      -0.5184       7.4506E-02
+               0.1215      -6.9488E-17  -4.4993E-17  -5.6169E-17   1.6840E-17   6.9993E-17  -3.9360E-17   8.7507E-17
+              -3.6583E-17  -4.3123E-18
+
+blamlnevvol   -0.9155      -0.4974       0.1335      -0.4070       0.6640      -0.5184        1.000      -0.1242    
+              -0.3634       1.0049E-17   1.0567E-16   2.1670E-16  -1.8272E-16   6.7965E-18  -1.5534E-18  -2.3357E-17
+               9.2848E-18  -6.2304E-18
+
+blampeakcfs   -8.8901E-02  -1.6832E-02  -2.9358E-02  -1.0211E-02  -7.5075E-02   7.4506E-02  -0.1242        1.000    
+              -0.3672      -8.7330E-17  -1.0731E-16  -1.0219E-16   1.1135E-16  -4.8545E-17  -6.0480E-17   5.7666E-17
+               6.6700E-17  -4.8845E-17
+
+blamsint       0.6430       0.1496      -0.5290       0.5785      -0.3733       0.1215      -0.3634      -0.3672    
+                1.000       2.4541E-17  -4.0833E-18  -5.7852E-17   3.4286E-17   2.4627E-17   4.6045E-17  -1.8717E-17
+              -2.5657E-17  -1.0219E-17
+
+bkdur_hrs      9.6879E-18  -8.6983E-17  -2.3231E-18   3.2604E-17  -1.3994E-18  -6.9488E-17   1.0049E-17  -8.7330E-17
+               2.4541E-17    1.000      -0.3769      -6.0367E-02   0.3186      -0.4969       0.3638      -0.6929    
+               0.7101       4.8507E-02
+
+bkpdi         -7.2363E-17  -8.3117E-17   5.5278E-18  -3.5265E-17   7.9199E-17  -4.4993E-17   1.0567E-16  -1.0731E-16
+              -4.0833E-18  -0.3769        1.000       0.4149      -0.4440      -1.6440E-02   4.9306E-02  -9.3711E-02
+              -0.4526       0.1052    
+
+bkin15        -1.6814E-16  -1.3012E-16   2.6432E-17  -1.1265E-16   1.8913E-16  -5.6169E-17   2.1670E-16  -1.0219E-16
+              -5.7852E-17  -6.0367E-02   0.4149        1.000      -0.9093       0.2021       2.1279E-03   3.2901E-02
+               6.1253E-02  -4.6173E-02
+
+bkin60         1.3549E-16   6.7304E-17  -2.4321E-17   1.0874E-16  -1.6537E-16   1.6840E-17  -1.8272E-16   1.1135E-16
+               3.4286E-17   0.3186      -0.4440      -0.9093        1.000      -0.5542       0.1287      -0.3481    
+               0.1742      -1.5875E-02
+
+bkei           6.3911E-18   9.8378E-17   8.0020E-18  -3.9194E-17   2.0824E-17   6.9993E-17   6.7965E-18  -4.8545E-17
+               2.4627E-17  -0.4969      -1.6440E-02   0.2021      -0.5542        1.000      -0.3986       0.7660    
+              -0.4498       0.1830    
+
+bkdryd         2.8656E-17  -8.1609E-17  -2.2849E-17   3.7469E-17   8.4692E-18  -3.9360E-17  -1.5534E-18  -6.0480E-17
+               4.6045E-17   0.3638       4.9306E-02   2.1279E-03   0.1287      -0.3986        1.000      -0.7028    
+               0.5860      -0.5124    
+
+bklnevvol      1.6114E-18   1.3709E-16   1.5559E-17  -4.0726E-17  -1.3532E-17   8.7507E-17  -2.3357E-17   5.7666E-17
+              -1.8717E-17  -0.6929      -9.3711E-02   3.2901E-02  -0.3481       0.7660      -0.7028        1.000    
+              -0.6437       0.3177    
+
+bkpeakcfs     -1.1786E-17  -8.4229E-17  -8.5330E-18   9.9205E-18   2.2478E-17  -3.6583E-17   9.2848E-18   6.6700E-17
+              -2.5657E-17   0.7101      -0.4526       6.1253E-02   0.1742      -0.4498       0.5860      -0.6437    
+                1.000      -0.4326    
+
+bksint        -2.3594E-18   3.5867E-17   2.1676E-17  -4.0551E-18  -3.0115E-17  -4.3123E-18  -6.2304E-18  -4.8845E-17
+              -1.0219E-17   4.8507E-02   0.1052      -4.6173E-02  -1.5875E-02   0.1830      -0.5124       0.3177    
+              -0.4326        1.000    
+
+
+
+Normalized eigenvectors of parameter covariance matrix ----->
+
+              Vector_1     Vector_2     Vector_3     Vector_4     Vector_5     Vector_6     Vector_7     Vector_8   
+              Vector_9     Vector_10    Vector_11    Vector_12    Vector_13    Vector_14    Vector_15    Vector_16  
+              Vector_17    Vector_18  
+
+blamdur_hrs    3.6237E-21  -1.5074E-20  -1.2627E-20  -4.3473E-21   1.2319E-20  -2.4049E-18   2.7525E-18  -8.4723E-18
+               0.6571       9.6344E-17  -0.5597       0.1153       0.1735      -0.4517       5.2380E-02   6.5675E-02
+              -1.9701E-02  -5.4868E-03
+
+blampdi        4.3519E-22  -1.8665E-21   1.9004E-21  -5.8648E-21   7.0014E-20  -2.1458E-19   4.1714E-19  -1.3799E-18
+               2.7713E-02   1.0989E-17   2.1615E-02  -6.6158E-02   1.0314E-02   0.1208      -0.1885       0.9703    
+              -3.4464E-02   3.9468E-02
+
+blamin15       3.1891E-22  -1.5099E-21   9.6074E-22  -4.1547E-21   3.9470E-20  -1.7845E-19   3.0000E-19  -1.0838E-18
+               2.8509E-02   1.1254E-17   3.1448E-02  -6.7146E-02   1.0901E-02   2.4640E-02   3.4820E-02  -4.8042E-02
+              -0.9522       0.2878    
+
+blamin60       1.8686E-22  -9.0149E-22   6.1033E-22  -2.4552E-21   2.4313E-20  -1.0118E-19   1.6896E-19  -6.1409E-19
+               1.5527E-02   6.0291E-18   1.7388E-02  -3.4903E-02   1.1753E-02   1.9469E-02  -3.2177E-02   1.6691E-02
+              -0.2869      -0.9561    
+
+blamei         1.3001E-22   1.2533E-22  -7.9124E-21  -1.0021E-20   1.6797E-20  -3.9876E-19   1.6076E-18  -4.8290E-18
+               0.1050       7.4346E-17   0.1649      -0.8888       0.3768      -0.1377       5.0040E-02  -4.2096E-02
+               7.9792E-02   1.2622E-02
+
+blamdryd       6.6666E-21  -2.6556E-20   4.9215E-20  -8.2003E-20   1.1146E-18  -2.5559E-18   4.1306E-18  -1.5797E-17
+               0.3560       7.9921E-17   0.8047       0.2893       0.1008      -0.3611       5.1838E-03   3.6738E-02
+               7.5644E-03   1.9366E-03
+
+blamlnevvol    5.9289E-21  -2.8866E-20   2.1597E-20  -7.8396E-20   8.1008E-19  -3.4481E-18   4.7201E-18  -1.6037E-17
+               0.6397       1.2398E-16   9.2319E-02  -6.6798E-02  -0.1386       0.7359       6.1810E-02  -0.1014    
+               5.4077E-02   7.7105E-03
+
+blampeakcfs    5.1604E-20   1.2812E-19   6.4432E-20   7.0829E-20   7.3835E-19   1.0204E-19   2.4557E-18  -3.3387E-18
+               0.1247       5.4443E-17   3.5545E-02  -0.3135      -0.8829      -0.2977      -0.1297      -4.2997E-03
+               4.7037E-03   8.0952E-05
+
+blamsint      -4.2852E-22   1.9104E-21  -2.5337E-21   5.7880E-21  -5.4979E-20   4.3659E-19  -3.4835E-19   1.3075E-18
+              -6.2170E-02  -1.1361E-17   1.9983E-02  -1.1211E-02  -0.1369      -3.0099E-02   0.9676       0.1956    
+               1.2087E-02  -3.5310E-02
+
+bkdur_hrs     -0.1648       0.2847      -0.1828       0.5595       0.7237       7.8376E-02  -5.0333E-02  -0.1130    
+              -9.5011E-19  -8.3659E-03  -1.3243E-18  -3.7626E-19   4.0566E-19  -5.7266E-20   6.1357E-20  -2.9600E-20
+              -1.3061E-20  -1.4058E-21
+
+bkpdi         -7.0124E-02   1.1023E-03  -3.3089E-02   5.7038E-02   1.4409E-02  -9.1974E-02   0.9881       2.4056E-02
+              -1.9986E-17   7.1325E-02  -5.0167E-18   5.1659E-18   1.9664E-18   5.0676E-19   4.1270E-19  -1.8593E-19
+               7.8687E-20   8.2172E-21
+
+bkin15        -7.0112E-02   2.5059E-02   2.6867E-02  -4.4893E-03  -0.1680       0.1330       8.7904E-03  -0.9128    
+              -8.3120E-17   0.3383      -2.1564E-17   2.0897E-17   3.6293E-18   1.1607E-18   1.1835E-18  -7.5085E-19
+               5.0548E-19   6.1707E-20
+
+bkin60        -3.8475E-02   9.9483E-03   1.0730E-02   2.1308E-03  -7.2201E-02   4.2120E-02   7.8078E-02  -0.3240    
+               1.6797E-16  -0.9382       3.0784E-17  -5.4699E-17  -9.8478E-18  -5.4321E-18  -2.8294E-18   1.1263E-18
+              -1.2632E-18  -1.5391E-19
+
+bkei          -0.7188      -3.6337E-02   0.6883       3.3033E-02   7.7163E-03   9.8125E-03  -3.1458E-02   7.6879E-02
+               5.3317E-19   7.7182E-03   5.7513E-19   3.3555E-19   5.2730E-20   1.0830E-19   6.1115E-21   1.8350E-20
+               6.9247E-21   8.9787E-22
+
+bkdryd        -0.2417       0.5175      -0.1875      -0.7460       0.2747      -7.5287E-02   8.9003E-03  -3.1079E-02
+              -1.1588E-18  -1.4828E-03  -6.8435E-19  -8.5892E-20   1.2286E-19  -8.7403E-20   3.5928E-20  -1.1741E-20
+              -2.1108E-21  -7.8183E-22
+
+bklnevvol     -0.4739       0.3132      -0.5053       0.2769      -0.5617       7.2650E-02  -5.6138E-02   0.1456    
+               2.9257E-18   9.1373E-03   2.0175E-18   3.8400E-19  -3.0261E-19   2.0669E-19  -7.3742E-20   4.8899E-20
+               9.7410E-21   1.8724E-21
+
+bkpeakcfs     -0.4013      -0.7414      -0.4476      -0.1843       0.2233      -3.5712E-02  -3.7252E-02  -4.9151E-02
+              -9.1606E-19  -1.8534E-03  -6.0591E-19  -1.6423E-19  -8.1147E-20  -1.2517E-19   3.3599E-22  -1.3390E-20
+               2.4606E-22  -2.0196E-22
+
+bksint         2.7000E-02  -3.6742E-02   7.2866E-03  -0.1242       4.0334E-02   0.9765       9.6357E-02   0.1339    
+               6.8067E-18   8.2255E-04   2.1338E-18   4.3413E-19   6.2590E-19   6.6275E-19  -7.3247E-20   3.5017E-20
+              -2.9254E-20   8.1628E-22
+
+
+
+Eigenvalues ----->
+
+               2.7233E-06   1.6680E-05   2.2462E-05   5.8921E-05   4.3146E-04   4.5739E-03   1.3111E-02   1.4082E-02
+               0.3330       0.6548        1.665        5.270        23.64        44.22        498.3        3881.    
+                6954.       2.5204E+05
