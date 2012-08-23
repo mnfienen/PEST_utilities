@@ -10,7 +10,7 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
         ofp = open(infile + '_residuals_summary.dat','w')
         ofp.write('Residuals Summary information for -> ' + infile + '\n')
         # read in the data
-        alldat = np.genfromtxt(infile,names=True,skip_header=6,dtype=None)
+        alldat = np.genfromtxt(infile,names=True,skip_header=4,dtype=None)
         
         # find the unique list of groups by which plots and stats will be managed
         allgrps = np.unique(alldat['Group'])

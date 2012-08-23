@@ -19,9 +19,9 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 
 # set flag for handling weights
-remove_zero_wt = True
+remove_zero_wt = False
 # set the base case - all <basecase>.rei.# files will be processed.
-basecase = 'assp3tr_sv28'
+basecase = 'br_kc'
 # troll through the current directory and return a dictionary of all REI Files
 allfiles = os.listdir(os.getcwd())
 reis = dict()
@@ -31,7 +31,7 @@ for cf in allfiles:
         reis[cind] = cf
 
 # need to get group names for the consolidated files
-alldat = np.genfromtxt(reis[0],names=True,skip_header=6,dtype=None)
+alldat = np.genfromtxt(reis[reis.keys()[0]],names=True,skip_header=4,dtype=None)
 # find the unique list of groups by which plots and stats will be managed
 allgrps = np.unique(alldat['Group'])
 
