@@ -43,4 +43,11 @@ The summary files include testing for normality.
 The PDF files are consolidated with a page per iteration.
 This file, as of this commit, replaces the deprecated REIripper.py
 
-
+#############################################################################
+# re12arc.py --> GFLOW residuals linked with locations from TP file for ARC #
+#############################################################################
+This code reads an REI file and a TP file (exported from GFLOW) to align
+residuals with X and Y locations for plotting in ARC. It creates a different
+file for each observation group, also one with absolute residuals, another with
+negative (over) and a final with positive (under) residuals showing bias.
+. 
