@@ -6,7 +6,7 @@ import re
 reiname = 'br_kc.rei.3'
 tpname = 'Test_points.tp'
 head_scale = 10
-stream_scale = 20000
+stream_scale = 200000
 #
 # ####
 
@@ -40,16 +40,25 @@ grpnames = np.unique(reidata['Group'])
 ofps = dict()
 ofps_under = dict()
 ofps_over = dict()
+# replace '.' with '_' in reiname
+reiname = re.sub('\.','_',reiname)
+ofp_file_list = open('arcfiles_' + reiname + '.dat','w')
 
 for cname in grpnames:
-    reiname = re.sub('\.','_',reiname)
-    ofps[cname] = open(cname + '_' + reiname + '.csv','w')
-    ofps_under[cname] = open(cname + '_under_' + reiname + '.csv','w')
-    ofps_over[cname]  = open(cname + '_over_' + reiname + '.csv','w')
+    fname = cname + '_' + reiname + '.csv'
+    ofps[cname] = open(fname,'w')
+    ofp_file_list.write('%s\n' %(fname))
+    fname = cname + '_under_' + reiname + '.csv'
+    ofps_under[cname] = open(fname,'w')
+    ofp_file_list.write('%s\n' %(fname))    
+    fname = cname + '_over_' + reiname + '.csv'
+    ofps_over[cname]  = open(fname,'w')
+    ofp_file_list.write('%s\n' %(fname))    
     # write out the header while we're at it.
     ofps[cname].write('X,Y,Name,Residual,Res_to_plot\n')
     ofps_under[cname].write('X,Y,Name,Residual,Res_to_plot\n')
     ofps_over[cname].write('X,Y,Name,Residual,Res_to_plot\n')
+ofp_file_list.close()
 
 # now loop over the data and get X, Y, and make plotting  symbol size correction
 for crow in reidata:
@@ -69,12 +78,12 @@ for crow in reidata:
     # write the over and under files
     if crow['Residual'] >=0:
         cofps = ofps_under[crow['Group']]
-        cres = np.abs(crow['Residual'])
-        cresplot=np.abs(crow['Residual']/res_plot_factor)
-    elif crow['Residual'] < 0:
-        cofps = ofps_over[crow['Group']]
         cres = crow['Residual']
         cresplot=crow['Residual']/res_plot_factor
+    elif crow['Residual'] < 0:
+        cofps = ofps_over[crow['Group']]
+        cres = np.abs(crow['Residual'])
+        cresplot=np.abs(crow['Residual']/res_plot_factor)
     writeout(cofps,tpX[tpInds],tpY[tpInds],cname, 
                  cres,cresplot)        
 
