@@ -1,5 +1,6 @@
 import numpy as np
 import re
+import shapefile as sf
 
 # ####
 # user-assigned variables
@@ -7,14 +8,32 @@ reiname = 'br_kc.rei.3'
 tpname = 'Test_points.tp'
 head_scale = 10
 stream_scale = 200000
+csv_or_shp_flag = 'shp' # flag for output of files either 'csv' or 'shp'
 #
 # ####
 
 
-# function to write out results
-
-def writeout(cofp,X,Y,cname,res,resplot):
+# function to write out results to csv file
+def writeout_csv(cofp,X,Y,cname,res,resplot):
     cofp.write('%f,%f,%s,%f,%f\n' %(X,Y,cname,res,resplot))
+
+# function to write out results to csv file
+def writeout_shp(cshp,X,Y,cname,res,resplot):
+    cshp.point(X,Y)
+    cfields = {'name':cname,'residual':res,'plot_res':resplot}
+    cshp.record(name=cname,residual=res,plot_res=resplot)
+    return cshp
+# initialize the shapefile object with fields
+def init_shp(cshp,fields):
+    for cf in fields:
+        # make the name field of character type
+        if 'name' in cf.lower():
+            cshp.field(cf)
+        # the other fields should be numeric
+        else:
+            cshp.field(cf,fieldType='N',size='50',decimal=8)
+        
+    return cshp
 
 # First read in the TP information
 tpdata = np.genfromtxt(tpname,delimiter=',',dtype=None)
@@ -37,28 +56,51 @@ reidata = np.genfromtxt(reiname,skiprows=4,names=True,dtype=None)
 
 # make a dictionary of output files - one per unique group name
 grpnames = np.unique(reidata['Group'])
-ofps = dict()
-ofps_under = dict()
-ofps_over = dict()
+
 # replace '.' with '_' in reiname
 reiname = re.sub('\.','_',reiname)
 ofp_file_list = open('arcfiles_' + reiname + '.dat','w')
+if csv_or_shp_flag == 'csv':
+    ofps = dict()
+    ofps_under = dict()
+    ofps_over = dict()    
+    for cname in grpnames:
+        fname = cname + '_' + reiname + '.csv'
+        ofps[cname] = open(fname,'w')
+        ofp_file_list.write('%s\n' %(fname))
+        fname = cname + '_under_' + reiname + '.csv'
+        ofps_under[cname] = open(fname,'w')
+        ofp_file_list.write('%s\n' %(fname))    
+        fname = cname + '_over_' + reiname + '.csv'
+        ofps_over[cname]  = open(fname,'w')
+        ofp_file_list.write('%s\n' %(fname))    
+        # write out the header while we're at it.
+        ofps[cname].write('X,Y,Name,Residual,plot_res\n')
+        ofps_under[cname].write('X,Y,Name,Residual,plot_res\n')
+        ofps_over[cname].write('X,Y,Name,Residual,plot_res\n')
+    ofp_file_list.close()
+elif csv_or_shp_flag == 'shp':
+    ofps_shp = dict()
+    ofps_under_shp = dict()
+    ofps_over_shp = dict()    
+    for cname in grpnames:
+        fname = cname + '_' + reiname + '.shp'
+        ofps_shp[cname] = [sf.Writer(sf.POINT),fname]
+        ofps_shp[cname][0]=init_shp(ofps_shp[cname][0],['name','residual','plot_res'])
+        ofp_file_list.write('%s\n' %(fname))
+        fname = cname + '_under_' + reiname + '.shp'
+        ofps_under_shp[cname] = [sf.Writer(sf.POINT),fname]
+        ofps_under_shp[cname][0]=init_shp(ofps_under_shp[cname][0],['name','residual','plot_res'])
+        ofp_file_list.write('%s\n' %(fname))    
+        fname = cname + '_over_' + reiname + '.shp'
+        ofps_over_shp[cname]  = [sf.Writer(sf.POINT),fname]
+        ofps_over_shp[cname][0]=init_shp(ofps_over_shp[cname][0],['name','residual','plot_res'])
 
-for cname in grpnames:
-    fname = cname + '_' + reiname + '.csv'
-    ofps[cname] = open(fname,'w')
-    ofp_file_list.write('%s\n' %(fname))
-    fname = cname + '_under_' + reiname + '.csv'
-    ofps_under[cname] = open(fname,'w')
-    ofp_file_list.write('%s\n' %(fname))    
-    fname = cname + '_over_' + reiname + '.csv'
-    ofps_over[cname]  = open(fname,'w')
-    ofp_file_list.write('%s\n' %(fname))    
-    # write out the header while we're at it.
-    ofps[cname].write('X,Y,Name,Residual,Res_to_plot\n')
-    ofps_under[cname].write('X,Y,Name,Residual,Res_to_plot\n')
-    ofps_over[cname].write('X,Y,Name,Residual,Res_to_plot\n')
-ofp_file_list.close()
+        ofp_file_list.write('%s\n' %(fname))    
+    ofp_file_list.close()
+    
+else:
+    raise(BadFlag(csv_or_shp_flag))
 
 # now loop over the data and get X, Y, and make plotting  symbol size correction
 for crow in reidata:
@@ -73,28 +115,56 @@ for crow in reidata:
     elif tpTarget_type[tpInds] == 'piezometer':
         res_plot_factor = head_scale
     # write the all residuals file 
-    writeout(ofps[crow['Group']],tpX[tpInds],tpY[tpInds],cname, 
+    if csv_or_shp_flag == 'shp':
+        writeout_shp(ofps_shp[crow['Group']][0],tpX[tpInds],tpY[tpInds],cname, 
+             np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor)    
+    elif csv_or_shp_flag == 'csv':    
+        writeout_csv(ofps[crow['Group']],tpX[tpInds],tpY[tpInds],cname, 
              np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor)
+    else:
+        raise(BadFlag(csv_or_shp_flag))    
     # write the over and under files
     if crow['Residual'] >=0:
-        cofps = ofps_under[crow['Group']]
+        if csv_or_shp_flag == 'csv':
+            cofps = ofps_under[crow['Group']]
+        else:
+            cshp = ofps_under_shp[crow['Group']][0]
         cres = crow['Residual']
         cresplot=crow['Residual']/res_plot_factor
     elif crow['Residual'] < 0:
-        cofps = ofps_over[crow['Group']]
+        if csv_or_shp_flag == 'csv':
+            cofps = ofps_over[crow['Group']]
+        else:
+            cshp = ofps_over_shp[crow['Group']][0]
         cres = np.abs(crow['Residual'])
         cresplot=np.abs(crow['Residual']/res_plot_factor)
-    writeout(cofps,tpX[tpInds],tpY[tpInds],cname, 
-                 cres,cresplot)        
 
-                                    
+    if csv_or_shp_flag == 'csv':
+        writeout_csv(cofps,tpX[tpInds],tpY[tpInds],cname, 
+                 cres,cresplot)        
+    else:
+        writeout_shp(cshp,tpX[tpInds],tpY[tpInds],cname, 
+                 cres,cresplot)                            
     
     
+if csv_or_shp_flag == 'csv':
+    # close all the output csv files to clean up
+    for cf in ofps:
+        ofps[cf].close()
+    for cf in ofps_under:
+        ofps_under[cf].close()            
+    for cf in ofps_over:
+        ofps_over[cf].close()
+elif csv_or_shp_flag == 'shp':
+    # close all the output csv files to clean up
+    for cf in ofps_shp:
+        ofps_shp[cf][0].save(ofps_shp[cf][1])
+    for cf in ofps_over_shp:
+        ofps_over_shp[cf][0].save(ofps_over_shp[cf][1])
+    for cf in ofps_under_shp:
+        ofps_under_shp[cf][0].save(ofps_under_shp[cf][1])
     
-# close all the output files to clean up
-for cf in ofps:
-    ofps[cf].close()
-    
+# close up and save the shapefiles
 #    
 # ## ERROR CLASSES
 #
@@ -105,4 +175,9 @@ class MissingName(Exception):
         self.cname = cname
     def __str__(self):
         return('\n\nParameter named "' + self.cname + '" not in file: ' + tpname)
-    
+# -- bad choice for csv_shp_flag
+class BadFlag(Exception):
+    def __init__(self,csv_or_shp_flag):
+        self.csv_or_shp_flag = csv_or_shp_flag
+    def __str__(self):
+        return('\n\nBad value "' + self.csv_or_shp_flag + '" for csv_or_shp_flag.\nMust be "csv" or "shp"')
