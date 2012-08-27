@@ -50,4 +50,9 @@ This code reads an REI file and a TP file (exported from GFLOW) to align
 residuals with X and Y locations for plotting in ARC. It creates a different
 file for each observation group, also one with absolute residuals, another with
 negative (over) and a final with positive (under) residuals showing bias.
-. 
+
+###############################################################
+# tweak_bounds.py --> adjust upper and lower bounds if failed #
+###############################################################
+Reads a PST control file and, if curent value is outside the range of bounds, 
+the bound is moved out by 2 orders of magnitude. It's a kludge but can be useful and the USER MUST SPECIFY INPUT AND OUTPUT FILENAMES IN TOP OF CODE. 

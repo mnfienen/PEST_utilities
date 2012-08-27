@@ -36,8 +36,8 @@ for i,line in enumerate(indat):
             lb /= 100
         if ub - cv < 0:
             ub *= 100
-        cline[4] = '%f' %(lb)
-        cline[5] = '%f' %(ub)
+        cline[4] = '%20.8e' %(lb)
+        cline[5] = '%20.8e' %(ub)
         outline = ''
         for k in cline:
             outline += '%s ' %(k)
