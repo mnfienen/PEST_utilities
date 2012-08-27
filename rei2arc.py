@@ -1,11 +1,13 @@
 import numpy as np
 import re
 import shapefile as sf
+import shutil
 
 # ####
 # user-assigned variables
 reiname = 'br_kc.rei.3'
 tpname = 'Test_points.tp'
+base_PRJ = 'base_NAD27_15N.prj'
 head_scale = 10
 stream_scale = 200000
 csv_or_shp_flag = 'shp' # flag for output of files either 'csv' or 'shp'
@@ -20,7 +22,6 @@ def writeout_csv(cofp,X,Y,cname,res,resplot):
 # function to write out results to csv file
 def writeout_shp(cshp,X,Y,cname,res,resplot):
     cshp.point(X,Y)
-    cfields = {'name':cname,'residual':res,'plot_res':resplot}
     cshp.record(name=cname,residual=res,plot_res=resplot)
     return cshp
 # initialize the shapefile object with fields
@@ -87,12 +88,15 @@ elif csv_or_shp_flag == 'shp':
         fname = cname + '_' + reiname + '.shp'
         ofps_shp[cname] = [sf.Writer(sf.POINT),fname]
         ofps_shp[cname][0]=init_shp(ofps_shp[cname][0],['name','residual','plot_res'])
+        shutil.copyfile(base_PRJ,fname[:-4] + '.prj')
         ofp_file_list.write('%s\n' %(fname))
         fname = cname + '_under_' + reiname + '.shp'
+        shutil.copyfile(base_PRJ,fname[:-4] + '.prj')
         ofps_under_shp[cname] = [sf.Writer(sf.POINT),fname]
         ofps_under_shp[cname][0]=init_shp(ofps_under_shp[cname][0],['name','residual','plot_res'])
         ofp_file_list.write('%s\n' %(fname))    
         fname = cname + '_over_' + reiname + '.shp'
+        shutil.copyfile(base_PRJ,fname[:-4] + '.prj')
         ofps_over_shp[cname]  = [sf.Writer(sf.POINT),fname]
         ofps_over_shp[cname][0]=init_shp(ofps_over_shp[cname][0],['name','residual','plot_res'])
 
