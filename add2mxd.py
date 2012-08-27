@@ -2,7 +2,7 @@ import arcpy
 import os
 
 rootname = 'br_kc_rei_3'
-
+base_mxd = "bad_river"
 
 print 'set the workspace location...'
 arcpy.env.workspace = os.getcwd()
@@ -13,7 +13,7 @@ fileroot = os.getcwd()
 
 print 'open the mxd file'
 ### Adding shapefile to the mxd at the top of the TOC
-mxd = arcpy.mapping.MapDocument(r"Y:/Documents/MODELING_CENTER/PENOKEE_MINING/GFLOW_OPT_RESULTS/test/bad_river.mxd")
+mxd = arcpy.mapping.MapDocument(r"Y:/Documents/MODELING_CENTER/PENOKEE_MINING/GFLOW_OPT_RESULTS/test/%s.mxd" %(base_mxd))
 df = arcpy.mapping.ListDataFrames(mxd,"*")[0]
 print 'Add all the layers---->'
 
@@ -25,12 +25,11 @@ for line in infiles:
 	arcpy.mapping.AddLayer(df, newlayer,"TOP")
 
 
-print 'saving down a copy to ->\n%s' %(os.path.join(os.getcwd(),"bad_river2.mxd"))
-mxd.saveACopy("bad_river2.mxd")
+print 'saving down a copy to ->\n%s' %(os.path.join(os.getcwd(),base_mxd + "2.mxd"))
+mxd.saveACopy(base_mxd + "2.mxd")
 
 # Refresh things
 arcpy.RefreshActiveView()
 arcpy.RefreshTOC()
 
-print "Adding shapefile to mxd.... complete"
-
+print "Files added ... done for now!"
