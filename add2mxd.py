@@ -13,7 +13,7 @@ fileroot = os.getcwd()
 
 print 'open the mxd file'
 ### Adding shapefile to the mxd at the top of the TOC
-mxd = arcpy.mapping.MapDocument(r"Y:/Documents/MODELING_CENTER/PENOKEE_MINING/GFLOW_OPT_RESULTS/test/%s.mxd" %(base_mxd))
+mxd = arcpy.mapping.MapDocument(r"%s.mxd" %(base_mxd))
 df = arcpy.mapping.ListDataFrames(mxd,"*")[0]
 print 'Add all the layers---->'
 
@@ -25,8 +25,8 @@ for line in infiles:
 	arcpy.mapping.AddLayer(df, newlayer,"TOP")
 
 
-print 'saving down a copy to ->\n%s' %(os.path.join(os.getcwd(),base_mxd + "2.mxd"))
-mxd.saveACopy(base_mxd + "2.mxd")
+print 'saving down a copy to ->\n%s' %(os.path.join(os.getcwd(),rootname + ".mxd"))
+mxd.saveACopy(rootname + ".mxd")
 
 # Refresh things
 arcpy.RefreshActiveView()
