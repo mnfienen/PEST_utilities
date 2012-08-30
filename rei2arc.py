@@ -13,6 +13,22 @@ stream_scale = 200000
 csv_or_shp_flag = 'shp' # flag for output of files either 'csv' or 'shp'
 #
 # ####
+#    
+# ## ERROR CLASSES
+#
+
+# -- no comments allowed in table blocks
+class MissingName(Exception):
+    def __init__(self,cname):
+        self.cname = cname
+    def __str__(self):
+        return('\n\nParameter named "' + self.cname + '" not in file: ' + tpname)
+# -- bad choice for csv_shp_flag
+class BadFlag(Exception):
+    def __init__(self,csv_or_shp_flag):
+        self.csv_or_shp_flag = csv_or_shp_flag
+    def __str__(self):
+        return('\n\nBad value "' + self.csv_or_shp_flag + '" for csv_or_shp_flag.\nMust be "csv" or "shp"')
 
 
 # function to write out results to csv file
@@ -110,7 +126,7 @@ else:
 for crow in reidata:
     cname = crow['Name'].lower()
     tpInds = np.where(tpNames==cname)
-    if len(tpInds) == 0:
+    if len(tpInds[0]) == 0:
         raise(MissingName(cname))  
     else:
         tpInds = tpInds[0][0]
@@ -169,19 +185,3 @@ elif csv_or_shp_flag == 'shp':
         ofps_under_shp[cf][0].save(ofps_under_shp[cf][1])
     
 # close up and save the shapefiles
-#    
-# ## ERROR CLASSES
-#
-
-# -- no comments allowed in table blocks
-class MissingName(Exception):
-    def __init__(self,cname):
-        self.cname = cname
-    def __str__(self):
-        return('\n\nParameter named "' + self.cname + '" not in file: ' + tpname)
-# -- bad choice for csv_shp_flag
-class BadFlag(Exception):
-    def __init__(self,csv_or_shp_flag):
-        self.csv_or_shp_flag = csv_or_shp_flag
-    def __str__(self):
-        return('\n\nBad value "' + self.csv_or_shp_flag + '" for csv_or_shp_flag.\nMust be "csv" or "shp"')
