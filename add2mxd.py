@@ -23,7 +23,16 @@ for line in infiles:
 	print 'adding %s' %(filename)
 	newlayer = arcpy.mapping.Layer(filename)
 	arcpy.mapping.AddLayer(df, newlayer,"TOP")
-
+	#	
+	# now set the layer symbology
+	#
+	if 'over' in filename:
+		arcpy.ApplySymbologyFromLayer_management(newlayer, 
+		        os.path.join(os.getcwd(),'over.lyr'))
+	elif 'under' in filename:
+		arcpy.ApplySymbologyFromLayer_management(newlayer, 
+		        os.path.join(os.getcwd(),'under.lyr'))
+	
 
 print 'saving down a copy to ->\n%s' %(os.path.join(os.getcwd(),rootname + ".mxd"))
 mxd.saveACopy(rootname + ".mxd")
