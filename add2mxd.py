@@ -20,16 +20,20 @@ print 'Add all the layers---->'
 infiles = open('arcfiles_' + rootname + '.dat','r').readlines()
 for line in infiles:	
 	filename = os.path.join(os.getcwd(),line.strip())
-	print 'adding %s' %(filename)
-	newlayer = arcpy.mapping.Layer(filename)
-	arcpy.mapping.AddLayer(df, newlayer,"TOP")
+	
 	#	
-	# now set the layer symbology
+	# now add only the OVER and UNDER layers and tweak the layer symbology
 	#
 	if 'over' in filename:
+		print 'adding %s' %(filename)
+		newlayer = arcpy.mapping.Layer(filename)
+		arcpy.mapping.AddLayer(df, newlayer,"TOP")		
 		arcpy.ApplySymbologyFromLayer_management(newlayer, 
 		        os.path.join(os.getcwd(),'over.lyr'))
 	elif 'under' in filename:
+		print 'adding %s' %(filename)
+		newlayer = arcpy.mapping.Layer(filename)
+		arcpy.mapping.AddLayer(df, newlayer,"TOP")				
 		arcpy.ApplySymbologyFromLayer_management(newlayer, 
 		        os.path.join(os.getcwd(),'under.lyr'))
 	
