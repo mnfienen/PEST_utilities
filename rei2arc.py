@@ -35,11 +35,23 @@ class BadFlag(Exception):
 def writeout_csv(cofp,X,Y,cname,res,resplot):
     cofp.write('%f,%f,%s,%f,%f\n' %(X,Y,cname,res,resplot))
 
+def rpd(a,b):
+    # calcualte relative percent difference between a and b          
+    a = float(a)
+    b = float(b)
+    if a==b:
+        rpd = 0
+    else:
+        rpd = 2.0*(np.abs(a-b)/(a+b))
+
+    return rpd
+
 # function to write out results to csv file
-def writeout_shp(cshp,X,Y,cname,res,resplot):
+def writeout_shp(cshp,X,Y,cname,res,resplot,meas,mod,c_rpd):
     cshp.point(X,Y)
-    cshp.record(name=cname,residual=res,plot_res=resplot)
+    cshp.record(name=cname,residual=res,plot_res=resplot,meas=meas,modeled=mod,rpd=c_rpd)
     return cshp
+
 # initialize the shapefile object with fields
 def init_shp(cshp,fields):
     for cf in fields:
@@ -100,21 +112,22 @@ elif csv_or_shp_flag == 'shp':
     ofps_shp = dict()
     ofps_under_shp = dict()
     ofps_over_shp = dict()    
+    shp_fields = ['name','residual','plot_res','meas','modeled','rpd']
     for cname in grpnames:
         fname = cname + '_' + reiname + '.shp'
         ofps_shp[cname] = [sf.Writer(sf.POINT),fname]
-        ofps_shp[cname][0]=init_shp(ofps_shp[cname][0],['name','residual','plot_res'])
+        ofps_shp[cname][0]=init_shp(ofps_shp[cname][0],shp_fields)
         shutil.copyfile(base_PRJ,fname[:-4] + '.prj')
         ofp_file_list.write('%s\n' %(fname))
         fname = cname + '_under_' + reiname + '.shp'
         shutil.copyfile(base_PRJ,fname[:-4] + '.prj')
         ofps_under_shp[cname] = [sf.Writer(sf.POINT),fname]
-        ofps_under_shp[cname][0]=init_shp(ofps_under_shp[cname][0],['name','residual','plot_res'])
+        ofps_under_shp[cname][0]=init_shp(ofps_under_shp[cname][0],shp_fields)
         ofp_file_list.write('%s\n' %(fname))    
         fname = cname + '_over_' + reiname + '.shp'
         shutil.copyfile(base_PRJ,fname[:-4] + '.prj')
         ofps_over_shp[cname]  = [sf.Writer(sf.POINT),fname]
-        ofps_over_shp[cname][0]=init_shp(ofps_over_shp[cname][0],['name','residual','plot_res'])
+        ofps_over_shp[cname][0]=init_shp(ofps_over_shp[cname][0],shp_fields)
 
         ofp_file_list.write('%s\n' %(fname))    
     ofp_file_list.close()
@@ -137,10 +150,12 @@ for crow in reidata:
     # write the all residuals file 
     if csv_or_shp_flag == 'shp':
         writeout_shp(ofps_shp[crow['Group']][0],tpX[tpInds],tpY[tpInds],cname, 
-             np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor)    
+             np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor,
+             crow['Measured'],crow['Modelled'],rpd(crow['Measured'],crow['Modelled']))    
     elif csv_or_shp_flag == 'csv':    
         writeout_csv(ofps[crow['Group']],tpX[tpInds],tpY[tpInds],cname, 
-             np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor)
+             np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor,
+             crow['Measured'],crow['Modelled'],rpd(crow['Measured'],crow['Modelled']))   
     else:
         raise(BadFlag(csv_or_shp_flag))    
     # write the over and under files
@@ -161,10 +176,12 @@ for crow in reidata:
 
     if csv_or_shp_flag == 'csv':
         writeout_csv(cofps,tpX[tpInds],tpY[tpInds],cname, 
-                 cres,cresplot)        
+                 cres,cresplot,
+             crow['Measured'],crow['Modelled'],rpd(crow['Measured'],crow['Modelled']))       
     else:
         writeout_shp(cshp,tpX[tpInds],tpY[tpInds],cname, 
-                 cres,cresplot)                            
+                 cres,cresplot,
+             crow['Measured'],crow['Modelled'],rpd(crow['Measured'],crow['Modelled']))                              
     
     
 if csv_or_shp_flag == 'csv':
@@ -183,5 +200,3 @@ elif csv_or_shp_flag == 'shp':
         ofps_over_shp[cf][0].save(ofps_over_shp[cf][1])
     for cf in ofps_under_shp:
         ofps_under_shp[cf][0].save(ofps_under_shp[cf][1])
-    
-# close up and save the shapefiles
