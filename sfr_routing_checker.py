@@ -35,11 +35,11 @@ class model_rc_conversion:
         coords = indat.pop(0).strip().split()
         self.xoffset = float(coords[0])
         self.yoffset = float(coords[1])
-        self.mod_rot_deg = float(coords[2])
+        self.mod_rot_deg = 0#float(coords[2])
         self.mod_rot_rad = np.pi*self.mod_rot_deg/180.0
         th = self.mod_rot_rad # quick shorthand to make the rotation matrix
-        self.rot_matrix = np.array([[np.cos(th), -np.sin(th)],
-                                    [np.sin(th), np.cos(th)]])
+        self.rot_matrix = np.array([[np.cos(th), np.sin(th)],
+                                    [-np.sin(th), np.cos(th)]])
         spacing = []
         for line in indat:
             if '*' not in line:
@@ -116,8 +116,8 @@ nlays = np.max(reachdata[:,0])
 # [0] segment  [1] icalc  [2] outseg (if outseg==0, routed out of model)
 
 # originating cell: seg 525, reach 3
-origseg = 525
-origsubreach = 3
+origseg = 475
+origsubreach = 4
 #a = np.where(reachdata[:,3]==origseg)
 #b = np.where(reachdata[:,4]==origsubreach)
 
@@ -159,10 +159,11 @@ for i in np.arange(nlays):
 # plot up all full segments upstream from the evaluated segment
 for cseg in parents:
     inds = np.where(reachdata[:,3]==cseg)
-    tmp_reaches = np.squeeze(reachdata[inds,:])
+    tmp_reaches = np.atleast_2d(np.squeeze(reachdata[inds,:]))
     for i in np.arange(nlays):
-        inds = np.where(tmp_reaches[:,0]==i+1)[0]
-        plotting[i,tmp_reaches[inds,1]-1,tmp_reaches[inds,2]-1] = model_spc_data.upstream_routed
+        inds2 = np.where(tmp_reaches[:,0]==i+1)[0]
+        if len(inds2) > 0:
+            plotting[i,tmp_reaches[inds2,1]-1,tmp_reaches[inds2,2]-1] = model_spc_data.upstream_routed
 
 if make_PDFs:    
     for i in np.arange(nlays):
