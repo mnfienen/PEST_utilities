@@ -16,12 +16,14 @@ except:
 class model_rc_conversion:
     def __init__(self,infile):
         self.spcfile = infile
+        self.activeriv = 1.0
+        self.upstream_routed = 2.0
         
     def rc2world_coords(self,row,col):
-        xoff = self.xoffset + np.sum(self.deltax[0:col])
-        yoff = self.yoffset + np.sum(self.deltay[0:row])
+        xoff = self.xoffset + np.sum(self.deltax[0:col])-self.deltax[0]/2.0
+        yoff = self.yoffset - np.sum(self.deltay[0:row])+self.deltay[0]/2.0
         cloc = np.array([[xoff],[yoff]])
-        cloc_adj = np.dot(cloc.T,self.rot_matrix)
+        cloc_adj = np.dot(cloc.T,self.rot_matrix)[0]
         return cloc_adj[0],cloc_adj[1]
         
     def spc_reader(self):
@@ -69,8 +71,8 @@ class model_rc_conversion:
 
 
 # sfr read-o-matic
-infile = 'RC37u-PT_test.sfr'
-modspecfile = 'RC37u-PT_test.spc'
+infile = 'RC37u-PT.sfr'
+modspecfile = 'RC37u-PT.spc'
 make_shapefiles = True
 make_PDFs = True
 
@@ -114,8 +116,8 @@ nlays = np.max(reachdata[:,0])
 # [0] segment  [1] icalc  [2] outseg (if outseg==0, routed out of model)
 
 # originating cell: seg 525, reach 3
-origseg = 528
-origsubreach = 16
+origseg = 525
+origsubreach = 3
 #a = np.where(reachdata[:,3]==origseg)
 #b = np.where(reachdata[:,4]==origsubreach)
 
@@ -145,13 +147,13 @@ plotting = np.zeros((nlays,nrows,ncols))
 # first burn in all the streams
 for i in np.arange(nlays):
     inds = np.where(reachdata[:,0]==i+1)
-    plotting[i,reachdata[inds,1]-1,reachdata[inds,2]-1] = 1
+    plotting[i,reachdata[inds,1]-1,reachdata[inds,2]-1] = model_spc_data.activeriv
     # plot the upstream reaches within the current segment
     
     inds = np.where((reachdata[:,0]==i+1) & 
                     (reachdata[:,3]==origseg) & 
                     (reachdata[:,4]<origsubreach))[0]
-    plotting[i,reachdata[inds,1]-1,reachdata[inds,2]-1] = 2
+    plotting[i,reachdata[inds,1]-1,reachdata[inds,2]-1] = model_spc_data.upstream_routed
 
 
 # plot up all full segments upstream from the evaluated segment
@@ -160,7 +162,7 @@ for cseg in parents:
     tmp_reaches = np.squeeze(reachdata[inds,:])
     for i in np.arange(nlays):
         inds = np.where(tmp_reaches[:,0]==i+1)[0]
-        plotting[i,tmp_reaches[inds,1]-1,tmp_reaches[inds,2]-1] = 2
+        plotting[i,tmp_reaches[inds,1]-1,tmp_reaches[inds,2]-1] = model_spc_data.upstream_routed
 
 if make_PDFs:    
     for i in np.arange(nlays):
@@ -174,6 +176,30 @@ if make_PDFs:
         plt.savefig('layer%d.pdf' %(i+1))
 
 if make_shapefiles:
-    for clay in np.arange(nlays):
-        i=1
-        
+    if shapefiles_imported == False:
+        print 'requested shapefile generation but shapefile package could not be imported'
+    else:
+        pshape_all=shapefile.Writer(shapefile.POINT)
+        pshape_all.field('SFR_status')
+        for clay in np.arange(nlays):
+            print 'making shapefile for layer %d' %(clay+1)
+            pshape = shapefile.Writer(shapefile.POINT) 
+            pshape.field('SFR_status')
+            
+            inds = np.where(plotting[clay,:,:]>0)
+            for cind,r in enumerate(inds[0]):
+                c=inds[1][cind]
+                plotx,ploty = model_spc_data.rc2world_coords(r+1,c+1)
+                pshape.point(plotx,ploty)
+                pshape_all.point(plotx,ploty)
+                if plotting[clay,r,c]==2:
+                    pshape.record('upstream')
+                    pshape_all.record('upstream')
+                    
+                elif plotting[clay,r,c]==1:
+                    pshape.record('active')
+                    pshape_all.record('active')
+                else:
+                    print 'point should be empty!'
+            pshape.save('Layer%d' %(clay+1))
+        pshape_all.save('All_Layers')
