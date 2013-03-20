@@ -27,9 +27,13 @@ class model_rc_conversion:
     def rc2world_coords(self,row,col):
         xoff = self.xoffset + np.sum(self.deltax[0:col])+self.deltax[0]/2.0
         yoff = self.yoffset - np.sum(self.deltay[0:row])-self.deltay[0]/2.0
-        cloc = np.array([[xoff],[yoff]])
+        x_low_left = self.xoffset
+        y_low_left = self.yoffset - np.sum(self.deltay)
+        xoff_to_rot = xoff - x_low_left
+        yoff_to_rot = yoff - y_low_left
+        cloc = np.array([[xoff_to_rot],[yoff_to_rot]])
         cloc_adj = np.dot(cloc.T,self.rot_matrix)[0]
-        return cloc_adj[0],cloc_adj[1]
+        return cloc_adj[0] + x_low_left,cloc_adj[1]+y_low_left
         
     def spc_reader(self):
         # reads a PEST-compatible model.spc file
@@ -40,7 +44,7 @@ class model_rc_conversion:
         coords = indat.pop(0).strip().split()
         self.xoffset = float(coords[0])
         self.yoffset = float(coords[1])
-        self.mod_rot_deg = float(coords[2])
+        self.mod_rot_deg = 360-float(coords[2])
         self.mod_rot_rad = np.pi*self.mod_rot_deg/180.0
         th = self.mod_rot_rad # quick shorthand to make the rotation matrix
         self.rot_matrix = np.array([[np.cos(th), np.sin(th)],
@@ -209,6 +213,9 @@ if make_shapefiles:
             for cind,r in enumerate(inds[0]):
                 c=inds[1][cind]
                 plotx,ploty = model_spc_data.rc2world_coords(r+1,c+1)
+#                plotx *= .3048
+#                ploty *= .3048
+                
                 pshape.point(plotx,ploty)
                 pshape_all.point(plotx,ploty)
                 if plotting[clay,r,c]==2:
