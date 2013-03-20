@@ -1,5 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+import xml.etree.ElementTree as ET
+
+
+        
 
 try:
     import shapefile
@@ -12,7 +17,7 @@ except:
        'regardless of whether it was requested. \n'
        'The ascii output and PDF images will still be generated. \n\n')
 
-
+    
 class model_rc_conversion:
     def __init__(self,infile):
         self.spcfile = infile
@@ -20,8 +25,8 @@ class model_rc_conversion:
         self.upstream_routed = 2.0
         
     def rc2world_coords(self,row,col):
-        xoff = self.xoffset + np.sum(self.deltax[0:col])-self.deltax[0]/2.0
-        yoff = self.yoffset - np.sum(self.deltay[0:row])+self.deltay[0]/2.0
+        xoff = self.xoffset + np.sum(self.deltax[0:col])+self.deltax[0]/2.0
+        yoff = self.yoffset - np.sum(self.deltay[0:row])-self.deltay[0]/2.0
         cloc = np.array([[xoff],[yoff]])
         cloc_adj = np.dot(cloc.T,self.rot_matrix)[0]
         return cloc_adj[0],cloc_adj[1]
@@ -35,7 +40,7 @@ class model_rc_conversion:
         coords = indat.pop(0).strip().split()
         self.xoffset = float(coords[0])
         self.yoffset = float(coords[1])
-        self.mod_rot_deg = 0#float(coords[2])
+        self.mod_rot_deg = float(coords[2])
         self.mod_rot_rad = np.pi*self.mod_rot_deg/180.0
         th = self.mod_rot_rad # quick shorthand to make the rotation matrix
         self.rot_matrix = np.array([[np.cos(th), np.sin(th)],
@@ -68,13 +73,30 @@ class model_rc_conversion:
         self.deltay = spacing[self.ncols:]
         
     
+# ######
+#  MAIN
+# ######
+
+parfilename = sys.argv[1]
+inpardat = ET.parse(parfilename)
+inpars = inpardat.getroot()    
+infile = inpars.findall('.//sfr_file')[0].text
+modspecfile = inpars.findall('.//spc_file')[0].text
+make_shapefiles = inpars.findall('.//make_shapefiles')[0].text
+make_PDFs = inpars.findall('.//make_pdffiles')[0].text
+if make_shapefiles.lower() == 'true':
+    make_shapefiles = True
+else:
+    make_shapefiles = False
+if make_PDFs.lower() == 'true':
+    make_PDFs = True
+else:
+    make_PDFs = False
+# originating cell: seg 525, reach 3
+origseg = int(inpars.findall('.//orig_seg')[0].text)
+origsubreach = int(inpars.findall('.//orig_subreach')[0].text)
 
 
-# sfr read-o-matic
-infile = 'RC37u-PT.sfr'
-modspecfile = 'RC37u-PT.spc'
-make_shapefiles = True
-make_PDFs = True
 
 model_spc_data= model_rc_conversion(modspecfile)
 
@@ -115,11 +137,7 @@ nlays = np.max(reachdata[:,0])
 # segment data columns are:
 # [0] segment  [1] icalc  [2] outseg (if outseg==0, routed out of model)
 
-# originating cell: seg 525, reach 3
-origseg = 525
-origsubreach = 3
-#a = np.where(reachdata[:,3]==origseg)
-#b = np.where(reachdata[:,4]==origsubreach)
+
 
 startind = np.where((reachdata[:,3]==origseg) &
                     (reachdata[:,4]==origsubreach))[0]
