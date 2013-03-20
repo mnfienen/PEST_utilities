@@ -1,0 +1,8 @@
+### SFR ROUTING CHECKER ###
+
+Python and numpy code to check the routing of a MODFLOW SFR package
+and graphically display the results as PDF and Shapefiles (optionally).
+
+Currently limited to the specific SFR setup we used on a specific
+project. May need to add flexibility later.
+
