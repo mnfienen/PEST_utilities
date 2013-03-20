@@ -116,8 +116,8 @@ nlays = np.max(reachdata[:,0])
 # [0] segment  [1] icalc  [2] outseg (if outseg==0, routed out of model)
 
 # originating cell: seg 525, reach 3
-origseg = 475
-origsubreach = 4
+origseg = 525
+origsubreach = 3
 #a = np.where(reachdata[:,3]==origseg)
 #b = np.where(reachdata[:,4]==origsubreach)
 
