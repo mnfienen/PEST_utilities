@@ -4,11 +4,12 @@
 	<sfr_file>RC37u-PT.sfr</sfr_file>
 </filenames>
 <orig_point>
-	<orig_seg>525</orig_seg>
-	<orig_subreach>3</orig_subreach>
+	<orig_seg>17</orig_seg>
+	<orig_subreach>27</orig_subreach>
 </orig_point>
 <flags>
 	<make_shapefiles>True</make_shapefiles>
 	<make_pdffiles>False</make_pdffiles>
+	<all_layers>False</all_layers>
 </flags>
 </data>

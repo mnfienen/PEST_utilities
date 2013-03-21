@@ -76,7 +76,12 @@ class model_rc_conversion:
         self.deltax = spacing[0:self.ncols]
         self.deltay = spacing[self.ncols:]
         
-    
+def tf2flag(intxt):
+    # converts text written in XML file to True or Fale flag
+    if intxt.lower()=='true':
+        return True
+    else:
+        return False
 # ######
 #  MAIN
 # ######
@@ -88,15 +93,10 @@ infile = inpars.findall('.//sfr_file')[0].text
 modspecfile = inpars.findall('.//spc_file')[0].text
 make_shapefiles = inpars.findall('.//make_shapefiles')[0].text
 make_PDFs = inpars.findall('.//make_pdffiles')[0].text
-if make_shapefiles.lower() == 'true':
-    make_shapefiles = True
-else:
-    make_shapefiles = False
-if make_PDFs.lower() == 'true':
-    make_PDFs = True
-else:
-    make_PDFs = False
-# originating cell: seg 525, reach 3
+make_all_layers = inpars.findall('.//all_layers')[0].text
+make_shapefiles = tf2flag(make_shapefiles)
+make_PDFs = tf2flag(make_PDFs)
+make_all_layers = tf2flag(make_all_layers)
 origseg = int(inpars.findall('.//orig_seg')[0].text)
 origsubreach = int(inpars.findall('.//orig_subreach')[0].text)
 
@@ -218,10 +218,11 @@ if make_shapefiles:
         pshape_all.field('reach')
         for clay in np.arange(nlays):
             print 'making shapefile for layer %d' %(clay+1)
-            pshape = shapefile.Writer(shapefile.POINT) 
-            pshape.field('SFR_status')
-            pshape.field('segment')
-            pshape.field('reach')
+            if make_all_layers:
+                pshape = shapefile.Writer(shapefile.POINT) 
+                pshape.field('SFR_status')
+                pshape.field('segment')
+                pshape.field('reach')
             
             inds = np.where(plotting[clay,:,:]>0)
             for cind,r in enumerate(inds[0]):
@@ -229,17 +230,21 @@ if make_shapefiles:
                 plotx,ploty = model_spc_data.rc2world_coords(r+1,c+1)
 #                plotx *= .3048
 #                ploty *= .3048
-                
-                pshape.point(plotx,ploty)
+
+                if make_all_layers:                
+                    pshape.point(plotx,ploty)
                 pshape_all.point(plotx,ploty)
                 if plotting[clay,r,c]==2:
-                    pshape.record('upstream',allsegs[clay,r,c],allreaches[clay,r,c])
+                    if make_all_layers: 
+                        pshape.record('upstream',allsegs[clay,r,c],allreaches[clay,r,c])
                     pshape_all.record('upstream',allsegs[clay,r,c],allreaches[clay,r,c])
                     
                 elif plotting[clay,r,c]==1:
-                    pshape.record('active',allsegs[clay,r,c],allreaches[clay,r,c])
+                    if make_all_layers: 
+                        pshape.record('active',allsegs[clay,r,c],allreaches[clay,r,c])
                     pshape_all.record('active',allsegs[clay,r,c],allreaches[clay,r,c])
                 else:
                     print 'point should be empty!'
-            pshape.save('Layer%d' %(clay+1))
+            if make_all_layers: 
+                pshape.save('Layer%d' %(clay+1))
         pshape_all.save('All_Layers')
