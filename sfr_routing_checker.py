@@ -44,7 +44,7 @@ class model_rc_conversion:
         coords = indat.pop(0).strip().split()
         self.xoffset = float(coords[0])
         self.yoffset = float(coords[1])
-        self.mod_rot_deg = 360-float(coords[2])
+        self.mod_rot_deg = float(coords[2])
         self.mod_rot_rad = np.pi*self.mod_rot_deg/180.0
         th = self.mod_rot_rad # quick shorthand to make the rotation matrix
         self.rot_matrix = np.array([[np.cos(th), np.sin(th)],
@@ -164,19 +164,26 @@ while 1:
 np.savetxt('parents.dat',parents,fmt='%12d')
 
 plotting = np.zeros((nlays,nrows,ncols))
+allsegs = np.zeros_like(plotting)
+allreaches = np.zeros_like(plotting)
 
 
 # first burn in all the streams
 for i in np.arange(nlays):
     inds = np.where(reachdata[:,0]==i+1)
     plotting[i,reachdata[inds,1]-1,reachdata[inds,2]-1] = model_spc_data.activeriv
+    for cind in inds:
+        allsegs[i,reachdata[cind,1]-1,reachdata[cind,2]-1] = reachdata[cind,3]
+        allreaches[i,reachdata[cind,1]-1,reachdata[cind,2]-1] = reachdata[cind,4]
     # plot the upstream reaches within the current segment
     
     inds = np.where((reachdata[:,0]==i+1) & 
                     (reachdata[:,3]==origseg) & 
                     (reachdata[:,4]<origsubreach))[0]
     plotting[i,reachdata[inds,1]-1,reachdata[inds,2]-1] = model_spc_data.upstream_routed
-
+    for cind in inds:
+        allsegs[i,reachdata[cind,1]-1,reachdata[cind,2]-1] = reachdata[cind,3]
+        allreaches[i,reachdata[cind,1]-1,reachdata[cind,2]-1] = reachdata[cind,4]
 
 # plot up all full segments upstream from the evaluated segment
 for cseg in parents:
@@ -186,7 +193,10 @@ for cseg in parents:
         inds2 = np.where(tmp_reaches[:,0]==i+1)[0]
         if len(inds2) > 0:
             plotting[i,tmp_reaches[inds2,1]-1,tmp_reaches[inds2,2]-1] = model_spc_data.upstream_routed
-
+            for cind in inds2:
+                allsegs[i,reachdata[cind,1]-1,reachdata[cind,2]-1] = reachdata[cind,3]
+                allreaches[i,reachdata[cind,1]-1,reachdata[cind,2]-1] = reachdata[cind,4]
+            
 if make_PDFs:    
     for i in np.arange(nlays):
         plt.figure()
@@ -204,10 +214,14 @@ if make_shapefiles:
     else:
         pshape_all=shapefile.Writer(shapefile.POINT)
         pshape_all.field('SFR_status')
+        pshape_all.field('segment')
+        pshape_all.field('reach')
         for clay in np.arange(nlays):
             print 'making shapefile for layer %d' %(clay+1)
             pshape = shapefile.Writer(shapefile.POINT) 
             pshape.field('SFR_status')
+            pshape.field('segment')
+            pshape.field('reach')
             
             inds = np.where(plotting[clay,:,:]>0)
             for cind,r in enumerate(inds[0]):
@@ -219,12 +233,12 @@ if make_shapefiles:
                 pshape.point(plotx,ploty)
                 pshape_all.point(plotx,ploty)
                 if plotting[clay,r,c]==2:
-                    pshape.record('upstream')
-                    pshape_all.record('upstream')
+                    pshape.record('upstream',allsegs[clay,r,c],allreaches[clay,r,c])
+                    pshape_all.record('upstream',allsegs[clay,r,c],allreaches[clay,r,c])
                     
                 elif plotting[clay,r,c]==1:
-                    pshape.record('active')
-                    pshape_all.record('active')
+                    pshape.record('active',allsegs[clay,r,c],allreaches[clay,r,c])
+                    pshape_all.record('active',allsegs[clay,r,c],allreaches[clay,r,c])
                 else:
                     print 'point should be empty!'
             pshape.save('Layer%d' %(clay+1))
