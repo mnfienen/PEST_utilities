@@ -26,11 +26,7 @@ basecase = 'br_kc'
 allfiles = os.listdir(os.getcwd())
 reis = dict()
 for cf in allfiles:
-<<<<<<< HEAD
-    if ((basecase in cf) and ('rei' in cf[-5:]) and (cf[-4:] != '.rei')):
-=======
     if ((basecase in cf) and ('rei' in cf[-6:]) and (cf[-4:] != '.rei')):
->>>>>>> arcresid/master
         cind = int(cf.split('.')[-1])
         reis[cind] = cf
 
