@@ -1,0 +1,26 @@
+<data>
+	<scope_flags>
+		<KILLOLD>True</KILLOLD>
+		<MAKENEW>True</MAKENEW>
+		<STARTMASTER>True</STARTMASTER>
+		<STARTWORKERS>True</STARTWORKERS>
+	</scope_flags>
+	<casefile>menom7f.pst</casefile>
+	<bp>c:\\Downloaded_software\\PEST\\beopest64.exe</bp>
+		<mod_dirs>
+		<mod_dir>latestrun</mod_dir>
+	</mod_dirs>	
+	<stdir>latestrun</stdir>
+
+	<master_data>
+		<mflags>/h /p1</mflags>
+		<masterip>localhost</masterip>
+		<portnum>827363</portnum>
+	</master_data>
+	<worker_data>
+		<wflags>/h</wflags>
+		<numworkers>6</numworkers>
+		<workerstartnum>0</workerstartnum>
+	</worker_data>
+	
+</data>

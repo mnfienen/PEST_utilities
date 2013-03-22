@@ -7,9 +7,24 @@
 import os
 import shutil
 import time
+import xml.etree.ElementTree as ET
+import sys
+
+def tf2flag(intxt):
+    # converts text written in XML file to True or Fale flag
+    if intxt.lower()=='true':
+        return True
+    else:
+        return False
+
+
 # ##############################
 # START user supplied data
 # ##############################
+parfilename = sys.argv[1]
+inpardat = ET.parse(parfilename)
+inpars = inpardat.getroot()    
+
 KILLOLD = True
 MAKENEW = True
 STARTMASTER = True
