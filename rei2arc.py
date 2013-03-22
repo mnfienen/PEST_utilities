@@ -5,13 +5,9 @@ import shutil
 
 # ####
 # user-assigned variables
-<<<<<<< HEAD
 reiname = 'br_kc.rei.3'
 tpname = 'Test_points.tp'
-=======
-reiname = 'br_kc.rei.10'
-tpname = '20121026_Testpoints.tp'
->>>>>>> arcresid/master
+
 base_PRJ = 'base_NAD27_15N.prj'
 head_scale = 10
 stream_scale = 200000
@@ -47,11 +43,8 @@ def rpd(a,b):
     if a==b:
         rpd = 0
     else:
-<<<<<<< HEAD
         rpd = 2.0*(np.abs(a-b)/(a+b))
-=======
-        rpd = 2*np.abs(a-b)/(a+b)
->>>>>>> arcresid/master
+
 
     return rpd
 
@@ -91,8 +84,6 @@ for i in np.arange(len(tpNames)):
     tpTarget_type[i] = re.sub('\s+','',tpTarget_type[i])
 # now read in the REI file
 reidata = np.genfromtxt(reiname,skiprows=4,names=True,dtype=None)
-<<<<<<< HEAD
-=======
 npars = 0
 for x in range(len(reidata['Group'])):
     if reidata['Group'][x][0:5]=='regul':
@@ -101,7 +92,6 @@ for x in range(len(reidata['Group'])):
         npars = npars    
 reidata = reidata[0:len(reidata['Group'])-npars] # remove any regularization parameters
 
->>>>>>> arcresid/master
 
 # make a dictionary of output files - one per unique group name
 grpnames = np.unique(reidata['Group'])
@@ -215,13 +205,6 @@ if csv_or_shp_flag == 'csv':
 elif csv_or_shp_flag == 'shp':
     # close all the output csv files to clean up
     for cf in ofps_shp:
-<<<<<<< HEAD
-        ofps_shp[cf][0].save(ofps_shp[cf][1])
-    for cf in ofps_over_shp:
-        ofps_over_shp[cf][0].save(ofps_over_shp[cf][1])
-    for cf in ofps_under_shp:
-        ofps_under_shp[cf][0].save(ofps_under_shp[cf][1])
-=======
         if cf != 'bad_odanah': #mike's kludge to fix script by removing the bad odanah group
             ofps_shp[cf][0].save(ofps_shp[cf][1])
     for cf in ofps_over_shp:
@@ -230,4 +213,3 @@ elif csv_or_shp_flag == 'shp':
     for cf in ofps_under_shp:
         if cf != 'bad_odanah':
             ofps_under_shp[cf][0].save(ofps_under_shp[cf][1])
->>>>>>> arcresid/master
