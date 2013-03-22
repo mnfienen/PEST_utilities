@@ -69,8 +69,16 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
             grpfiles[cg][1].savefig()
             plt.close('all')
             # perform the Shapiro-Wilks test for normality of the residuals
+<<<<<<< HEAD
             W,p = shapiro(cres)
             
+=======
+            if len(cres) > 2:
+                W,p = shapiro(cres)
+            else:
+                p = -99999
+                
+>>>>>>> arcresid/master
             # write to the summary output file
             ofp.write(25*'#' + '\n')
             ofp.write('Summary Statistics for Residuals: -> group ' + cg +'\n')
@@ -82,11 +90,25 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
             ofp.write('%14s : %f\n' %('max',cmax))
             ofp.write('%14s : %f\n' %('min (absolute)',camin))
             ofp.write('%14s : %f\n' %('max (absolute)',camax))
+<<<<<<< HEAD
             if p > 0.05:
                 ofp.write('Residuals are not normally distributed\n')
             else:
                 ofp.write('Residuals are normally distributed\n')
             ofp.write('p-value = %f' %(p))
+=======
+            
+            if p > 0.05:
+                ofp.write('Residuals are not normally distributed\n')
+                ofp.write('p-value = %f' %(p))
+            elif p < -99:
+                ofp.write('Residuals normality not calculable: Too few residuals in group\n')
+            else:
+                ofp.write('Residuals are normally distributed\n')
+                ofp.write('p-value = %f' %(p))
+            
+            
+>>>>>>> arcresid/master
             ofp.write(3*'\n')
         ofp.close()
 # close the PDF files
