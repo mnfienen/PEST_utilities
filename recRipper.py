@@ -229,7 +229,7 @@ def write_output(fn,recData,regFLAG):
         ofp.write\
         ("Phi_Component\tIteration\tComponent_Value\tTotal_Phi\tModel_Calls" + \
          "\tReg_Weight\tPhi_Component\n")
-        for cl in range(len(recData.mod_calls)):
+        for cl in range(len(recData.mod_calls)-1):
             for cp in range(len(recData.phi_grps)):
                 ofp.write(recData.phi_grps[cp] + '\t' + repr(cl+1900) +'\t' + \
                 repr(recData.phi_vals[cp,cl]) + '\t' + \
@@ -251,7 +251,7 @@ def write_output(fn,recData,regFLAG):
     ofntp=fn.replace(".rec",".rec_tphi")    # file only reporting total phi over iterations
     ofp2=open(ofntp,'w')
     ofp2.write("Iteration\tTotal_Phi\n")  
-    for cl in range(len(recData.mod_calls)):
+    for cl in range(len(recData.mod_calls)-1):
         ofp2.write(repr(cl) + '\t' + repr(recData.total_phi[cl]) + '\n')
     ofp2.close()
     

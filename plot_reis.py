@@ -19,9 +19,9 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 
 # set flag for handling weights
-remove_zero_wt = False
+remove_zero_wt = True
 # set the base case - all <basecase>.rei.# files will be processed.
-basecase = 'br_kc'
+basecase = 'rc37u-pt10'
 # troll through the current directory and return a dictionary of all REI Files
 allfiles = os.listdir(os.getcwd())
 reis = dict()
