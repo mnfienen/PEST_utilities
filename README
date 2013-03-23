@@ -1,10 +1,19 @@
-<<<<<<< HEAD
 PEST_utilities Module
 a m!ke@usgs joint
 contact: mnfienen@usgs.gov
 
 Several Utilties are included
-################
+#######################
+# beopest_launcher.py #
+#######################
+Options for this code (specified in the XML file) are to:
+1) make a user-specified number of worker subfolders
+2) start a master 
+3) start the user-specified number of workers in their subfolders.
+
+Pretty bare-bones....
+
+##############
 # recRipper.py ##
 ################
 This code parses a REC file from PEST and puts out
@@ -84,29 +93,3 @@ this rule is for the PEST flags line in which all information (including whitesp
 indicator is read and used in the model call.
 
 On lines where "none" is listed as an option, simply type "none" without quotation marks.
-=======
-uberPEST.py
-
-a m!ke@usgs joint
-contact: Mike Fienen <mnfienen@usgs.gov>
-
-This project is a wrapper around PEST (although generalizable) that 
-uses gmail protocols to send an email upon completion of a PEST
-or (more often) beoPEST model run.
-
-The dependencies are: gmail_sender.py and a config file the *must* be named uberPEST.par.
-
-An example ubserPEST.par file is included.
-
-This code uses gmail to send the email out, so the user must set up an account
-at gmail.com. The login name of the account <myaccount>@<gmail.com> gets listed in the
-parameter file (in this example, it is: wwsc.modeling.center@gmail.com). The code securely
-prompts for the password.
-
-Elsewhere in the parameter file (uberPEST.par), variables are generally read from the start of the line 
-to the first whitespace. All other text on the line is treated as a comment and ignored. An exception to 
-this rule is for the PEST flags line in which all information (including whitespace) up to the "#" comment
-indicator is read and used in the model call.
-
-On lines where "none" is listed as an option, simply type "none" without quotation marks.
->>>>>>> 6a774480d31fdf2ad4d2179c849e95c9d1f6b44a
