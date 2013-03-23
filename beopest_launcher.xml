@@ -6,10 +6,10 @@
 		<STARTWORKERS>True</STARTWORKERS>
 	</scope_flags>
 	<casefile>menom7f.pst</casefile>
-	<bp>c:\\Downloaded_software\\PEST\\beopest64.exe</bp>
+	<bp>c:\Downloaded_software\PEST\beopest64.exe</bp>
 		<mod_dirs>
-		<mod_dir>latestrun</mod_dir>
-	</mod_dirs>	
+			<mod_dir>latestrun</mod_dir>
+		</mod_dirs>	
 	<stdir>latestrun</stdir>
 
 	<master_data>

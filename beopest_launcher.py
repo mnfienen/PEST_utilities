@@ -19,26 +19,30 @@ def tf2flag(intxt):
 
 
 # ##############################
-# START user supplied data
+# FIRST read in the parameter file from the XML
 # ##############################
 parfilename = sys.argv[1]
 inpardat = ET.parse(parfilename)
 inpars = inpardat.getroot()    
 
-KILLOLD = True
-MAKENEW = True
-STARTMASTER = True
-STARTWORKERS = True
-bp = 'c:\\Downloaded_software\\PEST\\beopest64.exe'
-casefile = 'menom7f.pst'
-mod_dirs = ['latestrun']
-stdir = 'latestrun'
-mflags = ' /h /p1 '
-masterip = 'localhost'
-portnum = 623623
-wflags = ' /h '
-numworkers = 6
-workerstartnum = 0 # zero for first launch; first worker# available if previously launched workers
+KILLOLD = tf2flag(inpardat.findall('.//KILLOLD')[0].text)
+MAKENEW = tf2flag(inpardat.findall('.//MAKENEW')[0].text)
+STARTMASTER = tf2flag(inpardat.findall('.//STARTMASTER')[0].text)
+STARTWORKERS = tf2flag(inpardat.findall('.//STARTWORKERS')[0].text)
+bp = inpardat.findall('.//bp')[0].text
+casefile = inpardat.findall('.//casefile')[0].text
+mod_dirs = []
+tmp = inpardat.findall('.//mod_dir')
+for el in tmp:
+    mod_dirs.append(el.text)
+stdir = inpardat.findall('.//stdir')[0].text
+mflags = inpardat.findall('.//mflags')[0].text
+masterip = inpardat.findall('.//masterip')[0].text
+portnum = inpardat.findall('.//portnum')[0].text
+wflags = inpardat.findall('.//wflags')[0].text
+numworkers = int(inpardat.findall('.//numworkers')[0].text)
+workerstartnum =  int(inpardat.findall('.//workerstartnum')[0].text)
+# zero for first launch; first worker# available if previously launched workers
 # ##############################
 # END user supplied data
 # ##############################
