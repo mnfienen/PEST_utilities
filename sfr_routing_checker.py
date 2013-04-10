@@ -227,7 +227,7 @@ if make_shapefiles:
             inds = np.where(plotting[clay,:,:]>0)
             for cind,r in enumerate(inds[0]):
                 c=inds[1][cind]
-                plotx,ploty = model_spc_data.rc2world_coords(r+1,c+1)
+                plotx,ploty = model_spc_data.rc2world_coords(r,c)
 #                plotx *= .3048
 #                ploty *= .3048
 
