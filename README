@@ -12,9 +12,18 @@ Options for this code (specified in the XML file) are to:
 3) start the user-specified number of workers in their subfolders.
 
 Pretty bare-bones....
+#################
+# RMR_RIPPER.py #
+#################
+This is a simple program that returns some of the statistics on 
+which machines ran which jobs on an HTCondor + beoPEST set of runs.
 
-##############
-# recRipper.py ##
+depends on an up-to-date version of name_IP_lookup.dat
+
+Also must update the RMR filename in the code for now.
+
+################
+# recRipper.py #
 ################
 This code parses a REC file from PEST and puts out
 files to investigate the evolution of PHI over iterations.
