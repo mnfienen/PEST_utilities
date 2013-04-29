@@ -1,5 +1,5 @@
 # Prints list of all machines with associated Condor nodes
-# also lists machines with failed nodes (and failed nodes)
+# also lists machines with failed runs (and failed nodes)
 # reads from BeoPEST rmr file
 
 # Input PEST basename
