@@ -1,0 +1,8 @@
+beopest64                   # pest or ppest
+AssP3.pst   # case name -  the .pst extension is optional
+/h :4040            # flags to append after system call --> "none" if none, and reads up to '#'
+mnfienen@me.com        # recipient email
+wwsc.modeling.center@gmail.com   # email sending host: must be GMAIL
+none          # name of post-processing batch file ("none" if none)
+none                # filenames of attachments ("none" if no attachment) [one per line]
+shaka.png
