@@ -38,7 +38,7 @@ for el in tmp:
 stdir = inpardat.findall('.//stdir')[0].text
 mflags = inpardat.findall('.//mflags')[0].text
 masterip = inpardat.findall('.//masterip')[0].text
-portnum = inpardat.findall('.//portnum')[0].text
+portnum = int(inpardat.findall('.//portnum')[0].text)
 wflags = inpardat.findall('.//wflags')[0].text
 numworkers = int(inpardat.findall('.//numworkers')[0].text)
 workerstartnum =  int(inpardat.findall('.//workerstartnum')[0].text)
