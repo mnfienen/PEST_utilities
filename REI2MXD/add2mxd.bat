@@ -1,0 +1,1 @@
+C:\Python26\ArcGIS10.0\python add2mxd.py
