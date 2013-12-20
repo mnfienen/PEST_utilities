@@ -12,6 +12,21 @@ Options for this code (specified in the XML file) are to:
 3) start the user-specified number of workers in their subfolders.
 
 Pretty bare-bones....
+
+
+####################
+# PriorStripper.py #
+####################
+Simple code to remove prior information for all fixed parameters.
+This is key when, for example, using pilot points with regularization
+and need to fix some (PEST doesn't accept prior information for 
+fixed parameters).
+This code reads in a PST file (user sets input and output filenames
+near the top of the code) and identifies all parameters that are 'fixed'.
+For all fizxed parameters, prior information is deleted. The output file 
+is a new version of the PST file with counter updated and appropriate 
+prior information removed.
+
 #################
 # RMR_RIPPER.py #
 #################
@@ -75,6 +90,7 @@ negative (over) and a final with positive (under) residuals showing bias.
 ###############################################################
 Reads a PST control file and, if curent value is outside the range of bounds, 
 the bound is moved out by 2 orders of magnitude. It's a kludge but can be useful and the USER MUST SPECIFY INPUT AND OUTPUT FILENAMES IN TOP OF CODE. 
+
 ############
 # uberPEST #
 ############

@@ -263,8 +263,49 @@ def write_output(fn,recData,regFLAG):
 
 #
 # get parameter file name
-(parname, regFLAG) = read_par_file()
-#
+import sys
+import os
+
+# check if any arguments entered
+if len(sys.argv)==1:
+    print '\nWill look for recRipper.par file, but next time, can simply run with an\noptional subfolder argument (if REC file is not in the same folder).\nThis will work as long as there is only one rec file.\n'
+
+# check if a subfolder argument was entered
+subfolders=[f for f in os.listdir(os.getcwd()) if os.path.isdir(f)]
+argued=[f for f in subfolders if f in sys.argv]
+if len(argued)>0:
+    folder2lookin=argued[0]
+else:
+    folder2lookin=os.getcwd()
+
+# try opening a parfile, if none, then use any subfolder arguments, or look in current dir for REC file
+try:
+    (parname, regFLAG) = read_par_file()
+except:
+    print 'Searching %s for a rec file' %(folder2lookin)
+    try:
+        parname=[f for f in os.listdir(folder2lookin) if f.endswith('.rec')]
+        print parname
+    except:
+        print 'No rec file found!'
+        quit()
+    if len(parname)>1:
+        print 'More than one REC file found!'
+        quit()
+    parname=os.path.join(folder2lookin,parname[0])
+    pstfile=parname[:-4]+'.pst'
+    pstdata=open(pstfile).readlines()
+    mode=pstdata[2].strip().split()[1]
+    regFLAG=False
+    if mode=='regulasization':
+        regFLAG=True
+        
+if regFLAG:
+    mode='Regularisation'
+else:
+    mode='Estimation'
+    
+print 'reading %s in %s mode...' %(parname,mode)
 # perform the main reading function
 read_rec_file(parname,regFLAG)
 
