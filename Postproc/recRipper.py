@@ -1,5 +1,6 @@
 __author__ = 'aleaf'
 
+import xml.etree.ElementTree as ET
 import os
 import re
 import pandas as pd
@@ -7,9 +8,18 @@ from collections import OrderedDict
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-path = 'Opt3b'
-basename = 'badriver_svda'
-outpdf = '{0}_rec.pdf'.format(basename)
+infile = 'Postproc_input.XML'
+try:
+    inpardat = ET.parse(infile)
+except:
+    raise IOError("Cannot open {0}!".format(infile))
+
+inpars = inpardat.getroot()
+
+# input
+path = inpars.findall('.//path')[0].text
+basename = inpars.findall('.//pest_basename')[0].text
+outpdf = os.path.join(path,'{0}_rec.pdf'.format(basename))
 
 # open rec file
 indat = open(os.path.join(path, '{0}.rec'.format(basename))).readlines()

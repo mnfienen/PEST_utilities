@@ -5,22 +5,32 @@
 <Inputs>
     <!-- path: 
     Path to PEST and MODFLOW files -->
-    <path>D:\ATLData\BadRiver\Calibration_runs\Opt3b</path>
+    <path>D:\ATLData\BadRiver\Calibration_runs\Opt3c</path>
     <!-- pest_basename: 
     basename for PEST files in 'path' folder-->
     <pest_basename>badriver_svda</pest_basename>
     <!-- MODFLOW_basename:
     used to read the Discretization, Recharge and Heads files-->
     <MODFLOW_basename>BadRiver</MODFLOW_basename>
-	<!-- rei_name:
+	<!-- rei_name (include .rei extention):
     name of single PEST residuals file in 'path' folder to plot spatially -->
-    <rei_name>badriver_opt3b_9best.rei</rei_name>
+    <rei_name>badriver_opt3c_12best.rei</rei_name>
     <!-- GIS_folder:
     name of subfolder in 'path' folder where post-processed GIS data will be written -->
     <GIS_folder>GIS</GIS_folder>
     <!-- base_mxd:
     name of subfolder in 'path' folder where post-processed GIS data will be written -->
     <base_mxd>D:\ATLData\Badriver\Calibration_runs\BadRiver_calibration</base_mxd>
+    <!-- SFR_utilities_path:
+    shape file of NHD linework exploded by model cells (for visualizing SFR output) -->
+    <SFR_utilities_path>D:\ATLData\Documents\GitHub\SFR</SFR_utilities_path>
+    <!-- SFR_gis_lines:
+    shape file of NHD linework exploded by model cells (for visualizing SFR output) -->
+    <SFR_gis_lines>D:\ATLData\Documents\GitHub\SFR\river_explode.shp</SFR_gis_lines>
+    <!-- SFRoutfile_name:
+    file containing SFR package output (streamflow, aquifer exchange, etc.)
+    (name only, assumed to be located in 'path' folder above)-->
+    <SFRoutfile_name>BadRiver_streamflow.dat</SFRoutfile_name>
 </Inputs>
 <Outputs>
     <!-- path: 

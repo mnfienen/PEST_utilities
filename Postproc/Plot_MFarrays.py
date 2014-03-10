@@ -10,8 +10,7 @@ import discomb_utilities
 import sys
 import mfpytools.binaryfile_recarray as bf
 
-#path=os.path.join('Opt3b')
-#Recharge_array='BadRiver_rch.dat'
+
 Rchfile = 'BadRiver.rch'
 gridspecfile='BadRiver.spc'
 disfile='BadRiver.dis'
@@ -41,7 +40,10 @@ inpars = inpardat.getroot()
 
 # input
 path = inpars.findall('.//path')[0].text
-
+MODFLOW_basename = inpars.findall('.//MODFLOW_basename')[0].text
+Rchfile = 'BadRiver.rch'
+gridspecfile='BadRiver.spc'
+disfile='BadRiver.dis'
 
 outpdf_kp=os.path.join(path,'%s_Karrays.pdf' %(path))
 outpdf_T=os.path.join(path,'%s_Tarrays.pdf' %(path))
