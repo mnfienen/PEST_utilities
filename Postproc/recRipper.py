@@ -25,6 +25,7 @@ outpdf = os.path.join(path,'{0}_rec.pdf'.format(basename))
 indat = open(os.path.join(path, '{0}.rec'.format(basename))).readlines()
 
 read_itr_info = False
+phi_r = False
 print "\nReading {0}.rec...".format(os.path.join(path,basename))
 for i in range(len(indat)):
 
@@ -34,10 +35,12 @@ for i in range(len(indat)):
     if read_itr_info:
         if "Current regularisation weight factor" in indat[i]:
             reg_wf = float(indat[i].strip().split()[-1])
+            phi_m = float(indat[i+1].strip().split()[-1])
             phi_r = float(indat[i+2].strip().split()[-1])
 
         if "Starting phi for this iteration" in indat[i]:
-            phi_m = float(indat[i].strip().split()[-1])
+            if not phi_r:
+                phi_m = float(indat[i].strip().split()[-1])
             itr_info = OrderedDict()
             itr_info['phi_m'] = phi_m
 
