@@ -25,7 +25,8 @@ recharge_id='rch' # string that identifies the recharge raster in the group of a
 k_fields_lyr='K_rasters.lyr'
 plot_logK=True
 plot_vertical_anisotropy=True
-plot_vertical_head_gradients=True
+plot_vertical_head_differences=True
+plot_vertical_head_gradients=False
 plot_log_vertical_gradients=False
 plot_heads=True
 head_cont_interval = 20
@@ -58,6 +59,8 @@ heads_lyr = inpars.findall('.//head_residuals/lyr')[0].text
 apply_heads_lyr_to = [k.text for k in inpars.findall('.//head_residuals/keyword')]
 sfr_flow_lyr = inpars.findall('.//SFR_flow_symbology')[0].text
 sfr_interactions_lyr = inpars.findall('.//SFR_interactions_symbology')[0].text
+flooded_cells_lyr = inpars.findall('.//flooded_cells_symbology')[0].text
+dry_cells_lyr = inpars.findall('.//dry_cells_symbology')[0].text
 
 # Assign symbology to filenames using identifier strings from XML file
 symbology = dict(zip(apply_streams_lyr_to, len(apply_streams_lyr_to)*[streams_lyr]))
@@ -87,7 +90,7 @@ def make_lograster(rastername,pest_path):
     
 def add_raster(dataframe,raster,layername,path,symbology_layer):
     # add raster to a mxd file
-
+    print 'adding {0}'.format(raster)
     # create pointer to raster layer objects
     # input to layer pointer needs to be path to raster, not raster object
     layer_pointer=arcpy.mapping.Layer(raster)
@@ -129,15 +132,6 @@ for line in infiles:
             lyr = symbology[identifier]
     try:
         add_feature(df, filename, lyr, "TOP")
-        '''
-        # make a layer
-        newlayer = arcpy.mapping.Layer(filename)
-        print 'adding {0}'.format(filename)
-        # apply the symbology
-        arcpy.ApplySymbologyFromLayer_management(newlayer, os.path.join(os.getcwd(),lyr))
-        # add new layer to current dataframe, at the top of the table of contents 
-        arcpy.mapping.AddLayer(df, newlayer,"TOP")
-        '''
     except ValueError:
         print 'skipping {0}, not a valid datasource for layer.'.format(filename)
 
@@ -160,12 +154,11 @@ if add_ascii_grids:
     if len(ascii_Kfiles)==0:
         print "no ascii grids of K found!"
     for f in ascii_Kfiles:
-        print 'adding %s' %(f)
-        arcpy.env.workspace = os.getcwd()
-        print arcpy.env.workspace
+        print 'converting %s to raster...' %(f)
+        arcpy.env.workspace = pest_path
         rastername="L"+f.split('.')[0][-4:]
         #convert ascii grid file to arc raster
-        arcpy.ASCIIToRaster_conversion(pest_path+'\\'+f,pest_path+'\\'+rastername,"FLOAT")
+        arcpy.ASCIIToRaster_conversion(pest_path+'\\'+f, pest_path+'\\'+rastername, "FLOAT")
         
         # define a projection for the raster
         # somehow this works here, at this point, and not in the arcpy window after the raster has been made
@@ -189,9 +182,6 @@ if add_ascii_grids:
                     print "no kx raster found for %s" %(rastername)
                     continue
                 # Divide kz raster by kx raster; then follow same steps as above
-                print pest_path+'\\'+rastername
-                print pest_path+'\\'+Kx_name
-                
                 anisotropy_raster=arcpy.sa.Raster(pest_path+'\\'+rastername)/arcpy.sa.Raster(pest_path+'\\'+Kx_name)
                 anisotropy_raster=arcpy.sa.Log10(anisotropy_raster)
                 anisotropy_raster_path = os.path.join(pest_path,"%s_log_va" %(rastername[0:2]))
@@ -200,14 +190,14 @@ if add_ascii_grids:
                 add_raster(df,anisotropy_raster_path,"%s_log_va" %(rastername[0:2]),pest_path,os.path.join(os.getcwd(),k_fields_lyr))    
 
     # add vertical head differences/gradients
-    if plot_vertical_head_gradients:
+    if plot_vertical_head_differences:
         os.chdir(os.path.join(pest_path))
         ascii_hfiles=[f for f in os.listdir(os.getcwd()) if '_dh' in f and '.asc' in f]
         if len(ascii_hfiles)==0:
             print "no vertical head gradient ascii grids found!"
             
         for f in ascii_hfiles:
-            print 'adding %s' %(f)
+            print 'converting %s to raster...' %(f)
             arcpy.env.workspace = os.getcwd()
             if 'dhdz' in f:
                 rastername="L%sto%s" %(f.split('.')[0][-7:][0],f.split('.')[0][-7:][1:])
@@ -224,14 +214,27 @@ if add_ascii_grids:
                     continue
                     
             add_raster(df,pest_path+'\\'+rastername,rastername,pest_path,os.path.join(os.getcwd(),vert_heads_lyr))
-    
-    # add water table
+
+    # plot dry cells
+    os.chdir(os.path.join(pest_path))
+    ascii_dry_files = [f for f in os.listdir(os.getcwd()) if 'dry' in f and '.asc' in f]
+    if len(ascii_dry_files )== 0:
+        print "no ascii grids of dry cells found!"
+
+    for f in ascii_dry_files:
+        print 'converting %s to raster...' %(f)
+        rastername = f[:-4]
+        arcpy.ASCIIToRaster_conversion(pest_path+'\\'+f, pest_path+'\\'+rastername, "FLOAT")
+        arcpy.DefineProjection_management(pest_path+'\\'+rastername, prjfile)
+        add_raster(df, pest_path+'\\'+rastername, rastername, pest_path, os.path.join(os.getcwd(), dry_cells_lyr))
+
+    # add water table and flooded cells
     # convert to raster
     rastername = 'watertabl'
     arcpy.ASCIIToRaster_conversion(pest_path+'\\'+'water_table.asc',pest_path+'\\'+rastername,"FLOAT")
     arcpy.DefineProjection_management(pest_path+'\\'+rastername,prjfile)
-    add_raster(df,pest_path+'\\'+rastername,'water table',pest_path,os.path.join(os.getcwd(),k_fields_lyr))
-    
+    add_raster(df, pest_path+'\\'+rastername, 'water table', pest_path, os.path.join(os.getcwd(), k_fields_lyr))
+
     # get max,min values
     WTmin = float(arcpy.GetRasterProperties_management(pest_path+'\\'+rastername,"MINIMUM").getOutput(0))
     
@@ -241,7 +244,13 @@ if add_ascii_grids:
     contours = arcpy.mapping.Layer(pest_path+'\\'+"WTcontours.shp")
     arcpy.ApplySymbologyFromLayer_management(contours, os.path.join(os.getcwd(),contours_lyr))
     arcpy.mapping.AddLayer(df, contours,"TOP")
-    
+
+    # add flooded cells
+    rastername = 'flooded'
+    arcpy.ASCIIToRaster_conversion(pest_path+'\\'+'flooded_cells.asc', pest_path+'\\'+rastername, "FLOAT")
+    arcpy.DefineProjection_management(pest_path+'\\'+rastername, prjfile)
+    add_raster(df, pest_path+'\\'+rastername, 'water table', pest_path, os.path.join(os.getcwd(), flooded_cells_lyr))
+
     # add SFR results
     if plot_SFR:
         shpfile = os.path.join(pest_path, sfr_shpname)

@@ -44,7 +44,13 @@
     <SFR_interactions_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\SFR_interactions_symbology.lyr</SFR_interactions_symbology>
     <!-- SFR_flow_symbology:
     lyr file with symbology for displaying streamflow as line thickness-->
-    <SFR_flow_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\SFR_flow_symbology_Bad_River.lyr</SFR_flow_symbology>
+    <SFR_flow_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\SFR_flow_symbology.lyr</SFR_flow_symbology>
+    <!-- flooded_cells_symbology:
+    lyr file with symbology for displaying cells where the head is above land surface-->
+    <flooded_cells_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\flooded_cells.lyr</flooded_cells_symbology>
+    <!-- dry_cells_symbology:
+    lyr file with symbology for displaying cells where the head is below the cell bottom-->
+    <dry_cells_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\dry_cells.lyr</dry_cells_symbology>
     <!-- flux_residuals:
     lyr file with symbology for plotting stream baseflow residuals from rei file-->
     <flux_residuals>

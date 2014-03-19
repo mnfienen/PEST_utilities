@@ -272,15 +272,14 @@ if plot_layer_transmissivities:
         # get indices for dry cells
         drycells=np.where(heads[i,:,:]<=bot)
         T=np.log10(b[i,:,:]*Kx_all[i,:,:])
-        T[drycells]=np.nan
+        T[drycells] = NODATA_VALUE
         save_image(pdf,T,'Log Transmissivity, ft2/d','Layer %s' %(i+1))
         
-        fname=os.path.join(gis_folder,'L%s_T.asc' %(i+1))
-        save_ascii_grid(fname,T,path,gridspecfile,units_multiplier)
+        fname = os.path.join(gis_folder,'L%s_T.asc' %(i+1))
+        save_ascii_grid(fname, T, path, gridspecfile, units_multiplier)
 
         # save dry cells as well
-        active = np.empty(np.shape(heads[0, :, :]))
-        active[:] = np.NaN
+        active = np.zeros(np.shape(heads[0, :, :]))
         active[drycells] = 1
         fname=os.path.join(gis_folder, 'L%s_dry.asc' %(i+1))
         save_ascii_grid(fname, active, path, gridspecfile, units_multiplier)
@@ -290,10 +289,14 @@ if export_water_table:
     print "\nexporting water table and flooded cells..."
     heads = read_heads(path,headsfile)
     WT = watertable = heads[0,:,:]
-    flooded = np.where(WT > layer_elevs[i, :, :])
-    Flooded = np.empty(np.shape(WT))
-    Flooded[:] = np.NaN
+    Flooded = WT - layer_elevs[0, :, :]
+    Flooded[np.where(Flooded <= 0)] = NODATA_VALUE
+    '''
+    Flooded = flooded[flooded > 0]
+    flooded = np.where(WT > layer_elevs[0, :, :])
+    Flooded = np.zeros(np.shape(WT))
     Flooded[flooded] = 1
+    '''
     if create_ascii_grids:
         outfile=os.path.join(gis_folder, 'water_table.asc')
         save_ascii_grid(outfile, WT, path, gridspecfile, units_multiplier)
