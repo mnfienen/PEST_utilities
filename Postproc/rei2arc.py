@@ -4,6 +4,7 @@ Also computes percent difference and percent error for plotting.
 Note: may need to export a composite TP file from GFLOW if imported TPs via multi files, and may also need to 
 edit the composite TP file to ensure names match (GFLOW clips long names).
 '''
+import sys
 import xml.etree.ElementTree as ET
 import numpy as np
 import re
@@ -11,12 +12,10 @@ import shapefile as sf
 import shutil
 import os
 
-# ####
-# input files
-#pest_path= os.path.join('Opt3b') # enter os.getcwd() if pest files in same folder
-#reiname = 'badriver_opt3b_9best.rei'
-obs_locations_file = 'observation_locations.csv' # comma delimited
-base_PRJ = 'UTM_NAD27.prj'
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
 
 # observation locations file settings
 header=0 # number of lines to skip
@@ -32,10 +31,7 @@ stream_scale = 200000
 csv_or_shp_flag = 'shp' # flag for output of files either 'csv' or 'shp'
 overunder = False # True = write 3 files: abs(all), abs(over), abs(under)
 #                   False = write 1 file: all raw residuals (plus scaled and RPD & RPE)
-#gis_folder= 'GIS' # folder to write GIS files to; to save to root folder, enter ''
 
-
-infile = 'Postproc_input.XML'
 try:
     inpardat = ET.parse(infile)
 except:
@@ -47,6 +43,8 @@ inpars = inpardat.getroot()
 pest_path = inpars.findall('.//path')[0].text
 reiname = inpars.findall('.//rei_name')[0].text
 gis_folder = inpars.findall('.//GIS_folder')[0].text
+obs_locations_file = inpars.findall('.//observation_locations')[0].text
+base_PRJ = inpars.findall('.//PRJfile')[0].text
 #junk = 1
 #
 # ##################
@@ -102,9 +100,9 @@ def sqwr(a,b):
     return sqwr
 
 # function to write out results to csv file
-def writeout_shp(cshp,X,Y,cname,res,resplot,meas,mod,c_rpe,weight): # use **kwargs to incorporate optional fields
+def writeout_shp(cshp,X,Y,cname,res,absres,resplot,meas,mod,c_rpe,weight): # use **kwargs to incorporate optional fields
     cshp.point(X,Y)
-    cshp.record(cname,res,resplot,meas,mod,c_rpe,weight)
+    cshp.record(cname,res,absres,resplot,meas,mod,c_rpe,weight)
     return cshp
 '''
 def writeout_shp(cshp,X,Y,cname,res,resplot,meas,mod,c_rpd):
@@ -202,14 +200,14 @@ elif csv_or_shp_flag == 'shp':
     ofps_under_shp = dict()
     ofps_over_shp = dict()    
     if overunder:
-        shp_fields = ['name','residual','plot_res','meas','modeled','rpd','junk']
+        shp_fields = ['name', 'residual', 'plot_res', 'meas', 'modeled', 'rpd', 'junk']
     else:
-        shp_fields = ['name','residual','SQ_wght_res','meas','modeled','pct_error','weight']
+        shp_fields = ['name', 'residual', 'abs_resid', 'SQ_wt_res', 'meas', 'modeled', 'pct_error', 'weight']
     for cname in grpnames:
         fname = cname + '_' + reiname + '.shp'
-        ofps_shp[cname] = [sf.Writer(sf.POINT),os.path.join(pest_path,gis_folder,fname)] # generates a shapefile
-        ofps_shp[cname][0]=init_shp(ofps_shp[cname][0],shp_fields) # Initializes fields for the shapefile
-        shutil.copyfile(base_PRJ,os.path.join(pest_path,gis_folder,fname[:-4] + '.prj')) # assigns a projection to the shapefile
+        ofps_shp[cname] = [sf.Writer(sf.POINT), os.path.join(pest_path, gis_folder, fname)] # generates a shapefile
+        ofps_shp[cname][0] = init_shp(ofps_shp[cname][0], shp_fields) # Initializes fields for the shapefile
+        shutil.copyfile(base_PRJ, os.path.join(pest_path, gis_folder,fname[:-4] + '.prj')) # assigns a projection to the shapefile
         ofp_file_list.write('%s\n' %(fname)) # adds the name of the shape file to the summary file
         if overunder:
             fname = cname + '_under_' + reiname + '.shp'
@@ -242,8 +240,8 @@ for crow in reidata:
     if overunder:
         if csv_or_shp_flag == 'shp':
             writeout_shp(ofps_shp[crow['Group']][0],tpX[tpInds],tpY[tpInds],cname, 
-                 np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor,
-                 crow['Measured'],crow['Modelled'],rpd(crow['Measured'],crow['Modelled']),junk)    
+                 np.abs(crow['Residual']), np.abs(crow['Residual'])/res_plot_factor,
+                 crow['Measured'],crow['Modelled'], rpd(crow['Measured'], crow['Modelled']), junk)
         elif csv_or_shp_flag == 'csv':    
             writeout_csv(ofps[crow['Group']],tpX[tpInds],tpY[tpInds],cname, 
                  np.abs(crow['Residual']),np.abs(crow['Residual'])/res_plot_factor)   
@@ -251,12 +249,12 @@ for crow in reidata:
             raise(BadFlag(csv_or_shp_flag))
     else:
         if csv_or_shp_flag == 'shp':
-            sqrwghtres = sqwr(crow['Residual'],crow['Weight'])
-            writeout_shp(ofps_shp[crow['Group']][0],tpX[tpInds],tpY[tpInds],cname, 
-                 crow['Residual'],sqrwghtres,
-                 crow['Measured'],crow['Modelled'],rpe(crow['Measured'],crow['Modelled']),crow['Weight'])    
+            sqrwghtres = sqwr(crow['Residual'], crow['Weight'])
+            writeout_shp(ofps_shp[crow['Group']][0], tpX[tpInds], tpY[tpInds], cname,
+                 crow['Residual'], np.abs(crow['Residual']), sqrwghtres,
+                 crow['Measured'], crow['Modelled'], rpe(crow['Measured'], crow['Modelled']), crow['Weight'])
         elif csv_or_shp_flag == 'csv':    
-            writeout_csv(ofps[crow['Group']],tpX[tpInds],tpY[tpInds],cname, 
+            writeout_csv(ofps[crow['Group']],tpX[tpInds],tpY[tpInds], cname,
                  crow['Residual'],rpe(crow['Measured'],crow['Modelled']))   
         else:
             raise(BadFlag(csv_or_shp_flag))    
@@ -296,12 +294,16 @@ if csv_or_shp_flag == 'csv':
         ofps_over[cf].close()
 elif csv_or_shp_flag == 'shp':
     # close all the output shp files to clean up
+    
     for cf in ofps_shp:
-        if cf != 'bad_odanah': #mike's kludge to fix script by removing the bad odanah group
-            ofps_shp[cf][0].save(ofps_shp[cf][1])
+        #if cf != 'bad_odanah': #mike's kludge to fix script by removing the bad odanah group
+        ofps_shp[cf][0].save(ofps_shp[cf][1])
+
     for cf in ofps_over_shp:
         if cf != 'bad_odanah':
             ofps_over_shp[cf][0].save(ofps_over_shp[cf][1])
     for cf in ofps_under_shp:
         if cf != 'bad_odanah':
             ofps_under_shp[cf][0].save(ofps_under_shp[cf][1])
+
+

@@ -5,7 +5,7 @@
 <Inputs>
     <!-- path: 
     Path to PEST and MODFLOW files -->
-    <path>D:\ATLData\BadRiver\Calibration_runs\Opt3c</path>
+    <path>D:\ATLData\BadRiver\Calibration_runs\data</path>
     <!-- pest_basename: 
     basename for PEST files in 'path' folder-->
     <pest_basename>badriver</pest_basename>
@@ -14,7 +14,7 @@
     <MODFLOW_basename>BadRiver</MODFLOW_basename>
     <!-- rei_name (include .rei extention):
     name of single PEST residuals file in 'path' folder to plot spatially -->
-    <rei_name>badriver_opt3c_12best.rei</rei_name>
+    <rei_name>badriver_opt3e_8.rei</rei_name>
     <!-- GIS_folder:
     name of subfolder in 'path' folder where post-processed GIS data will be written -->
     <GIS_folder>GIS</GIS_folder>
@@ -39,6 +39,29 @@
     <PRJfile>D:\ATLData\Badriver\Calibration_runs\UTM_NAD27.prj</PRJfile>
 </Inputs>
 <Symbology_lyr_files>
+    <!-- SFR_interactions_symbology:
+    lyr file with symbology for displaying streamflow gain/loss and dry cells as colors-->
+    <SFR_interactions_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\SFR_interactions_symbology.lyr</SFR_interactions_symbology>
+    <!-- SFR_flow_symbology:
+    lyr file with symbology for displaying streamflow as line thickness-->
+    <SFR_flow_symbology>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\SFR_flow_symbology_Bad_River.lyr</SFR_flow_symbology>
+    <!-- flux_residuals:
+    lyr file with symbology for plotting stream baseflow residuals from rei file-->
+    <flux_residuals>
+        <lyr>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\Streams_abs_resid.lyr</lyr>
+        <!-- PEST observation group names containing these keywords will be assigned to the above symbology -->
+        <keyword>bad_odanah</keyword>
+        <keyword>stream</keyword>
+        <keyword>headwater</keyword>
+    </flux_residuals>
+    <!-- head_residuals:
+    lyr file with symbology for plotting head residuals from rei file-->
+    <head_residuals>
+        <lyr>D:\ATLData\Badriver\Calibration_runs\Heads.lyr</lyr>
+        <!-- PEST observation group names containing these keywords will be assigned to the above symbology -->
+        <keyword>head_</keyword>
+        <keyword>wcrs</keyword>
+    </head_residuals>
     <!-- identifiabilities:
     lyr file with symbology for plotting parameter identifiabilities-->
     <identifiabilities>D:\ATLData\Badriver\Calibration_runs\Pilot_point_idents.lyr</identifiabilities>

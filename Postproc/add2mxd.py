@@ -6,23 +6,21 @@
 # a pre-configured base mxd file
 # pre-configured lyr files with symbology for stream and head residuals that are over and under
 
-
+import sys
 import xml.etree.ElementTree as ET
 import arcpy
 import os
 import shutil
 
-#pest_path = os.path.join('D:\\','ATLData','BadRiver','Calibration_runs','Opt3b') # works best with absolute path
-#gis_folder = os.path.join('GIS')
-#rootname = 'badriver_opt3b_9best_rei' # this specifies the PEST iteration to use in case there are shapefiles from multiple iterations in the same directory
-#base_mxd = "BadRiver_calibration" # name of the pre-existing mxd to add the shapefiles to
-#mxd_path = os.path.join('D:\\','ATLData','BadRiver','Calibration_runs')
-heads_lyr='Heads.lyr'
-streams_lyr='Streams.lyr'
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
+
+
 rch_lyr='Rch.lyr'
 contours_lyr = 'contours.lyr'
 add_ascii_grids=True
-prjfile="D:\\ATLData\\BadRiver\\Calibration_runs\\UTM_NAD27.prj" # projection file with coordinate system to assign to K and R rasters
 recharge_id='rch' # string that identifies the recharge raster in the group of ascii grid files
 k_fields_lyr='K_rasters.lyr'
 plot_logK=True
@@ -33,11 +31,10 @@ plot_heads=True
 head_cont_interval = 20
 vert_heads_lyr='vert_head_gradients.lyr'
 plot_SFR = True
-sfr_flow_lyr = 'SFR_flow_symbology.lyr'
-sfr_interactions_lyr = 'SFR_interactions_graduated_symbology.lyr'
+
+
 sfr_shpname = 'BadRiver_streamflow.shp' # include extension
 
-infile = 'Postproc_input.XML'
 try:
     inpardat = ET.parse(infile)
 except:
@@ -52,19 +49,30 @@ rootname = inpars.findall('.//rei_name')[0].text.replace('.', '_')
 #rootname = reiname.replace('.', '_')
 gis_folder = inpars.findall('.//GIS_folder')[0].text
 base_mxd = inpars.findall('.//base_mxd')[0].text
+prjfile = inpars.findall('.//PRJfile')[0].text
 
+# Arc symbology layers
+streams_lyr = inpars.findall('.//flux_residuals/lyr')[0].text
+apply_streams_lyr_to = [k.text for k in inpars.findall('.//flux_residuals/keyword')]
+heads_lyr = inpars.findall('.//head_residuals/lyr')[0].text
+apply_heads_lyr_to = [k.text for k in inpars.findall('.//head_residuals/keyword')]
+sfr_flow_lyr = inpars.findall('.//SFR_flow_symbology')[0].text
+sfr_interactions_lyr = inpars.findall('.//SFR_interactions_symbology')[0].text
 
-# Assign symbology to filenames using identifier strings
-symbology = {"head_": heads_lyr, "wcrs": heads_lyr, "headwater": streams_lyr, "stream": streams_lyr}
-
+# Assign symbology to filenames using identifier strings from XML file
+symbology = dict(zip(apply_streams_lyr_to, len(apply_streams_lyr_to)*[streams_lyr]))
+symbology = dict(symbology.items() + dict(zip(apply_heads_lyr_to, len(apply_heads_lyr_to)*[heads_lyr])).items())
 
 # functions
 def add_feature(df, filename, symbology, TOCposition):
     # make a layer
     newlayer = arcpy.mapping.Layer(filename)
     print 'adding {0}'.format(filename)
-    # apply the symbology
-    arcpy.ApplySymbologyFromLayer_management(newlayer, os.path.join(os.getcwd(), symbology))
+    if symbology:
+        # apply the symbology
+        arcpy.ApplySymbologyFromLayer_management(newlayer, symbology)
+    else:
+        print "No symbology specified for {0}!".format(filename)
     # add new layer to current dataframe, at the top of the table of contents 
     arcpy.mapping.AddLayer(df, newlayer, "TOP")
         
@@ -98,13 +106,13 @@ arcpy.CheckOutExtension("Spatial")
 
 
 print 'open the mxd file'
-mxd = arcpy.mapping.MapDocument(r"%s.mxd" %(base_mxd))
+mxd = arcpy.mapping.MapDocument(r"%s" %(base_mxd))
 df = arcpy.mapping.ListDataFrames(mxd,"*")[0] # create a variable for the dataframe we want to use, which is simply the first (zeroth) item on the complete list of dataframes in the mxd
 
 # copy over lyr files to PEST folder
 if pest_path<>os.getcwd():
     for cf in [heads_lyr,streams_lyr]:
-        shutil.copyfile(cf,os.path.join(pest_path,cf))
+        shutil.copyfile(cf,os.path.join(pest_path,os.path.split(cf)[-1]))
 
 os.chdir(pest_path)
 print 'Add all the layers---->'
@@ -239,6 +247,7 @@ if add_ascii_grids:
         shpfile = os.path.join(pest_path, sfr_shpname)
         try:
             add_feature(df, shpfile, sfr_flow_lyr, "TOP")
+            add_feature(df, shpfile, sfr_interactions_lyr, "Top")
         except ValueError:
             print "\nSkipping SFR, couldn't find SFR shapefile: {0}\n".format(shpfile)
     

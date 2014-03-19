@@ -11,6 +11,11 @@ import arcpy
 import shutil
 import fiona
 
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
+
 # get inputs from XML input file
 infile = 'Postproc_input.XML'
 try:
@@ -85,17 +90,20 @@ df = arcpy.mapping.ListDataFrames(mxd, "*")[0]
 # plot observation leverage results
 # implement separate symbology for heads and streams
 # first get list of observation types
-with fiona.collection(lev_shp, 'r') as layer:
-    types = list(set([element['properties']['type'] for element in layer]))
+if os.path.isfile(lev_shp):
+    with fiona.collection(lev_shp, 'r') as layer:
+        types = list(set([element['properties']['type'] for element in layer]))
 
-# now add each type individually
-arcpy.MakeFeatureLayer_management(os.path.join(path, GIS_folder, lev_shp), "All_types")
-for type in types:
-    thequery = """ "type" = '{0}' """.format(type)
-    selection = arcpy.SelectLayerByAttribute_management("All_types", "NEW_SELECTION", thequery)
-    layername = "Leverage_{0}s".format(type)
-    arcpy.MakeFeatureLayer_management(selection, '{0}s_leverage'.format(type))
-    add_feature(df, '{0}s_leverage'.format(type), lev_symbologies[type], "TOP")
+    # now add each type individually
+    arcpy.MakeFeatureLayer_management(os.path.join(path, GIS_folder, lev_shp), "All_types")
+    for type in types:
+        thequery = """ "type" = '{0}' """.format(type)
+        selection = arcpy.SelectLayerByAttribute_management("All_types", "NEW_SELECTION", thequery)
+        layername = "Leverage_{0}s".format(type)
+        arcpy.MakeFeatureLayer_management(selection, '{0}s_leverage'.format(type))
+        add_feature(df, '{0}s_leverage'.format(type), lev_symbologies[type], "TOP")
+else:
+    print "skipping leverage, {0} not found.".format(lev_shp)
 
 arcpy.MakeFeatureLayer_management(os.path.join(path, GIS_folder, ident_shp), "All_layers")
 #newlayer = arcpy.mapping.Layer(ident_shp)

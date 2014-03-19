@@ -13,6 +13,11 @@ from fiona import collection
 from shapely.geometry import Point, mapping
 import shutil
 
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
+
 # get inputs from XML input file
 infile = 'Postproc_input.XML'
 try:

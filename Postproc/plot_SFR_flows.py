@@ -4,7 +4,11 @@ import os
 import sys
 import shutil
 
-infile = 'Postproc_input.XML'
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
+
 try:
     inpardat = ET.parse(infile)
 except:

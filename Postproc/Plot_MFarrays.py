@@ -10,27 +10,27 @@ import discomb_utilities
 import sys
 import mfpytools.binaryfile_recarray as bf
 
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
 
-Rchfile = 'BadRiver.rch'
-gridspecfile='BadRiver.spc'
-disfile='BadRiver.dis'
 
 
-compile_K_for_GWV=True # consolidate K-arrays for easy import into Groundwater Vistas
+compile_K_for_GWV=False # consolidate K-arrays for easy import into Groundwater Vistas
 plot_layer_transmissivities=True
 unconf_layers=[1,2,3,4] # list of integers denoting unconfined layers (confined is default)
-plot_log_T=True # plot log10 of transmissivity by layer
+plot_log_T=True # plot log10 of transmissivity by layer; also plots dry cells
 
 # ascii grid settings
-gis_folder=os.path.join('GIS') # folder to save GIS output to
+
 create_ascii_grids=True
 units_multiplier=0.3048 # e.g. if model units are ft. and GIS is m, 0.3048 (note: this is just for the ascii header)
 NODATA_VALUE=-99999.000
 export_vert_gradients=True # true to include arrays of vertical head gradients in ascii grid output
 headsfile='BadRiver.hds'
-export_water_table=True
+export_water_table=True # also produces plot of flooded cells
 
-infile = 'Postproc_input.XML'
 try:
     inpardat = ET.parse(infile)
 except:
@@ -41,6 +41,7 @@ inpars = inpardat.getroot()
 # input
 path = inpars.findall('.//path')[0].text
 MODFLOW_basename = inpars.findall('.//MODFLOW_basename')[0].text
+gis_folder=inpars.findall('.//GIS_folder')[0].text # folder to save GIS output to
 Rchfile = 'BadRiver.rch'
 gridspecfile='BadRiver.spc'
 disfile='BadRiver.dis'
@@ -105,9 +106,13 @@ def np_multilayer_to_text(outmat,outfilename):
 def save_ascii_grid(fname,array,path,gridspecfile,units_multiplier):
     fname=os.path.join(path,fname)
     nrows,ncols,XLLCORNER,YLLCORNER,CELLSIZE =  readspc(os.path.join(path,gridspecfile))
-    ascii_header='NCOLS  %s\nNROWS  %s\nXLLCORNER  %s\nYLLCORNER  %s\nCELLSIZE  %s\nNODATA_VALUE  %s' %(
-ncols,nrows,XLLCORNER*units_multiplier,YLLCORNER*units_multiplier,CELLSIZE*units_multiplier,NODATA_VALUE)
-    np.savetxt(fname,array,fmt='%.6e',delimiter=' ',header=ascii_header,comments='')
+    ascii_header='NCOLS  %s\nNROWS  %s\nXLLCORNER  %s\nYLLCORNER  %s\nCELLSIZE  %s\nNODATA_VALUE  %s' %(ncols,
+                                                                                                        nrows,
+                                                                                                        XLLCORNER*units_multiplier,
+                                                                                                        YLLCORNER*units_multiplier,
+                                                                                                        CELLSIZE*units_multiplier,
+                                                                                                        NODATA_VALUE)
+    np.savetxt(fname, array, fmt='%.6e', delimiter=' ', header=ascii_header, comments='')
     print fname
     
 def read_heads(path,headsfile):
@@ -130,44 +135,52 @@ layer_elevs=np.zeros((nlay+1,nrows,ncols))
 for c in range(nlay+1):
     tmp,i=discomb_utilities.read_nrow_ncol_vals(os.path.join(path,disfile),nrows,ncols,'float',i)
     layer_elevs[c,:,:]=tmp
-    
-
-# initialize output pdf for R and K arrays
-pdf=PdfPages(outpdf_kp)
-print '\nsaving plots to %s:' %(outpdf_kp)
-# first plot recharge
-Recharge_array, rchmult = read_rch(os.path.join(path,Rchfile))
-print Recharge_array
-r=kreader(os.path.join(path,Recharge_array))
-r=r.reshape((nrows,ncols))
-
-r=r*12*365*rchmult
-save_image(pdf,r,'in/yr','Recharge',clim=[0,20])
-
-# write array to ascii file for subsequent import into Arc Map
-# if an output folder for GIS files doesn't exist, make one
-print os.getcwd()
-if not os.path.exists(os.path.join(path,gis_folder)):
-    os.makedirs(os.path.join(path,gis_folder))
-if create_ascii_grids:
-    outfile=os.path.join(gis_folder,Recharge_array[:-4]+'.asc')
-    save_ascii_grid(outfile,r,path,gridspecfile,units_multiplier)
 
 # get list of K files
 Kfiles=[f for f in os.listdir(path) if '._k' in f]
 
+# initialize output pdf for R and K arrays
+pdf=PdfPages(outpdf_kp)
+print '\nsaving plots to %s:' %(outpdf_kp)
+print Rchfile,
+for cf in sorted(Kfiles):
+    print cf,
+print "\n"
+
+# first plot recharge
+Recharge_array, rchmult = read_rch(os.path.join(path, Rchfile))
+r=kreader(os.path.join(path,Recharge_array))
+r=r.reshape((nrows,ncols))
+r=r*12*365*rchmult
+save_image(pdf,r,'in/yr','Recharge',clim=[0,20])
+
+
+# write array to ascii file for subsequent import into Arc Map
+# if an output folder for GIS files doesn't exist, make one
+
+if not os.path.exists(os.path.join(path,gis_folder)):
+    os.makedirs(os.path.join(path,gis_folder))
+if create_ascii_grids:
+    print 'exporting %s to ascii grid -->\t' %(cf),
+    outfile=os.path.join(gis_folder,Recharge_array[:-4]+'.asc')
+    save_ascii_grid(outfile,r,path,gridspecfile,units_multiplier)
+
+
 # read in K for each layer and plot
+
 counter=0
 Kx_all,Kz_all=np.zeros((nlay,nrows,ncols)),np.zeros((nlay,nrows,ncols))
 xcount,zcount=1,1
 for cf in sorted(Kfiles):
-    print 'exporting %s to ascii grid -->\t' %(cf),
+
+    # read array and save to PDF
     K=kreader(os.path.join(path,cf))
     K=K.reshape((nrows,ncols))
     save_image(pdf,K,'ft/d','Layer %s' %(cf))
     
     # write array to ascii file for subsequent import into Arc Map
     if create_ascii_grids:
+        print 'exporting %s to ascii grid -->\t' %(cf),
         outfile=os.path.join(gis_folder,cf.replace('.','')+'.asc')
         save_ascii_grid(outfile,K,path,gridspecfile,units_multiplier)
     
@@ -200,8 +213,8 @@ for cf in sorted(Kfiles):
                 zcount+=nmissing+1
 
 pdf.close()
-print '\n'
-outGWV=['Kx_all_layers.dat','Kz_all_layers.dat']
+
+outGWV=['Kx_all_layers.dat', 'Kz_all_layers.dat']
 outmats=[Kx_all,Kz_all]
 
 if compile_K_for_GWV:
@@ -264,17 +277,29 @@ if plot_layer_transmissivities:
         
         fname=os.path.join(gis_folder,'L%s_T.asc' %(i+1))
         save_ascii_grid(fname,T,path,gridspecfile,units_multiplier)
-    T=b*Kx_all
+
+        # save dry cells as well
+        active = np.empty(np.shape(heads[0, :, :]))
+        active[:] = np.NaN
+        active[drycells] = 1
+        fname=os.path.join(gis_folder, 'L%s_dry.asc' %(i+1))
+        save_ascii_grid(fname, active, path, gridspecfile, units_multiplier)
     pdf.close()
 
 if export_water_table:
+    print "\nexporting water table and flooded cells..."
     heads = read_heads(path,headsfile)
     WT = watertable = heads[0,:,:]
+    flooded = np.where(WT > layer_elevs[i, :, :])
+    Flooded = np.empty(np.shape(WT))
+    Flooded[:] = np.NaN
+    Flooded[flooded] = 1
     if create_ascii_grids:
-        outfile=os.path.join(gis_folder,'water_table.asc')
-        save_ascii_grid(outfile,WT,path,gridspecfile,units_multiplier)
-    
-print 'Done!'
+        outfile=os.path.join(gis_folder, 'water_table.asc')
+        save_ascii_grid(outfile, WT, path, gridspecfile, units_multiplier)
 
+        # save flooded cells as well
+        outfile = os.path.join(gis_folder, 'flooded_cells.asc')
+        save_ascii_grid(outfile, Flooded, path, gridspecfile, units_multiplier)
     
-    
+print '\nDone!'

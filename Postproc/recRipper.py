@@ -1,5 +1,6 @@
 __author__ = 'aleaf'
 
+import sys
 import xml.etree.ElementTree as ET
 import os
 import re
@@ -8,7 +9,12 @@ from collections import OrderedDict
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-infile = 'Postproc_input.XML'
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
+    
+    
 try:
     inpardat = ET.parse(infile)
 except:

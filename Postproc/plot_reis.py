@@ -17,7 +17,11 @@ import pylab as plt
 import REIripperCONSOL
 from matplotlib.backends.backend_pdf import PdfPages
 
-infile = 'Postproc_input.XML'
+try:
+    infile = sys.argv[1]
+except:
+    infile = 'Postproc_input.XML'
+
 try:
     inpardat = ET.parse(infile)
 except:
