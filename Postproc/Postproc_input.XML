@@ -5,16 +5,16 @@
 <Inputs>
     <!-- path: 
     Path to PEST and MODFLOW files -->
-    <path>D:\ATLData\BadRiver\Calibration_runs\data</path>
+    <path>D:\ATLData\BadRiver\Calibration_runs\Opt2b</path>
     <!-- pest_basename: 
     basename for PEST files in 'path' folder-->
-    <pest_basename>badriver</pest_basename>
+    <pest_basename>badriver_svda</pest_basename>
     <!-- MODFLOW_basename:
     used to read the Discretization, Recharge and Heads files-->
     <MODFLOW_basename>BadRiver</MODFLOW_basename>
     <!-- rei_name (include .rei extention):
     name of single PEST residuals file in 'path' folder to plot spatially -->
-    <rei_name>badriver_opt3e_8.rei</rei_name>
+    <rei_name>badriver_opt2b7_best.rei</rei_name>
     <!-- GIS_folder:
     name of subfolder in 'path' folder where post-processed GIS data will be written -->
     <GIS_folder>GIS</GIS_folder>

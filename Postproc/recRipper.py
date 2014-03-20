@@ -73,6 +73,11 @@ for i in range(len(indat)):
             else:
                 df_all = df_all.append(df)
 
+try:
+    df_all
+except:
+    print "Having trouble reading the REC file. Check to make sure that it isn't from a NOPTMAX=0 run.".format(basename)
+    quit()
 # save results to table
 print "Saving results to {0}".format(os.path.join(path, basename+'_rec.csv'))
 df_all.index.name = "PEST_iteration"
@@ -80,7 +85,7 @@ df_all.to_csv(os.path.join(path, basename+'_rec.csv'))
 
 # plot results to pdf
 print "Saving plots to {0}".format(os.path.join(path, outpdf))
-pdf = PdfPages(os.path.join(path,outpdf))
+pdf = PdfPages(os.path.join(path, outpdf))
 phis = [n for n in df_all.columns if 'phi' in n]
 params = {'legend.fontsize': 12}
 plt.rcParams.update(params)
