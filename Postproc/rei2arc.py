@@ -11,6 +11,12 @@ import re
 import shapefile as sf
 import shutil
 import os
+# use pandas package to organize additional data (screen top/bot, etc.) about the targets
+try:
+    import pandas as pd
+except:
+    pd = False
+
 
 try:
     infile = sys.argv[1]
@@ -18,11 +24,17 @@ except:
     infile = 'Postproc_input.XML'
 
 # observation locations file settings
-header=0 # number of lines to skip
-x_column=1 # column with x coordinates (0=column 1)
-y_column=2 # column with y coordinates
-names_column=0 # column with observation names
-type_column=3 # column containing target types; currently "gage" or "piezometer"
+x_column = 'X' # column with x coordinates (0=column 1)
+y_column = 'Y' # column with y coordinates
+names_column = 'Name' # column with observation names
+type_column = 'Type' # column containing target types; currently "gage" or "piezometer"
+sctop_column = 'Screen_top' # column with screen top elevation
+scbot_column = 'Screen_bot' # column with screen bot elevation
+row_column = 'row' # column with row location
+col_column = 'column' # column with column location
+toplay_column = 'toplayer' # column with observation top layer
+botlay_column = 'botlayer' # column with observation bottom layer
+
 
 # settings
 IgnoreObs = ['regul','error']
@@ -100,9 +112,10 @@ def sqwr(a,b):
     return sqwr
 
 # function to write out results to csv file
-def writeout_shp(cshp,X,Y,cname,res,absres,resplot,meas,mod,c_rpe,weight): # use **kwargs to incorporate optional fields
+def writeout_shp(cshp,X,Y,cname,res,absres,resplot,meas,mod,c_rpe,weight,
+                 sctop=None,scbot=None,row=None,column=None,top_layer=None,bot_layer=None): # use **kwargs to incorporate optional fields
     cshp.point(X,Y)
-    cshp.record(cname,res,absres,resplot,meas,mod,c_rpe,weight)
+    cshp.record(cname,res,absres,resplot,meas,mod,c_rpe,weight,sctop,scbot,row,column,top_layer,bot_layer)
     return cshp
 '''
 def writeout_shp(cshp,X,Y,cname,res,resplot,meas,mod,c_rpd):
@@ -128,13 +141,18 @@ def init_shp(cshp,fields):
 
 
 # First read in the TP information
-tpdata = np.genfromtxt(obs_locations_file,delimiter=',',dtype=None)
+tpdata = np.genfromtxt(obs_locations_file,delimiter=',',dtype=None, names=True)
 
-tpNames =tpdata['f%s' %(names_column)]
-tpX=tpdata['f%s' %(x_column)]
-tpY=tpdata['f%s' %(y_column)]
-tpTarget_type = tpdata['f%s' %(type_column)]
+tpNames =tpdata[names_column]
+tpX = tpdata[x_column]
+tpY = tpdata[y_column]
+tpTarget_type = tpdata[type_column]
 del tpdata
+
+# read in other target information from observations file
+if pd:
+    obsdata = pd.read_csv(obs_locations_file)
+    obsdata.index = obsdata[names_column].str.lower()
 
 # force the names to lower case for later comparisons with PEST output
 for i in np.arange(len(tpNames)):
@@ -202,7 +220,8 @@ elif csv_or_shp_flag == 'shp':
     if overunder:
         shp_fields = ['name', 'residual', 'plot_res', 'meas', 'modeled', 'rpd', 'junk']
     else:
-        shp_fields = ['name', 'residual', 'abs_resid', 'SQ_wt_res', 'meas', 'modeled', 'pct_error', 'weight']
+        shp_fields = ['name', 'residual', 'abs_resid', 'SQ_wt_res', 'meas', 'modeled', 'pct_error', 'weight',
+                      'sctop', 'scbot', 'row', 'column', 'top_layer', 'bot_layer']
     for cname in grpnames:
         fname = cname + '_' + reiname + '.shp'
         ofps_shp[cname] = [sf.Writer(sf.POINT), os.path.join(pest_path, gis_folder, fname)] # generates a shapefile
@@ -250,9 +269,24 @@ for crow in reidata:
     else:
         if csv_or_shp_flag == 'shp':
             sqrwghtres = sqwr(crow['Residual'], crow['Weight'])
-            writeout_shp(ofps_shp[crow['Group']][0], tpX[tpInds], tpY[tpInds], cname,
-                 crow['Residual'], np.abs(crow['Residual']), sqrwghtres,
-                 crow['Measured'], crow['Modelled'], rpe(crow['Measured'], crow['Modelled']), crow['Weight'])
+            if not pd or not obs_locations_file:
+                writeout_shp(ofps_shp[crow['Group']][0], tpX[tpInds], tpY[tpInds], cname,
+                     crow['Residual'], np.abs(crow['Residual']), sqrwghtres,
+                     crow['Measured'], crow['Modelled'], rpe(crow['Measured'], crow['Modelled']), crow['Weight'])
+            else:
+                writeout_shp(ofps_shp[crow['Group']][0],
+                             tpX[tpInds], tpY[tpInds], cname,
+                             crow['Residual'], np.abs(crow['Residual']), sqrwghtres,
+                             crow['Measured'], crow['Modelled'],
+                             rpe(crow['Measured'], crow['Modelled']),
+                             crow['Weight'],
+                             obsdata.ix[cname][sctop_column],
+                             obsdata.ix[cname][scbot_column],
+                             obsdata.ix[cname][row_column],
+                             obsdata.ix[cname][col_column],
+                             obsdata.ix[cname][toplay_column],
+                             obsdata.ix[cname][botlay_column])
+
         elif csv_or_shp_flag == 'csv':    
             writeout_csv(ofps[crow['Group']],tpX[tpInds],tpY[tpInds], cname,
                  crow['Residual'],rpe(crow['Measured'],crow['Modelled']))   

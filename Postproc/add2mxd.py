@@ -15,7 +15,7 @@ import shutil
 try:
     infile = sys.argv[1]
 except:
-    infile = 'Postproc_input.XML'
+    infile = 'Postproc_input_BRbase.XML'
 
 
 rch_lyr='Rch.lyr'
@@ -135,11 +135,23 @@ for line in infiles:
     except ValueError:
         print 'skipping {0}, not a valid datasource for layer.'.format(filename)
 
+# plot dry cells
+os.chdir(os.path.join(pest_path))
+ascii_dry_files = [f for f in os.listdir(os.getcwd()) if 'dry' in f and '.asc' in f]
+if len(ascii_dry_files )== 0:
+    print "no ascii grids of dry cells found!"
+
+for f in ascii_dry_files:
+    print 'converting %s to raster...' %(f)
+    rastername = f[:-4]
+    arcpy.ASCIIToRaster_conversion(pest_path+'\\'+f, pest_path+'\\'+rastername, "FLOAT")
+    arcpy.DefineProjection_management(pest_path+'\\'+rastername, prjfile)
+    add_raster(df, pest_path+'\\'+rastername, rastername, pest_path, os.path.join(os.getcwd(), dry_cells_lyr))
         
 # convert ascii grids (e.g. of K and R), and add them to the mxd also
 # I think this could alternatively be done directly with the K-arrays using the numpy-array-to-raster command
 if add_ascii_grids:
-    
+    os.chdir(os.path.join(pest_path))
     ascii_Kfiles=[f for f in os.listdir(os.getcwd()) if '_k' in f and '.asc' in f]
     
     # add recharge array
@@ -214,19 +226,6 @@ if add_ascii_grids:
                     continue
                     
             add_raster(df,pest_path+'\\'+rastername,rastername,pest_path,os.path.join(os.getcwd(),vert_heads_lyr))
-
-    # plot dry cells
-    os.chdir(os.path.join(pest_path))
-    ascii_dry_files = [f for f in os.listdir(os.getcwd()) if 'dry' in f and '.asc' in f]
-    if len(ascii_dry_files )== 0:
-        print "no ascii grids of dry cells found!"
-
-    for f in ascii_dry_files:
-        print 'converting %s to raster...' %(f)
-        rastername = f[:-4]
-        arcpy.ASCIIToRaster_conversion(pest_path+'\\'+f, pest_path+'\\'+rastername, "FLOAT")
-        arcpy.DefineProjection_management(pest_path+'\\'+rastername, prjfile)
-        add_raster(df, pest_path+'\\'+rastername, rastername, pest_path, os.path.join(os.getcwd(), dry_cells_lyr))
 
     # add water table and flooded cells
     # convert to raster

@@ -17,7 +17,7 @@ except:
 
 
 
-compile_K_for_GWV=False # consolidate K-arrays for easy import into Groundwater Vistas
+compile_K_for_GWV=True # consolidate K-arrays for easy import into Groundwater Vistas
 plot_layer_transmissivities=True
 unconf_layers=[1,2,3,4] # list of integers denoting unconfined layers (confined is default)
 plot_log_T=True # plot log10 of transmissivity by layer; also plots dry cells
