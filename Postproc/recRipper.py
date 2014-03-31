@@ -70,6 +70,8 @@ for i in range(len(indat)):
             if itr == 1:
                 df_all = df.copy()
                 continue
+            if phi_t > 1e10: #in case PEST blows up
+                continue
             else:
                 df_all = df_all.append(df)
 
