@@ -123,6 +123,10 @@ if Master:
                     mhobs = np.NaN
                 maxhobsresids.append(mhobs)
                 '''
+                try:
+                    IP
+                except:
+                    IP = 'Not_specified'
                 #if "Model run complete." in indata[i]:
                 ofp.write('{0},{1},{2},{3},{4},{5:.2f},{6:.10e},{7:.10e},{8:.10e},{9},{10:.2f},{11:.2f}\n'.format(f,datetime,IP,
                           scratchdir,run_number,elapsedtime,maxheadchange,maxfluxresidual,l2nw,totalouter,pctd,mhobs))
