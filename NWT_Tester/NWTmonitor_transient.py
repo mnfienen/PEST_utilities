@@ -50,6 +50,8 @@ Residuals = False
 discrep = False
 heads = False
 maxheadres = 0
+allMBerror=list()
+allMBerror_rate = list()
 output_echo("NWT Summary: --> {0}".format(sys.argv[1]), ofp)
 for i in range(len(LST)):
     if 'STRESS PERIOD' in LST[i] and 'LENGTH' in LST[i] and 'MULTIPLIER' not in LST[i]:
@@ -72,7 +74,17 @@ for i in range(len(LST)):
         output_echo("Total outer: {0}\nTotal inner: {1}".format(outer, inner), ofp)
     if not discrep and "PERCENT DISCREPANCY" in LST[i]:
         MassBal_Error = LST[i].strip().split()[3]
+        MassBal_Error_Rate = LST[i].strip().split()[-1]
         output_echo("Percent discrepancy: {0}".format(MassBal_Error), ofp)
+        output_echo("Percent discrepancy Rate: {0}".format(MassBal_Error_Rate), ofp)
+        if MassBal_Error.lower()=='NaN':
+            allMBerror.append(np.nan)
+        else:
+            allMBerror.append(float(MassBal_Error))
+        if MassBal_Error_Rate.lower()=='NaN':
+            allMBerror_rate.append(np.nan)
+        else:
+            allMBerror_rate.append(float(MassBal_Error_Rate))
     if not heads and "HEAD AND DRAWDOWN OBSERVATIONS" in LST[i-4]:
         heads = True
     if heads:
@@ -90,4 +102,9 @@ for i in range(len(LST)):
 
     if "ELAPSED RUN TIME" in LST[i].upper():
         output_echo('\n\n##########\n' + LST[i].strip() + '\n##########', ofp)
+maxMBError = np.max(np.abs(allMBerror))
+maxMBError_rate = np.max(np.abs(allMBerror_rate))
+output_echo('Absolute Value of Maximum Mass Balance Percent Discrepancy: {0}'.format(maxMBError), ofp)
+output_echo('Absolute Value of Maximum Mass Balance Percent Discrepancy Rate: {0}'.format(maxMBError_rate), ofp)
+
 ofp.close()
