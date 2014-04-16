@@ -2,10 +2,14 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import shapiro
+import pandas as pd
 from matplotlib.backends.backend_pdf import PdfPages
 
-def resid_proc(reis,remove_zero_wt,grpfiles):
+def resid_proc(reis, remove_zero_wt, grpfiles, pareto, groups_rei):
+    print "aggregating statistics and plotting by observation group..."
+    print "PEST iteration:"
     for cf in reis:
+        print '{0} '.format(cf),
         infile = reis[cf]
 
         # open a pointer to the output file
@@ -18,7 +22,19 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
 
         # read in the data
         alldat = np.genfromtxt(infile,names=True,skip_header=4,dtype=None)
-        
+                # if processing PEST pareto results, read in groups from another REI
+        if pareto:
+            try:
+                rei_groups_df = pd.read_csv(groups_rei, delim_whitespace=True, skiprows=6, index_col='Name')
+                #if np.isnan(np.max(rei_groups_df.ix[:,0])):
+                    #rei_groups_df = rei_groups_df[rei_groups_df.columns[1:]]
+                    # for observations that were read in, reassign the entry in 'Group' column to group from other REI
+                for observation in alldat:
+                    observation['Group'] = rei_groups_df.ix[observation['Name'], 'Group']
+
+            except IOError:
+                print "Cannot open {0}. Please provide an non-pareto REI file so that observations can be analyzed by group."
+                quit()
         # find the unique list of groups by which plots and stats will be managed
         allgrps = np.unique(alldat['Group'])
         allgrps = [g for g in allgrps if 'regul' not in g]    
@@ -49,18 +65,8 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
             # that will cause a TypeError here
             except TypeError:
                 continue
-            
-            # make a plot of modeled vs. measured
-            plt.figure()
-            plt.hold = True
-            
-            plt.plot(cmeas,cmod,'bx')
-            plt.plot([cmin,cmax],[cmin,cmax],'r')
-            plt.title('Observation Group "%s", PEST iteration %s' %(cg, cf))
-            plt.xlabel('Measured')
-            plt.ylabel('Modeled')
-            # append the histograms into the proper PDF file
-            grpfiles[cg][0].savefig()
+
+
         
             # now calculate statistics on the residuals
             
@@ -76,7 +82,21 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
             camin = np.min(np.abs(cres))
             cmax  = np.max(cres)
             camax = np.max(np.abs(cres))
-            plt.close('all')
+
+            if len(grpfiles) > 1:
+            # make a plot of modeled vs. measured
+                plt.figure()
+                plt.hold = True
+
+                plt.plot(cmeas,cmod,'bx')
+                plt.plot([cmin,cmax],[cmin,cmax],'r')
+                plt.title('Observation Group "%s", PEST iteration %s' %(cg, cf))
+                plt.xlabel('Measured')
+                plt.ylabel('Modeled')
+                # append the histograms into the proper PDF file
+                grpfiles[cg][0].savefig()
+                #plt.close()
+
             # finally plot the histogram and save it
             fig = plt.figure()
             ax = fig.add_subplot(111)
@@ -86,8 +106,9 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
             ax.set_title(cg + ' iteration ' + str(cf))
             ax.set_xlim([cmin,cmax])
             # append the histograms into the proper PDF file
-            grpfiles[cg][1].savefig()
-            plt.close('all')
+            grpfiles[cg][-1].savefig()
+            #plt.close()
+
             # perform the Shapiro-Wilks test for normality of the residuals
             if len(cres)>2:
                 W,p = shapiro(cres)
@@ -128,19 +149,45 @@ def resid_proc(reis,remove_zero_wt,grpfiles):
         ofp.close()
     # close the PDF files
     for cg in grpfiles:
-        for i in range(2):
+        for i in range(len(grpfiles)):
             grpfiles[cg][i].close()
             
-def Best_summary_plot(reis,groups,markers,colors,sizes,title,units,number_format,Legend,outfile):
+def Best_summary_plot(reis,groups,markers,colors,sizes,title,units,number_format,Legend,outfile,obstype, pareto=False,
+                      groups_rei=None):
+
+    print "\nmaking summary plots of all {0} groups".format(obstype)
+    print "PEST iteration:"
     for cf in reis:
+
+        print '{0} '.format(cf),
         infile = reis[cf]
 
         # read in the data
-        alldat = np.genfromtxt(infile,names=True,skip_header=4,dtype=None)
-        
+        alldat = np.genfromtxt(infile, names=True, skip_header=4, dtype=None)
+
+        # if processing PEST pareto results, read in groups from another REI
+        if pareto:
+            try:
+                rei_groups_df = pd.read_csv(groups_rei, delim_whitespace=True, skiprows=6, index_col='Name')
+                #if np.isnan(np.max(rei_groups_df.ix[:,0])):
+                    #rei_groups_df = rei_groups_df[rei_groups_df.columns[1:]]
+                    # for observations that were read in, reassign the entry in 'Group' column to group from other REI
+
+                # update dtype of 'Group' column in alldat to accomodate longer group names
+                alldat = alldat.astype([('Name', 'S20'), ('Group', 'S20'), ('Measured', '<f8'), ('Modelled', '<f8'), ('Residual', '<f8'), ('Weight', '<f8')])
+                for i in range(len(alldat)):
+                    alldat['Group'][i] = rei_groups_df.ix[alldat['Name'][i], 'Group']
+                    #groupz.append(rei_groups_df.ix[alldat['Name'][i], 'Group'])
+            except IOError:
+                print "Cannot open {0}. Please provide an non-pareto REI file so that observations can be analyzed by group."
+                quit()
+
         # find the unique list of groups by which plots and stats will be managed
-        allgrps = np.unique(alldat['Group'])
-        allgrps = [g for g in allgrps if 'regul' not in g]    
+        allgrps = list(np.unique(alldat['Group']))
+        #allgrpz = list(np.unique(groupz))
+        allgrps = [g for g in allgrps if 'regul' not in g]
+        if obstype == 'flux':
+            j=2
         fig=plt.figure()
         ax=fig.add_subplot(1,1,1)
         #ax=plt.subplot(1,1,1)
@@ -193,6 +240,8 @@ def Best_summary_plot(reis,groups,markers,colors,sizes,title,units,number_format
             # kind of kludgy, but if model failed, this will skip plotting of last iteration
             # as cmax will not be a proper number
             try:
+                if cmax == 0:
+                    continue
                 magnitude="{:,}".format(10**int(np.log10(cmax)))
             except:
                 continue

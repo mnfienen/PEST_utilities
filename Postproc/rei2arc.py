@@ -57,6 +57,15 @@ reiname = inpars.findall('.//rei_name')[0].text
 gis_folder = inpars.findall('.//GIS_folder')[0].text
 obs_locations_file = inpars.findall('.//observation_locations')[0].text
 base_PRJ = inpars.findall('.//PRJfile')[0].text
+pareto = inpars.findall('.//pareto')[0].text
+groups_rei = inpars.findall('.//rei_w_groups')[0].text
+
+if pareto.lower() == 'true':
+    pareto = True
+    groups_rei = inpars.findall('.//rei_w_groups')[0].text
+else:
+    pareto = False
+    
 #junk = 1
 #
 # ##################
@@ -161,8 +170,29 @@ for i in np.arange(len(tpNames)):
     # remove spaces too!
     tpNames[i] = re.sub('\s+','',tpNames[i])
     tpTarget_type[i] = re.sub('\s+','',tpTarget_type[i])
+    
 # now read in the REI file
 reidata = np.genfromtxt(os.path.join(pest_path,reiname),skiprows=4,names=True,dtype=None)
+
+# if run was done in pareto mode, reassign obs group names from another rei provided in the XML input
+if pareto:
+    try:
+        rei_groups_df = pd.read_csv(groups_rei, delim_whitespace=True, skiprows=6, index_col='Name')
+        #if np.isnan(np.max(rei_groups_df.ix[:,0])):
+            #rei_groups_df = rei_groups_df[rei_groups_df.columns[1:]]
+            # for observations that were read in, reassign the entry in 'Group' column to group from other REI
+        reidata = reidata.astype([('Name', 'S20'), 
+        ('Group', 'S20'), 
+        ('Measured', '<f8'), 
+        ('Modelled', '<f8'), 
+        ('Residual', '<f8'), 
+        ('Weight', '<f8')])
+        for observation in reidata:
+            observation['Group'] = rei_groups_df.ix[observation['Name'], 'Group']
+
+    except IOError:
+        print "Cannot open {0}. Please provide a non-pareto REI file so that observations can be analyzed by group."
+        quit()
 
 # Remove obs from unwanted groups (regularization parameters, MB reporting)
 # Assumes that these groups are at the end of the REI (& PST) file.
