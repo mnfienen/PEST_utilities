@@ -54,9 +54,9 @@ prjfile = inpars.findall('.//PRJfile')[0].text
 
 # Arc symbology layers
 streams_lyr = inpars.findall('.//flux_residuals/lyr')[0].text
-apply_streams_lyr_to = [k.text for k in inpars.findall('.//flux_residuals/keyword')]
+apply_streams_lyr_to = [k.text.lower() for k in inpars.findall('.//flux_residuals/keyword')]
 heads_lyr = inpars.findall('.//head_residuals/lyr')[0].text
-apply_heads_lyr_to = [k.text for k in inpars.findall('.//head_residuals/keyword')]
+apply_heads_lyr_to = [k.text.lower() for k in inpars.findall('.//head_residuals/keyword')]
 sfr_flow_lyr = inpars.findall('.//SFR_flow_symbology')[0].text
 sfr_interactions_lyr = inpars.findall('.//SFR_interactions_symbology')[0].text
 flooded_cells_lyr = inpars.findall('.//flooded_cells_symbology')[0].text
@@ -117,23 +117,7 @@ if pest_path<>os.getcwd():
     for cf in [heads_lyr,streams_lyr]:
         shutil.copyfile(cf,os.path.join(pest_path,os.path.split(cf)[-1]))
 
-os.chdir(pest_path)
-print 'Add all the layers---->'
-infiles = open('arcfiles_' + rootname + '.dat','r').readlines() #opens a text file that contains all of the shp files to process
 
-# iterate through all of the shp files listed in infiles to add them to the mxd
-for line in infiles:    
-    filename = os.path.join(os.getcwd(),line.strip()) # generates filename path from the current working dir and the working line in infiles
-    
-    # assign layer file based on identifier string in filename
-    lyr = None
-    for identifier in symbology.keys():
-        if identifier in line:
-            lyr = symbology[identifier]
-    try:
-        add_feature(df, filename, lyr, "TOP")
-    except ValueError:
-        print 'skipping {0}, not a valid datasource for layer.'.format(filename)
 
 # plot dry cells
 os.chdir(os.path.join(pest_path))
@@ -227,38 +211,56 @@ if add_ascii_grids:
                     
             add_raster(df,pest_path+'\\'+rastername,rastername,pest_path,os.path.join(os.getcwd(),vert_heads_lyr))
 
-    # add water table and flooded cells
-    # convert to raster
-    rastername = 'watertabl'
-    arcpy.ASCIIToRaster_conversion(pest_path+'\\'+'water_table.asc',pest_path+'\\'+rastername,"FLOAT")
-    arcpy.DefineProjection_management(pest_path+'\\'+rastername,prjfile)
-    add_raster(df, pest_path+'\\'+rastername, 'water table', pest_path, os.path.join(os.getcwd(), k_fields_lyr))
+# add water table and flooded cells
+# convert to raster
+rastername = 'watertabl'
+arcpy.ASCIIToRaster_conversion(pest_path+'\\'+'water_table.asc',pest_path+'\\'+rastername,"FLOAT")
+arcpy.DefineProjection_management(pest_path+'\\'+rastername,prjfile)
+add_raster(df, pest_path+'\\'+rastername, 'water table', pest_path, os.path.join(os.getcwd(), k_fields_lyr))
 
-    # get max,min values
-    WTmin = float(arcpy.GetRasterProperties_management(pest_path+'\\'+rastername,"MINIMUM").getOutput(0))
+# get max,min values
+WTmin = float(arcpy.GetRasterProperties_management(pest_path+'\\'+rastername,"MINIMUM").getOutput(0))
+
+# contour
+base = WTmin + head_cont_interval - WTmin%head_cont_interval
+arcpy.sa.Contour(pest_path+'\\'+rastername,pest_path+'\\'+"WTcontours.shp",head_cont_interval,base)
+contours = arcpy.mapping.Layer(pest_path+'\\'+"WTcontours.shp")
+arcpy.ApplySymbologyFromLayer_management(contours, os.path.join(os.getcwd(),contours_lyr))
+arcpy.mapping.AddLayer(df, contours,"TOP")
+
+# add flooded cells
+rastername = 'flooded'
+arcpy.ASCIIToRaster_conversion(pest_path+'\\'+'flooded_cells.asc', pest_path+'\\'+rastername, "FLOAT")
+arcpy.DefineProjection_management(pest_path+'\\'+rastername, prjfile)
+add_raster(df, pest_path+'\\'+rastername, 'water table', pest_path, os.path.join(os.getcwd(), flooded_cells_lyr))
+
+# add SFR results
+if plot_SFR:
+    shpfile = os.path.join(pest_path, sfr_shpname)
+    try:
+        add_feature(df, shpfile, sfr_flow_lyr, "TOP")
+        add_feature(df, shpfile, sfr_interactions_lyr, "Top")
+    except ValueError:
+        print "\nSkipping SFR, couldn't find SFR shapefile: {0}\n".format(shpfile)
+            
+os.chdir(pest_path)
+print 'Add all the layers---->'
+infiles = open('arcfiles_' + rootname + '.dat','r').readlines() #opens a text file that contains all of the shp files to process
+
+# iterate through all of the shp files listed in infiles to add them to the mxd
+for line in infiles:    
+    filename = os.path.join(os.getcwd(),line.strip()) # generates filename path from the current working dir and the working line in infiles
     
-    # contour
-    base = WTmin + head_cont_interval - WTmin%head_cont_interval
-    arcpy.sa.Contour(pest_path+'\\'+rastername,pest_path+'\\'+"WTcontours.shp",head_cont_interval,base)
-    contours = arcpy.mapping.Layer(pest_path+'\\'+"WTcontours.shp")
-    arcpy.ApplySymbologyFromLayer_management(contours, os.path.join(os.getcwd(),contours_lyr))
-    arcpy.mapping.AddLayer(df, contours,"TOP")
-
-    # add flooded cells
-    rastername = 'flooded'
-    arcpy.ASCIIToRaster_conversion(pest_path+'\\'+'flooded_cells.asc', pest_path+'\\'+rastername, "FLOAT")
-    arcpy.DefineProjection_management(pest_path+'\\'+rastername, prjfile)
-    add_raster(df, pest_path+'\\'+rastername, 'water table', pest_path, os.path.join(os.getcwd(), flooded_cells_lyr))
-
-    # add SFR results
-    if plot_SFR:
-        shpfile = os.path.join(pest_path, sfr_shpname)
-        try:
-            add_feature(df, shpfile, sfr_flow_lyr, "TOP")
-            add_feature(df, shpfile, sfr_interactions_lyr, "Top")
-        except ValueError:
-            print "\nSkipping SFR, couldn't find SFR shapefile: {0}\n".format(shpfile)
-    
+    # assign layer file based on identifier string in filename
+    lyr = None
+    for identifier in symbology.keys():
+        if identifier in line:
+            lyr = symbology[identifier]
+    try:
+        add_feature(df, filename, lyr, "TOP")
+    except ValueError:
+        print 'skipping {0}, not a valid datasource for layer.'.format(filename)
+        
 # set all layers to be initially "off"
 for lyr in arcpy.mapping.ListLayers(mxd):
     lyr.visible=False

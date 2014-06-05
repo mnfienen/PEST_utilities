@@ -7,14 +7,15 @@
     Path to PEST and MODFLOW files -->
     <path>/Users/mnfienen/Documents/MODELING_CENTER/NACP/NACP_results/NACP8_ss</path>
     <!-- pest_basename: 
-    basename for PEST files in 'path' folder-->
-    <pest_basename>nacp8_ss_reg_sv250</pest_basename>
+    basename for PEST files in 'path' folder -->
+    <pest_basename>badriver_svda</pest_basename>
     <!-- MODFLOW_basename:
     used to read the Discretization, Recharge and Heads files-->
     <MODFLOW_basename>BadRiver</MODFLOW_basename>
     <!-- rei_name (include .rei extention):
-    name of single PEST residuals file in 'path' folder to plot spatially -->
-    <rei_name>bnacp8_ss_reg_sv250.rei </rei_name>
+    name of single PEST residuals file in 'path' folder to plot spatially
+    (used only by rei2arc.py; plot_reis.py plots the rei file associated with pest_basename) -->
+    <rei_name>badriver_opt6_10best.rei</rei_name>
     <!-- GIS_folder:
     name of subfolder in 'path' folder where post-processed GIS data will be written -->
     <GIS_folder>GIS</GIS_folder>
@@ -37,6 +38,12 @@
     <!-- PRJfile:
     file with projection information for GIS)-->
     <PRJfile>D:\ATLData\Badriver\Calibration_runs\UTM_NAD27.prj</PRJfile>
+    <!-- pareto:
+    set to true for a pareto run-->
+    <pareto>False</pareto>
+    <!-- rei_w_groups:
+    PEST rei file with group information for plotting residuals (for pareto, where there is only one group)-->
+    <rei_w_groups>D:\ATLData\BadRiver\Calibration_runs\opt4\badriver.rei</rei_w_groups>
 </Inputs>
 <Symbology_lyr_files>
     <!-- SFR_interactions_symbology:
@@ -57,16 +64,21 @@
         <lyr>D:\ATLData\Documents\GitHub\PEST_utilities\Postproc\Streams_abs_resid.lyr</lyr>
         <!-- PEST observation group names containing these keywords will be assigned to the above symbology -->
         <keyword>bad_odanah</keyword>
-        <keyword>stream</keyword>
-        <keyword>headwater</keyword>
+        <keyword>OFR</keyword>
+        <keyword>seepagerun</keyword>
+        <keyword>zero</keyword>
     </flux_residuals>
     <!-- head_residuals:
     lyr file with symbology for plotting head residuals from rei file-->
     <head_residuals>
         <lyr>D:\ATLData\Badriver\Calibration_runs\Heads.lyr</lyr>
         <!-- PEST observation group names containing these keywords will be assigned to the above symbology -->
-        <keyword>head_</keyword>
-        <keyword>wcrs</keyword>
+        <keyword>head_best</keyword>
+        <keyword>head_good</keyword>
+        <keyword>head_fair</keyword>
+        <keyword>head_poor</keyword>
+        <keyword>wcrs1</keyword>
+        <keyword>wcrs2</keyword>
     </head_residuals>
     <!-- identifiabilities:
     lyr file with symbology for plotting parameter identifiabilities-->
