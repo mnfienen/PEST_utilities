@@ -1,6 +1,62 @@
 
 import numpy as np
 import pickle
+from collections import OrderedDict
+
+def SEN_reader(insenfile):
+    # function to read in a SEN file (insenfile) and return a two-level dictionary
+    # that includes first level keys as obsgroups and second level keys as parameters with composite sensitivities
+
+    # read in the entire SEN file first
+    parsfound = False
+    parnames = list()
+    obsgroupnames = list()
+    obsinds = dict()
+    insen = open(insenfile, 'r').readlines()
+    infilelen = len(insen)
+    allsen = OrderedDict()
+
+    # find where the parameter names are
+    for i, line in enumerate(insen):
+        if 'parameter name' in line.lower():
+            startpars = i + 1
+            parsfound = True
+        if parsfound:
+            tmp = line.strip()
+            if len(tmp) == 0:
+                endpars = i
+                break
+    # read in the parameter names
+    for i in np.arange(startpars, endpars):
+        parnames.append(insen[i].strip().split()[0])
+    NPAR = len(parnames)
+    # now find the sensitivities at the end of optimization
+    for i, line in enumerate(insen):
+        if 'COMPLETION OF OPTIMISATION PROCESS' in line.upper():
+            completion_line = i + 1
+            break
+
+    # now go through the file and read in the parameter
+    for i in np.arange(completion_line, len(insen)):
+        if 'composite sensitivities' in insen[i].lower() and 'prior' not in insen[i].lower():
+            tmpobsgrpname = insen[i].strip().split()[-2].replace('"', '')
+            if 'regul' not in tmpobsgrpname.lower():
+                obsgroupnames.append(tmpobsgrpname)
+                obsinds[obsgroupnames[-1]] = [i+3, i+3+NPAR]
+
+    for cobgrp in obsgroupnames:
+        strow = obsinds[cobgrp][0] + 1
+        endrow = obsinds[cobgrp][1] + 1
+        pars = []
+        sens = []
+        for i in np.arange(strow,endrow):
+            tmp = insen[i].strip().split()
+            pars.append(tmp[0])
+            sens.append(tmp[-1])
+        allsen[cobgrp] = dict(zip(pars,sens))
+
+    return allsen
+
 
 def jac_reader(jacinfile, obsnames):
 
@@ -119,3 +175,5 @@ def lev_calc(jac, obswts):
     H = np.dot(Z_ZtZinv, Z.T)
     lev_vals = np.diag(H) 
     return lev_vals
+
+

@@ -12,8 +12,8 @@ from fiona import collection
 from shapely.geometry import Point, mapping
 import shutil
 
-path = 'Opt2b' # path to folder where PEST files (including 'points' tpl files)
-basename = 'BadRiver' # PEST case name
+path = 'TPL' # path to folder where PEST files (including 'points' tpl files)
+basename = 'nacp12_' # PEST case name
 N = 300 # number of singular values defining the solution space
 vecfilebase = 'null' # filename base to which eigencomponent sensitivity vectors are to be written
 matfile = 'null' # matrix file to which the V1 matrix is to be written

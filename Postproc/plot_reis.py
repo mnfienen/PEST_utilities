@@ -97,11 +97,11 @@ for cg in allgrps:
 
 outfile=PdfPages('all_heads_one2one.pdf')
 #groups=['head_best','head_good','head_fair','wcrs1','head_poor','wcrs2']
-markers=['^','s','o','+','o','+']
-colors=['r','b','0.75','k','0.95','k']
+markers=['^','s','o','+','o','+','+']
+colors=['r','b','0.75','k','0.95','k','k']
 title='Observed vs. simulated heads' # '' to use PEST iteration
 units='ft'
-sizes=[10,8,7,5,5,5]
+sizes=[10,8,7,5,5,5,5]
 Legend=True
 number_format='' # '' for default
 obstype = 'head' # head or flux
