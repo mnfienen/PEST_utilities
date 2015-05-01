@@ -32,9 +32,9 @@ STARTWORKERS = tf2flag(inpardat.findall('.//STARTWORKERS')[0].text)
 bp = inpardat.findall('.//bp')[0].text
 casefile = inpardat.findall('.//casefile')[0].text
 mod_dirs = []
-tmp = inpardat.findall('.//mod_dir')
-for el in tmp:
-    mod_dirs.append(el.text)
+tmp = inpardat.findall('.//mod_dir')[0].text
+for el in tmp.split(','):
+    mod_dirs.append(el.strip())
 stdir = inpardat.findall('.//stdir')[0].text
 mflags = inpardat.findall('.//mflags')[0].text
 masterip = inpardat.findall('.//masterip')[0].text
@@ -65,7 +65,7 @@ if MAKENEW:
         os.mkdir('worker%s' %(i))
         for cfold in mod_dirs:
             print '     copying %s' %(cfold)
-            shutil.copytree(cfold,os.path.join(currdir,'worker%s' %(i),cfold))
+            shutil.copytree(cfold,os.path.join(currdir,'worker%s' %(i),os.path.basename(cfold)))
 
 # launch the master
 if STARTMASTER:
@@ -74,8 +74,8 @@ if STARTMASTER:
     os.chdir(currdir)
 
 if STARTWORKERS:
-    print 'pausing 10 seconds to let the master get rolling'
-    for csec in range(10): # wait 10 seconds to be sure the master started up correctly
+    print 'pausing 2 seconds to let the master get rolling'
+    for csec in range(2): # wait 10 seconds to be sure the master started up correctly
         print '. '*(csec+1)
         time.sleep(1)
     for i in range(numworkers):
