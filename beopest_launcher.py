@@ -2,7 +2,8 @@
 # after estimation has already commenced.
 # For initial start (including master), set "workerstartN" to zero.
 # For starting additional slaves after this launcher has already run once,
-# set "workerstartN" equal to the first available "worker#" that is available.
+# set "workerstartN" equal to the first available "worker#" that is available, set
+# KILLOLD to False, and STARTMASTER to False.
 
 import os
 import shutil
@@ -75,7 +76,7 @@ if STARTMASTER:
 
 if STARTWORKERS:
     print 'pausing 2 seconds to let the master get rolling'
-    for csec in range(2): # wait 10 seconds to be sure the master started up correctly
+    for csec in range(2): # wait a few seconds to be sure the master started up correctly
         print '. '*(csec+1)
         time.sleep(1)
     for i in range(numworkers):
